@@ -1,8 +1,9 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
-    name="advent Of Code 2018",
+    name="Advent Of Code 2018",
     version="0.0.1",
-    packages=["src"],
     entry_points={"console_scripts": ["adventofcode = src.__main__:main"]},
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
 )
