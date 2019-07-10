@@ -8,3 +8,6 @@ class Day1:
             if part[0] == "-":
                 total -= int(part[1:])
         return total
+
+    def __call__(self, input_data: str) -> int:
+        return self.solve_01(input_data=input_data)
