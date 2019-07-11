@@ -3,10 +3,8 @@ from solutions import day01
 import click
 
 modules = {
-    (day01.Day1, "day01", "data/day01/day01_part01.txt"),
-    (day01.Day1, "day02", "data/day01/day01_part01.txt"),
-    (day01.Day1, "day03", "data/day01/day01_part01.txt"),
-    (day01.Day1, "day04", "data/day01/day01_part01.txt"),
+    (day01.Day1PartA, "day01_a", ("./data/day01/day_01_part01.txt",)),
+    (day01.Day1PartA, "day01_b", ("./data/day01/day_01_part01.txt",)),
 }
 
 
@@ -30,7 +28,7 @@ def main(module):
 
     class_to_run = item[0]
     class_instance = class_to_run()
-    res = class_instance(item[2])
+    res = class_instance(*item[2])
 
     print(f"Result: {res}")
 
