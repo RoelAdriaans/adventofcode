@@ -1,4 +1,4 @@
-from utils.abstract import FileReaderSolution, SimpleSolution
+from utils.abstract import FileReaderSolution
 
 
 class Day1PartA(FileReaderSolution):
@@ -13,6 +13,6 @@ class Day1PartA(FileReaderSolution):
         return total
 
 
-class Day1PartB(SimpleSolution):
+class Day1PartB(FileReaderSolution):
     def solve(self, input_data: str) -> str:
         return f"Het result van b is: {input_data.lower()}"

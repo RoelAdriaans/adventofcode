@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from pathlib import Path
 
 
 class AbstractSolution(ABC):
@@ -29,7 +30,8 @@ class FileReaderSolution(AbstractSolution, ABC):
         """
         Give the input_text as parameter, process this and return the result
         """
-        with open(input_file) as f:
+        root_dir = Path(__file__).parent.parent
+        with open(root_dir / "solutions" / "data" / input_file) as f:
             input_data = f.read()
             res = self.solve(input_data=input_data)
             return res

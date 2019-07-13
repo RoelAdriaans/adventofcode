@@ -7,7 +7,8 @@ setup(
     url="https://github.com/roeladriaans",
     version="0.0.1",
     entry_points={"console_scripts": ["adventofcode = main:main"]},
-    packages=find_packages(where="src"),
+    packages=find_packages(where="src", exclude=["tests.*", "test*"]),
     package_dir={"": "src"},
     install_requires=["Click"],
+    include_package_data=True,
 )
