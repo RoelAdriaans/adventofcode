@@ -4,7 +4,7 @@ import click
 
 modules = {
     (day01.Day1PartA, "day01_a", ("day01/day_01_part01.txt", "day01/day_01_test.txt")),
-    (day01.Day1PartA, "day01_b", ("day01/day_01_part01.txt",)),
+    (day01.Day1PartB, "day01_b", ("day01/day_01_part01.txt",)),
 }
 
 
