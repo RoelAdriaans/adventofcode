@@ -19,15 +19,13 @@ class Day1PartA:
             return res
 
 
-class Day1_b:
-    def solve(self, input_data: str) -> None:
-        return None
+class Day1PartB:
+    def solve(self, input_data: str) -> str:
+        return f"Het result van b is: {input_data.lower()}"
 
-    def __call__(self, input_file: str) -> int:
+    def __call__(self, input_text: str) -> str:
         """
-        Give the input_file as parameter, process this and return the result
+        Give the input_text as parameter, process this and return the result
         """
-        with open(input_file) as f:
-            input_data = f.read()
-            res = self.solve(input_data=input_data)
-            return res
+        res = self.solve(input_text)
+        return res

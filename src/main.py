@@ -3,12 +3,9 @@ from solutions import day01
 import click
 
 modules = {
-    (day01.Day1PartA, "day01_a", ("./data/day01/day_01_part01.txt",)),
-    (day01.Day1PartA, "day01_b", ("./data/day01/day_01_part01.txt",)),
+    (day01.Day1PartA, "day01_a", ("../data/day01/day_01_part01.txt",)),
+    (day01.Day1PartB, "day01_b", ("../data/day01/day_01_part01.txt",)),
 }
-
-
-# @click.option("--module", help="The day to run")
 
 
 @click.command()
