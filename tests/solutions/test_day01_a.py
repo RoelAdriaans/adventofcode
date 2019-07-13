@@ -12,3 +12,10 @@ class TestDay01PartA:
         d1 = Day1PartA()
         res = d1.solve(input_data)
         assert expected_result == res
+
+    def test_day01_data(self):
+        """ Result we got when we did the real solution """
+        d1 = Day1PartA()
+        res = d1("data/day01/day_01_part01.txt")
+
+        assert res == 525
