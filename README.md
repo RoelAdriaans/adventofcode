@@ -8,7 +8,7 @@ Todo
 
 - Make modules out of the days that auto load
 - Make module or day class responsible for specify files to load, but do not load and split files
-- https://stackoverflow.com/questions/46440950/require-and-option-only-if-a-choice-is-made-when-using-click/46662521
+- Generate sphinx documentation from docstrings? 
 - Complete all puzzles (Doh)
 
 Install

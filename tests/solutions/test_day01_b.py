@@ -3,7 +3,7 @@ import pytest
 from solutions.day01 import Day1PartB
 
 
-class TestDay01PartA:
+class TestDay01PartB:
     @pytest.mark.parametrize(
         ("input_data", "expected_result"),
         [
