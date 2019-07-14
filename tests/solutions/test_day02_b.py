@@ -32,11 +32,10 @@ class TestDay02PartB:
         assert min_distance == expected_distance
 
     @pytest.mark.parametrize(
-        ("input_word1", "input_word2", "expected_result"), [("fghij", "fguij", "fgij")]
+        ("input_word1", "input_word2", "expected_result"),
+        [("fghij", "fguij", "fgij"), ("qwerewq", "qwzrewq", "qwrewq")],
     )
-    def test_02_remove_duplicate_letters(
-        self, input_word1, input_word2, expected_result
-    ):
+    def test_02_compute_common_letters(self, input_word1, input_word2, expected_result):
         solution = Day2PartB()
         result = solution.compute_common_letters(input_word1, input_word2)
         assert result == expected_result
@@ -56,3 +55,4 @@ class TestDay02PartB:
         res = solution("day02/day_02.txt")
 
         assert res != "lufjygedpvbhtaxiwnorzmq"
+        assert res == "lufjygedpvfbhftxiwnaorzmq"

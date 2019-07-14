@@ -1,6 +1,5 @@
 from utils.abstract import FileReaderSolution
 from collections import Counter
-import nltk
 from itertools import combinations
 from functools import lru_cache
 
@@ -60,8 +59,12 @@ class Day2PartB(Day2, FileReaderSolution):
     @staticmethod
     @lru_cache(maxsize=None)
     def compute_distance(word1: str, word2: str) -> int:
-        """ Compute the distance between two words """
-        return nltk.edit_distance(word1, word2)
+        """ Compute the distance between two words on positional base """
+        difference = 0
+        for i in range(0, len(word1)):
+            if word1[i] != word2[i]:
+                difference += 1
+        return difference
 
     @staticmethod
     def compute_shortest_distance(input_set: (list, tuple)) -> tuple:
@@ -84,21 +87,18 @@ class Day2PartB(Day2, FileReaderSolution):
 
     @staticmethod
     def compute_common_letters(word1: str, word2: str) -> str:
-        """ Remove duplicate letters from words"""
+        """ Return only the letters that are common at the same place"""
         letters = []
-        for letter in word1:
-            if letter in word2 and letter not in letters:
-                letters.append(letter)
-        for letter in word2:
-            if letter in word1 and letter not in letters:
-                letters.append(letter)
+        for i in range(0, len(word1)):
+            if word1[i] == word2[i]:
+                letters.append(word1[i])
         return "".join(letters)
 
     def solve(self, input_data: str) -> str:
         parts = input_data.split()
         # Get the string with the shorest distance
         shortest = self.compute_shortest_distance(parts)
-
+        print(f"Shortest result: {shortest}")
         # Get common letters
         common_letters = self.compute_common_letters(shortest[0][0], shortest[0][1])
 
