@@ -6,6 +6,7 @@ Advent of Code 2018 with tests and utils etc
 Todo
 ====
 
+- Add logging for debugging?
 - Make modules out of the days that auto load
 - Make module or day class responsible for specify files to load, but do not load and split files
 - Generate sphinx documentation from docstrings? 
