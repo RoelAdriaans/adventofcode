@@ -22,6 +22,7 @@ class TestDay03PartA:
         This prints a map. We only test that it works, and doesn't give an error
         """
         solution = Day3PartA()
+        solution.square_size = 11
         input_data = "#1 @ 1,3: 4x4", "#2 @ 3,1: 4x4", "#3 @ 5,5: 2x2"
         solution.solve("\n".join(input_data))
         solution.print_map()

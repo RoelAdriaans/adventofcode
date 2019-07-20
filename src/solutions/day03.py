@@ -4,7 +4,7 @@ from collections import namedtuple
 from utils.abstract import FileReaderSolution
 
 
-class Day3PartA(FileReaderSolution):
+class Day3(FileReaderSolution):
     square_size = 1_000
     map = None
 
@@ -76,6 +76,7 @@ class Day3PartA(FileReaderSolution):
             print()
 
     def compute_multiple_claims(self) -> int:
+        """ Compute how many claims are overlapping """
         counter = 0
         for i in range(0, self.square_size):
             for j in range(0, self.square_size):
@@ -83,19 +84,56 @@ class Day3PartA(FileReaderSolution):
                     counter += 1
         return counter
 
-    def solve(self, input_data: str) -> int:
+    def compute_unclaimed_id(self) -> int:
+        """
+        Compute the ID of the Claim that is not overlapping with other claims
+        :return: False if there is no overlapping claim
+        """
+        valid_claims = []
+        invalid_claims = []
+        for i in range(0, self.square_size):
+            for j in range(0, self.square_size):
+                claims_on_position = len(self.map[i][j])
+                if claims_on_position == 1:
+                    claim_id = self.map[i][j][0]
+                    if claim_id not in invalid_claims and claim_id not in valid_claims:
+                        # We have a valid claim that has no overlapping claims
+                        valid_claims.append(claim_id)
+                elif claims_on_position > 1:
+                    # We ahve to claims that are overlapping each other.
+                    # Adding them to the invalid_claims, removing them from the valid
+                    for claim in self.map[i][j]:
+                        if claim not in invalid_claims:
+                            invalid_claims.append(claim)
+                        if claim in valid_claims:
+                            valid_claims.remove(claim)
+        return valid_claims[0]
+
+    def build_map(self, input_data):
+        """
+        Use the Claims input_data to create a map of claims
+
+        :param input_data:
+        :return: Nothing
+        """
         lines = input_data.split("\n")
 
         claims = [self.split_claim_into_sections(line) for line in lines if line]
-        print(f"We have {len(claims)} claims")
-
         self.make_map()
         self.parse_claims(claims)
+
+
+class Day3PartA(Day3, FileReaderSolution):
+    def solve(self, input_data: str) -> int:
+        self.build_map(input_data)
         # self.print_map()
         res = self.compute_multiple_claims()
         return res
 
 
-class Day3PartB(FileReaderSolution):
+class Day3PartB(Day3, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        return 0
+        self.build_map(input_data)
+        # self.print_map()
+        res = self.compute_unclaimed_id()
+        return res
