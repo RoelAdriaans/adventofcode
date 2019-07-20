@@ -1,5 +1,6 @@
-from utils.abstract import FileReaderSolution
 from collections import Counter
+
+from utils.abstract import FileReaderSolution
 
 
 class Day1PartA(FileReaderSolution):

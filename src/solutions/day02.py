@@ -1,7 +1,8 @@
-from utils.abstract import FileReaderSolution
 from collections import Counter
-from itertools import combinations
 from functools import lru_cache
+from itertools import combinations
+
+from utils.abstract import FileReaderSolution
 
 
 class Day2:

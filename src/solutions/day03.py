@@ -1,11 +1,13 @@
-from collections import namedtuple
-from utils.abstract import FileReaderSolution
 import re
+from collections import namedtuple
+
+from utils.abstract import FileReaderSolution
 
 
 class Day3PartA(FileReaderSolution):
     square_size = 1_000
     map = None
+
     Claim = namedtuple("Claim", "id, left, top, width, heigth")
 
     def split_claim_into_sections(
