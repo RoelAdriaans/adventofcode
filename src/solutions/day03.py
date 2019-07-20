@@ -100,7 +100,7 @@ class Day3(FileReaderSolution):
                         # We have a valid claim that has no overlapping claims
                         valid_claims.append(claim_id)
                 elif claims_on_position > 1:
-                    # We ahve to claims that are overlapping each other.
+                    # We have two claims that are overlapping each other.
                     # Adding them to the invalid_claims, removing them from the valid
                     for claim in self.map[i][j]:
                         if claim not in invalid_claims:
