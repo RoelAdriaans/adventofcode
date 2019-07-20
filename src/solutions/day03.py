@@ -8,7 +8,9 @@ class Day3PartA(FileReaderSolution):
     map = None
     Claim = namedtuple("Claim", "id, left, top, width, heigth")
 
-    def split_claim_into_sections(self, input_data: str) -> Claim:
+    def split_claim_into_sections(
+        self, input_data: str
+    ) -> Claim:  # NOQA: F821  Flake 8 does not find Clame
         """
         Split the input data `#1 @ 1,3: 4x4` into the parts:
         - ID 1
@@ -49,8 +51,8 @@ class Day3PartA(FileReaderSolution):
     def _parse_claim(self, claim: Claim) -> bool:
         x = claim.left
         y = claim.top
-        for i in range(x, x+claim.width):
-            for j in range(y, y+claim.heigth):
+        for i in range(x, x + claim.width):
+            for j in range(y, y + claim.heigth):
                 self.map[j][i].append(claim.id)
         return True
 
@@ -64,7 +66,7 @@ class Day3PartA(FileReaderSolution):
             for j in range(0, self.square_size):
                 claims_on_position = len(self.map[i][j])
                 if claims_on_position == 0:
-                    print('.', end="")
+                    print(".", end="")
                 elif claims_on_position == 1:
                     print(self.map[i][j][0], end="")
                 else:

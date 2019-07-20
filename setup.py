@@ -15,5 +15,5 @@ setup(
     install_requires=requirements,
     include_package_data=True,
     use_scm_version=True,
-    setup_requires=['setuptools_scm'],
+    setup_requires=["setuptools_scm"],
 )
