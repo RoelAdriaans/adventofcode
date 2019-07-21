@@ -4,7 +4,7 @@ from collections import namedtuple
 from utils.abstract import FileReaderSolution
 
 
-class Day3(FileReaderSolution):
+class Day3:
     square_size = 1_000
     map = None
 
