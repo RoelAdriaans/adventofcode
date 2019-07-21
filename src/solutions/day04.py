@@ -71,9 +71,22 @@ class Day4:
                 guard_info[current_guard].append(sleep_time)
         return guard_info
 
+    @staticmethod
+    def determine_most_asleep_minute(guard_info: list) -> int:
+        """ Determine which minute this guard sleeps the most """
+        minutes_slept = Counter()
+        for shift in guard_info:
+            for minute in shift:
+                minutes_slept[minute] += 1
+        if minutes_slept.most_common(1):
+            return minutes_slept.most_common(1)[0][0]
+        else:
+            return False
+
 
 class Day4PartA(Day4, FileReaderSolution):
-    def determine_mostasleep(self, guard_info):
+    @staticmethod
+    def determine_mostasleep(guard_info):
         most_slept_guard = False
         total_minutes_slept = False
         for guard_id, minutes_slept in guard_info.items():
@@ -85,13 +98,6 @@ class Day4PartA(Day4, FileReaderSolution):
                 most_slept_guard = guard_id
         return most_slept_guard, total_minutes_slept
 
-    def determine_most_asleep_minute(self, guard_info: list) -> int:
-        minutes_slept = Counter()
-        for shift in guard_info:
-            for minute in shift:
-                minutes_slept[minute] += 1
-        return minutes_slept.most_common(1)[0][0]
-
     def solve(self, input_data: str) -> int:
         log_entries = self.parse_strings(input_data)
         guard_info = self.parse_logs(log_entries)
@@ -102,5 +108,31 @@ class Day4PartA(Day4, FileReaderSolution):
 
 
 class Day4PartB(Day4, FileReaderSolution):
+    @staticmethod
+    def determine_most_asleep_same_minute(guard_info: dict) -> (int, int):
+        """
+        Determine which guard is the most asleep at the same minute
+        """
+        guard_most_slept_same_minute = False
+        times_that_guard_slept = False
+        minute_that_guard_slept = False
+        for guard_id, minutes_slept in guard_info.items():
+            minute = Day4.determine_most_asleep_minute(minutes_slept)
+            # Count how many minutes this guard slept at the specific minute
+            total_minutes_slept = 0
+            for day in minutes_slept:
+                if minute in day:
+                    total_minutes_slept += 1
+            if total_minutes_slept > times_that_guard_slept:
+                guard_most_slept_same_minute = guard_id
+                times_that_guard_slept = total_minutes_slept
+                minute_that_guard_slept = minute
+
+        return guard_most_slept_same_minute, minute_that_guard_slept
+
     def solve(self, input_data: str) -> int:
-        pass
+        log_entries = self.parse_strings(input_data)
+        guard_info = self.parse_logs(log_entries)
+        guard, minute = self.determine_most_asleep_same_minute(guard_info)
+        result = guard * minute
+        return result

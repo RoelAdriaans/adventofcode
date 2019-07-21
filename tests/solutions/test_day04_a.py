@@ -71,7 +71,7 @@ class TestDay04PartA:
         result = solution.solve(input_data)
         assert result == 240
 
-    def test_day04b_data(self):
+    def test_day04a_data(self):
         """ Result we got when we did the real solution """
         solution = Day4PartA()
         res = solution("day04/day_04.txt")
