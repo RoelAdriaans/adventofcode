@@ -4,10 +4,25 @@ from solutions.day05 import Day5PartB
 
 
 class TestDay05PartB:
-    @pytest.mark.parametrize(("input_data", "expected_result"), [(["", ""], 0)])
+    @pytest.mark.parametrize(
+        ("input_data", "remove_combo", "expected_string"),
+        [
+            ("dabAcCaCBAcCcaDA", "a", "dbCBcD"),
+            ("dabAcCaCBAcCcaDA", "B", "daCAcaDA"),
+            ("dabAcCaCBAcCcaDA", "c", "daDA"),
+            ("dabAcCaCBAcCcaDA", "D", "abCBAc"),
+        ],
+    )
+    def test_day05b_remove_and_react(self, input_data, remove_combo, expected_string):
+        solution = Day5PartB()
+        result = solution.remove_and_react(input_data, remove_combo)
+        assert result == expected_string
+
+    @pytest.mark.parametrize(
+        ("input_data", "expected_result"), [("dabAcCaCBAcCcaDA", 4)]
+    )
     def test_day05b_solve(self, input_data, expected_result):
         solution = Day5PartB()
-        input_data = "\n".join(input_data)
         result = solution.solve(input_data)
         assert result == expected_result
 
@@ -15,4 +30,4 @@ class TestDay05PartB:
         """ Result we got when we did the real solution """
         solution = Day5PartB()
         res = solution("day05/day_05.txt")
-        assert res == 0
+        assert res == 6952
