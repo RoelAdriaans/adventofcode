@@ -21,13 +21,7 @@ class TestDay05PartA:
 
     @pytest.mark.parametrize(
         ("input_data", "expected_result"),
-        [
-            ("Aa", 0),
-            ("abBA", 0),
-            ("abAB", 4),
-            ("aabAAB", 6),
-            ("dabAcCaCBAcCcaDA", 10),
-        ],
+        [("Aa", 0), ("abBA", 0), ("abAB", 4), ("aabAAB", 6), ("dabAcCaCBAcCcaDA", 10)],
     )
     def test_day05a_solve(self, input_data, expected_result):
         solution = Day5PartA()
