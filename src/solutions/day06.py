@@ -10,6 +10,11 @@ class Day06:
     max_x = 0
     max_y = 0
 
+    def yield_over_grid(self, extra=0):
+        for y in range(0, self.max_y + extra):
+            for x in range(0, self.max_x + extra):
+                yield x, y
+
     def generate_points(self, input_string):
         """ Generate a grid based on the input string. """
         id = 1
@@ -54,16 +59,15 @@ class Day06:
         For every point in the grid, locate the closest point using
         Manhattan distance.
         """
-        for y in range(0, self.max_y + 5):
-            for x in range(0, self.max_x + 5):
-                if self.grid[x][y] is not False:
-                    # Skip grids that are already filled in
-                    continue
-                # Loop over every point in the grid, and compute the closest point
-                test_point = Point(x=x, y=y, id=0)
-                closest_point = self.compute_closest_point(test_point)
-                if closest_point:
-                    self.grid[x][y] = closest_point
+        for x, y in self.yield_over_grid(extra=5):
+            if self.grid[x][y] is not False:
+                # Skip grids that are already filled in
+                continue
+            # Loop over every point in the grid, and compute the closest point
+            test_point = Point(x=x, y=y, id=0)
+            closest_point = self.compute_closest_point(test_point)
+            if closest_point:
+                self.grid[x][y] = closest_point
 
     def compute_closest_point(self, point: Point) -> [Point, bool]:
         """
@@ -103,15 +107,14 @@ class Day06:
         for id, value in self.points.items():
             point_cnt[id] = 0
 
-        for y in range(0, self.max_y + 1):
-            for x in range(0, self.max_x + 1):
-                point = self.grid[x][y]
-                if point:
-                    if (x == 0) or (y == 0) or (x == self.max_x) or (y == self.max_y):
-                        # We are on the edge, exclude this point;
-                        point_cnt[point.id] = False
-                    elif point_cnt[point.id] is not False:
-                        point_cnt[point.id] += 1
+        for x, y in self.yield_over_grid(extra=1):
+            point = self.grid[x][y]
+            if point:
+                if (x == 0) or (y == 0) or (x == self.max_x) or (y == self.max_y):
+                    # We are on the edge, exclude this point;
+                    point_cnt[point.id] = False
+                elif point_cnt[point.id] is not False:
+                    point_cnt[point.id] += 1
 
         # Return the biggest area
         return point_cnt.most_common(1)[0][1]
