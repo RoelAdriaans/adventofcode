@@ -139,5 +139,33 @@ class Day06PartA(Day06, FileReaderSolution):
 
 
 class Day06PartB(Day06, FileReaderSolution):
-    def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+    def get_score_for_location(self, x: int, y: int, max_score: int = 32) -> int:
+        """
+        Compute the score for location at (x, y), and return then the score goes over
+        max_score.
+        """
+        total_score = 0
+        for point in self.points.values():
+            score = self.compute_distance(x, y, point.x, point.y)
+            total_score += score
+            if total_score >= max_score:
+                return False
+        return total_score
+
+    def compute_area(self, max_score: int = 32) -> int:
+        """ Compute how many points points have the maximum manhattan distance of
+        `max_score` to all the other points
+        """
+        points = 0
+        for x, y in self.yield_over_grid(extra=5):
+            score = self.get_score_for_location(x, y, max_score)
+            if score:
+                points += 1
+        return points
+
+    def solve(self, input_data: str, max_score: int = 10_000) -> int:
+        input_lines = input_data.split("\n")
+        self.generate_points(input_lines)
+        self.generate_grid()
+        result = self.compute_area(max_score)
+        return result
