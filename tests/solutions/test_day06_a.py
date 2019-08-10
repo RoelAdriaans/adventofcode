@@ -13,6 +13,7 @@ class TestDay06PartA:
         solution.generate_points(test_input)
         solution.generate_grid()
         solution.generate_distance()
+        solution.print_grid()
         result = solution.compute_biggest_area()
         assert result == expected_result
 

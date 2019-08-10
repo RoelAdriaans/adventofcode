@@ -154,11 +154,13 @@ class Day07:
             # All our workers have worked, or not. Let's see if there are any free
             # workers.
             for idx, worker in enumerate(workers):
-                # Check if we have a node we can assign to this worker:
-                free_node = self.get_next_node()
-                if free_node:
-                    workers[idx] = work_nodes[free_node]
-                    self.nodes_worked_on = [x.name for x in workers if x]
+                # Check if worker is free
+                if not worker:
+                    # Check if we have a node we can assign to this worker:
+                    free_node = self.get_next_node()
+                    if free_node:
+                        workers[idx] = work_nodes[free_node]
+                        self.nodes_worked_on = [x.name for x in workers if x]
 
             current_second += 1
         return current_second - 1
