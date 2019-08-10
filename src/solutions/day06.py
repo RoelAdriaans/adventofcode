@@ -6,9 +6,12 @@ Point = namedtuple("Point", "x y id")
 
 class Day06:
     grid = None
-    points = {}
+    points = None
     max_x = 0
     max_y = 0
+
+    def __init__(self):
+        self.points = {}
 
     def yield_over_grid(self, extra=0):
         for y in range(0, self.max_y + extra):
