@@ -27,6 +27,7 @@ class TestDay07PartB:
         node.work()
         assert node.is_complete() is True
         assert node.time_left() == 0
+        assert repr(node) == "C (3 - 3)"
 
         # When we work more, keep time left at 0
         node.work()
@@ -38,6 +39,7 @@ class TestDay07PartB:
         assert node.seconds_worked_on == 0
         assert node.seconds_to_work == 86
         assert node.time_left() == 86
+        assert repr(node) == "Z (86 - 0)"
 
     test_input = [
         "Step C must be finished before step A can begin.",
