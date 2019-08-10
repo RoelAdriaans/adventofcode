@@ -1,6 +1,6 @@
 import click
 
-from solutions import day01, day02, day03, day04, day05, day06, day07
+from solutions import day01, day02, day03, day04, day05, day06, day07, day08
 
 modules = [
     (day01.Day1PartA, ("day01/day_01_part01.txt", "day01/day_01_test.txt")),
@@ -17,6 +17,8 @@ modules = [
     (day06.Day06PartB, ("day_06/day06.txt",)),
     (day07.Day07PartA, ("day_07/day07.txt",)),
     (day07.Day07PartB, ("day_07/day07.txt",)),
+    (day08.Day08PartA, ("day_08/day08.txt",)),
+    (day08.Day08PartB, ("day_08/day08.txt",)),
 ]
 
 
