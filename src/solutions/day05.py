@@ -9,7 +9,7 @@ class Day5:
     @staticmethod
     def recude_input(input_string: str) -> str:
         """
-        Reduce input, react on the same letters with diffent capilisation.
+        Reduce input, react on the same letters with different capitalisation.
         For example:
         "aA" -> ""
         "abBA" -> ""
@@ -18,8 +18,8 @@ class Day5:
         :param input_string:
         :return:
         """
-        # Because this is an recurvice function, we run into the a recursion error.
-        # We increase the resuction limit to make our solution work.
+        # Because this is an recursive function, we run into the a recursion error.
+        # We increase the recursion limit to make our solution work.
         sys.setrecursionlimit(5000)
         for position in range(0, len(input_string) - 1):
             letter_1 = input_string[position]

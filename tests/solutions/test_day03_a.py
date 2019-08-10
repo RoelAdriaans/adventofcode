@@ -8,7 +8,7 @@ class TestDay03PartA:
         string = "#1 @ 1,3: 4x4"
         solution = Day3PartA()
         result = solution.split_claim_into_sections(string)
-        expected_result = solution.Claim(id=1, left=1, top=3, width=4, heigth=4)
+        expected_result = solution.Claim(id=1, left=1, top=3, width=4, height=4)
         assert expected_result == result
 
     def test_split_invalid_claim(self):

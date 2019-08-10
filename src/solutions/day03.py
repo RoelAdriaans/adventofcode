@@ -8,11 +8,9 @@ class Day3:
     square_size = 1_000
     map = None
 
-    Claim = namedtuple("Claim", "id, left, top, width, heigth")
+    Claim = namedtuple("Claim", "id, left, top, width, height")
 
-    def split_claim_into_sections(
-        self, input_data: str
-    ) -> Claim:  # NOQA: F821  Flake 8 does not find Clame
+    def split_claim_into_sections(self, input_data: str) -> "Claim":
         """
         Split the input data `#1 @ 1,3: 4x4` into the parts:
         - ID 1
@@ -38,7 +36,7 @@ class Day3:
                 left=int(result["left"]),
                 top=int(result["top"]),
                 width=int(result["width"]),
-                heigth=int(result["height"]),
+                height=int(result["height"]),
             )
             return claim
         raise ValueError(f"String {input_data} could not be processed as a valid Claim")
@@ -54,7 +52,7 @@ class Day3:
         x = claim.left
         y = claim.top
         for i in range(x, x + claim.width):
-            for j in range(y, y + claim.heigth):
+            for j in range(y, y + claim.height):
                 self.map[j][i].append(claim.id)
         return True
 
