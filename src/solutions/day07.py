@@ -1,11 +1,36 @@
 from utils.abstract import FileReaderSolution
-from typing import NamedTuple
 import re
 
 
+class TimedNode:
+    name = None
+    seconds_worked_on = 0
+    seconds_to_work = 0
+
+    def __init__(self, name, extra_seconds=0):
+        self.name = name
+        # Compute home many seconds we have left
+        self.seconds_to_work = ord(name) - ord("A") + extra_seconds + 1
+
+    def is_complete(self):
+        return self.seconds_to_work <= self.seconds_worked_on
+
+    def work(self):
+        if self.time_left() > 0:
+            self.seconds_worked_on += 1
+
+    def time_left(self) -> int:
+        return self.seconds_to_work - self.seconds_worked_on
+
+    def __repr__(self):
+        return f"{self.name} ({self.seconds_to_work} - {self.seconds_worked_on})"
+
+
 class Day07:
-    node_tree = None
-    walked_nodes = None
+    def __init__(self):
+        self.node_tree = dict()
+        self.walked_nodes = list()
+        self.nodes_worked_on = list()
 
     @staticmethod
     def parse_string(input_string: str) -> (str, str):
@@ -34,7 +59,6 @@ class Day07:
         """ Build a tree of the nodes in `nodes`.
         Nodes is a tuple in the pair (Before, After)
         """
-        self.node_tree = dict()
         for node in nodes:
             if node[0] in self.node_tree:
                 self.node_tree[node[0]].append(node[1])
@@ -72,15 +96,26 @@ class Day07:
         self.walked_nodes.append(root_node)
         while len(self.walked_nodes) < len(self.node_tree):
             # For a node to be ready, the parent needs to be in visited_nodes
-            valid_nodes = list()
-            for node in self.node_tree.keys():
-                if node not in self.walked_nodes and self.validate_node_ready(node):
-                    valid_nodes.append(node)
-            valid_nodes = sorted(valid_nodes)
-            next_node = valid_nodes[0]
+            next_node = self.get_next_node()
             self.walked_nodes.append(next_node)
 
         return "".join(self.walked_nodes)
+
+    def get_next_node(self):
+        valid_nodes = list()
+        for node in self.node_tree.keys():
+            if (
+                node not in self.walked_nodes
+                and node not in self.nodes_worked_on
+                and self.validate_node_ready(node)
+            ):
+                valid_nodes.append(node)
+        if valid_nodes:
+            valid_nodes = sorted(valid_nodes)
+            next_node = valid_nodes[0]
+            return next_node
+        else:
+            return False
 
     def get_root(self) -> str:
         """ Get the root node and return this as String.
@@ -95,6 +130,39 @@ class Day07:
                     nodes_with_parents.remove(child)
         return sorted(nodes_with_parents)[0]
 
+    def walk_tree_with_helpers(self, extra_time: int = 60, num_workers: int = 5) -> int:
+        """
+        Walk the tree, but we now have helpers!
+        """
+        current_second = 0
+        work_nodes = {
+            name: TimedNode(name, extra_time) for name in self.node_tree.keys()
+        }
+        # We start at second 0.
+        # The first worker will start on the root_node
+        workers = [False for _ in range(num_workers)]
+
+        while len(self.walked_nodes) < len(self.node_tree):
+            self.nodes_worked_on = [x.name for x in workers if x]
+            for idx, worker in enumerate(workers):
+                # Loop over the workers, and let them work!
+                if worker:
+                    worker.work()
+                    if worker.is_complete():
+                        self.walked_nodes.append(worker.name)
+                        workers[idx] = False
+            # All our workers have worked, or not. Let's see if there are any free
+            # workers.
+            for idx, worker in enumerate(workers):
+                # Check if we have a node we can assign to this worker:
+                free_node = self.get_next_node()
+                if free_node:
+                    workers[idx] = work_nodes[free_node]
+                    self.nodes_worked_on = [x.name for x in workers if x]
+
+            current_second += 1
+        return current_second - 1
+
 
 class Day07PartA(Day07, FileReaderSolution):
     def solve(self, input_data: str) -> str:
@@ -107,5 +175,11 @@ class Day07PartA(Day07, FileReaderSolution):
 
 
 class Day07PartB(Day07, FileReaderSolution):
-    def solve(self, input_data: str) -> str:
-        raise NotImplementedError
+    def solve(self, input_data: str, extra_time: int = 60, num_workers: int = 5) -> int:
+        input_lines = input_data.strip().split("\n")
+        nodes = self.parse_strings(input_lines)
+        self.build_tree(nodes)
+        result = self.walk_tree_with_helpers(
+            extra_time=extra_time, num_workers=num_workers
+        )
+        return result

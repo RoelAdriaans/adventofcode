@@ -74,6 +74,9 @@ class Day06:
         For Point `point`, return the closest point. If multiple points
         have the same closest distance, we return False
         """
+        # @TODO Refactor this to create a list of distances, sort this list,
+        #   Check if there the lowest and lowest+1 doesn't have the same distance
+        #   And return the distance if there is no tie, or return False
         min_distance = self.max_x + self.max_y
         min_point = False
         for test_point in self.points.values():
