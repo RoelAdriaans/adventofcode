@@ -1,10 +1,10 @@
 from utils.abstract import FileReaderSolution
+from typing import List
 
 
 class Node:
-    qty_child_nodes = 0
-    qty_meta_data = 0
-    metadata = None
+    metadata: List = None
+    children: List = None
 
     def __init__(self, metadata=False):
         self.children = []
@@ -24,8 +24,7 @@ class Node:
         count = 0
         for meta_entry in self.metadata:
             try:
-                if self.children[meta_entry - 1]:
-                    count += self.children[meta_entry - 1].value()
+                count += self.children[meta_entry - 1].value()
             except IndexError:
                 pass
         return count
@@ -50,8 +49,7 @@ class Day08:
         new_node = Node()
         if parent_node:
             parent_node.add_child(new_node)
-        # Go look at child nodes. Skip two numbers for the last child and metadata
-        # numbers.
+        # Go look at child nodes.
         for _ in range(qty_child_nodes):
             read_position = self.create_nodes(numbers, read_position, new_node)
 

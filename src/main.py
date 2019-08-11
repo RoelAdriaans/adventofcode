@@ -17,8 +17,8 @@ modules = [
     (day06.Day06PartB, ("day_06/day06.txt",)),
     (day07.Day07PartA, ("day_07/day07.txt",)),
     (day07.Day07PartB, ("day_07/day07.txt",)),
-    (day08.Day08PartA, ("day_08/day08.txt",)),
-    (day08.Day08PartB, ("day_08/day08.txt",)),
+    (day08.Day08PartA, ("day_08/day08.txt", "day_08/day08_input_a.txt")),
+    (day08.Day08PartB, ("day_08/day08.txt", "day_08/day08_input_a.txt")),
 ]
 
 
@@ -39,9 +39,9 @@ def main(module):
 
     print(f"Running module '{item[0].__name__}'")
 
-    class_to_run = item[0]
-    class_instance = class_to_run()
     for filename in item[1]:
+        class_to_run = item[0]
+        class_instance = class_to_run()
         res = class_instance(filename)
         print(f"Result for {filename} -> {res}")
 

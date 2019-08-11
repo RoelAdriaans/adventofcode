@@ -14,7 +14,7 @@ class TestDay08PartA:
         input_data = "2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2"
         solution = Day08PartA()
         list_ints = solution.parse_data(input_data)
-        result = solution.create_nodes(list_ints)
+        solution.create_nodes(list_ints)
         # Check that we have created 4 nodes?
         assert len(solution.nodes) == 4
 
