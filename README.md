@@ -32,8 +32,7 @@ The new solution still have to be added to the `main.py` file.
 
 ### Cookiecutter Todo
 
-- Remove `.keep` file from data directory. This file is needed to include the directory in git, but is not needed in project. OR:
-- Add hook to remove `.keep` from source.
+* Nothing at the moment
 
 ## Install
 
