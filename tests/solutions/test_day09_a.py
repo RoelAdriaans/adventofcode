@@ -4,6 +4,7 @@ from solutions.day09 import Day09PartA
 
 
 class TestDay09PartA:
+    @pytest.mark.skip("We nog longer use this code because it it way too slow")
     @pytest.mark.parametrize(
         ("grid", "current_marble", "expected_result"),
         [
@@ -28,7 +29,7 @@ class TestDay09PartA:
         solution = Day09PartA()
         solution.current_marble = current_marble
         solution.grid = grid
-        result = solution._compute_posisition()
+        result = solution._compute_position()
         assert result == expected_result
 
     def test_day09a_grid_after_simple_game(self):
