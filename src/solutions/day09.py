@@ -1,7 +1,6 @@
 from utils.abstract import FileReaderSolution
 from collections import Counter
 from collections import deque
-from tqdm import tqdm
 
 
 class Day09:
@@ -20,7 +19,7 @@ class Day09:
         """
         current_player = 0
 
-        for current_marble in tqdm(range(0, last_marble + 1)):
+        for current_marble in range(0, last_marble + 1):
             current_player += 1
             if current_player > players:
                 current_player = 1
