@@ -1,5 +1,6 @@
 from utils.abstract import FileReaderSolution
 import itertools
+from tqdm import tqdm
 
 """ 
 Game of live. Do we model the plants, or do we model the list?
@@ -92,4 +93,24 @@ class Day12PartA(Day12, FileReaderSolution):
 
 class Day12PartB(Day12, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        lines = input_data.split("\n")
+        initial_state = list(lines[0].split()[2])
+        garden = Garden(initial_state)
+        garden.split_notes(lines[1:])
+        # We're not running all 50.000.000.000 calculations, that will take forever.
+        # We found out that after some generations, the loop will be the same.
+        # We first do 1000 generations
+        garden.generate(1000)
+        count_1000 = garden.count_plants()
+
+        # When we do the next generations:
+        garden.generate()
+
+        count_1001 = garden.count_plants()
+        # Now have the difference between generations
+        difference = count_1001 - count_1000
+
+        # With this difference we can compute the end result.
+        generations_to_do = 50_000_000_000 - garden.generation
+        result = generations_to_do * difference + count_1001
+        return result

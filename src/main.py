@@ -12,6 +12,7 @@ from solutions import (
     day09,
     day10,
     day11,
+    day12,
 )
 
 modules = [
@@ -37,6 +38,8 @@ modules = [
     (day10.Day10PartB, ("day_10/day10.txt",)),
     (day11.Day11PartA, ("day_11/day11.txt",)),
     (day11.Day11PartB, ("day_11/day11.txt",)),
+    (day12.Day12PartA, ("day_12/day12.txt",)),
+    (day12.Day12PartB, ("day_12/day12.txt",)),
 ]
 
 
