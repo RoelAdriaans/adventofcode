@@ -1,13 +1,14 @@
 from collections import Counter
+from collections.abc import Iterable
 from functools import lru_cache
 from itertools import combinations
-
+from typing import Tuple, Union, List
 from utils.abstract import FileReaderSolution
 
 
 class Day2:
     @staticmethod
-    def compute_counts(input_string: str) -> (int, int):
+    def compute_counts(input_string: str) -> Tuple[int, int]:
         """
         Compute how many times a letter appears into the input
 
@@ -18,7 +19,7 @@ class Day2:
         :param input_string: The string used as input
         :return tuple (count_twice, count_thrice)
         """
-        letter_counter = Counter()
+        letter_counter: Counter = Counter()
         for letter in input_string:
             letter_counter[letter] += 1
 
@@ -32,7 +33,7 @@ class Day2:
         return count_twice, count_thrice
 
     @staticmethod
-    def compute_factors(input_strings: (list, tuple)):
+    def compute_factors(input_strings: Iterable):
         """
         For a list of input_strings, compute the counts and return the factors for
         letters that appear twice of thrice
@@ -68,12 +69,14 @@ class Day2PartB(Day2, FileReaderSolution):
         return difference
 
     @staticmethod
-    def compute_shortest_distance(input_set: (list, tuple)) -> tuple:
+    def compute_shortest_distance(
+        input_set: Iterable[str]
+    ) -> Tuple[Tuple[str, str], int]:
         """
         From a set, compute the words with the lowest distance and return
         those words.
         """
-        word_set = False
+        word_set: Tuple[str, str] = ("", "")
         min_distance = 1024
         for word1, word2 in combinations(input_set, 2):
             # Compute distance:
@@ -89,7 +92,7 @@ class Day2PartB(Day2, FileReaderSolution):
     @staticmethod
     def compute_common_letters(word1: str, word2: str) -> str:
         """ Return only the letters that are common at the same place"""
-        letters = []
+        letters: List[str] = []
         for i in range(0, len(word1)):
             if word1[i] == word2[i]:
                 letters.append(word1[i])
@@ -99,8 +102,10 @@ class Day2PartB(Day2, FileReaderSolution):
         parts = input_data.split()
         # Get the string with the shorest distance
         shortest = self.compute_shortest_distance(parts)
-        print(f"Shortest result: {shortest}")
+
         # Get common letters
-        common_letters = self.compute_common_letters(shortest[0][0], shortest[0][1])
+        common_letters: str = self.compute_common_letters(
+            shortest[0][0], shortest[0][1]
+        )
 
         return common_letters
