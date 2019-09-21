@@ -70,9 +70,7 @@ class Day2PartB(Day2, FileReaderSolution):
         return difference
 
     @staticmethod
-    def compute_shortest_distance(
-        input_set: Iterable[str]
-    ) -> Tuple[Tuple[str, str], int]:
+    def compute_shortest_distance(input_set: Iterable) -> Tuple[Tuple[str, str], int]:
         """
         From a set, compute the words with the lowest distance and return
         those words.
