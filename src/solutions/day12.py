@@ -1,17 +1,16 @@
 from utils.abstract import FileReaderSolution
 import itertools
 
-""" 
+"""
 Game of live. Do we model the plants, or do we model the list?
 
-If we model the plants, we can just do a for loop over the plants, but we need an 
-efficient way to get the neightbours. 
+If we model the plants, we can just do a for loop over the plants, but we need an
+efficient way to get the neightbours.
 
-If we model the 'table', we can loop over the table, pick out the plants and we have 
+If we model the 'table', we can loop over the table, pick out the plants and we have
 the neight plants surounding them.
 
-Table is it. 
-  
+Table is it.
 """
 
 

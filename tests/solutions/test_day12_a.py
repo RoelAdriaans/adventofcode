@@ -1,5 +1,3 @@
-import pytest
-
 from solutions.day12 import Day12PartA, Garden
 
 

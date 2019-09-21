@@ -1,6 +1,4 @@
-import pytest
-
-from solutions.day12 import Day12PartB, Garden
+from solutions.day12 import Day12PartB
 
 
 class TestDay12PartB:

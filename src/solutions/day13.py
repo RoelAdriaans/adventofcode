@@ -1,6 +1,6 @@
 from utils.abstract import FileReaderSolution
 from enum import Enum
-from typing import List, Tuple
+from typing import List, Tuple, Union
 
 
 class GridPosition:
@@ -198,8 +198,11 @@ class Day13:
                 pos = GridPosition(x, y, symbol, minecart)
                 self.grid[(x, y)] = pos
 
-    def tick(self):
-        """ Run the simulation for one tick. """
+    def tick(self, return_on_crash=True) -> Union[bool, Tuple[int, int]]:
+        """ Run the simulation for one tick
+        :param return_on_crash: Return when there is a crash
+        :returns x, y: Crash location
+        """
         seen_carts = set()
         for grid_position, position in self.grid.items():
             if position.has_cart() and position.carts[0] not in seen_carts:
@@ -208,13 +211,17 @@ class Day13:
                 seen_carts.add(position.carts[0])
                 position.carts = list()
 
-                # We skip the intersections for now.
-                # We skip turns for now.
-
                 cart.set_next_position(position)
                 self.grid[(cart.x, cart.y)].carts.append(cart)
                 if len(self.grid[(cart.x, cart.y)].carts) >= 2:
-                    return cart.x, cart.y
+                    if return_on_crash:
+                        return cart.x, cart.y
+                    else:
+                        # Remove all carts from the whole set
+                        for crashed_cart in self.grid[(cart.x, cart.y)].carts:
+                            self.carts.remove(crashed_cart)
+                        # And remove the carts from the grid:
+                        self.grid[(cart.x, cart.y)].carts = list()
         else:
             return False
 
@@ -225,9 +232,18 @@ class Day13:
             if colission:
                 return colission
 
+    def tick_until_one_left(self) -> Tuple[int, int]:
+        """ Tick until one cart is left, and return the location of the cart"""
+        while True:
+            self.tick(return_on_crash=False)
+            if len(self.carts) == 1:
+                return self.carts[0].x, self.carts[0].y
+            if len(self.carts) == 0:
+                raise RuntimeError("There are no carts left, this should not happen")
+
 
 class Day13PartA(Day13, FileReaderSolution):
-    def solve(self, input_data: str) -> int:
+    def solve(self, input_data: str) -> Tuple[int, int]:
         lines = input_data.splitlines()
         self.build_grid(lines=lines)
         while True:
@@ -237,5 +253,7 @@ class Day13PartA(Day13, FileReaderSolution):
 
 
 class Day13PartB(Day13, FileReaderSolution):
-    def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+    def solve(self, input_data: str) -> Tuple[int, int]:
+        lines = input_data.splitlines()
+        self.build_grid(lines=lines)
+        return self.tick_until_one_left()
