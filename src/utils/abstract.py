@@ -1,10 +1,11 @@
+from typing import Union
 from abc import ABC, abstractmethod
 from pathlib import Path
 
 
 class AbstractSolution(ABC):
     @abstractmethod
-    def solve(self, input_data: str) -> [str, int]:
+    def solve(self, input_data: str) -> Union[str, int]:
         raise NotImplementedError
 
 
@@ -13,7 +14,7 @@ class SimpleSolution(AbstractSolution, ABC):
     This solution implements a simple input_text that is used by the solve method.
     """
 
-    def __call__(self, input_text: str) -> [str, int]:
+    def __call__(self, input_text: str) -> Union[str, int]:
         """
         Give the input_text as parameter, process this and return the result
         """
@@ -26,7 +27,7 @@ class FileReaderSolution(AbstractSolution, ABC):
     Implement filereader
     """
 
-    def __call__(self, input_file: str) -> [str, int]:
+    def __call__(self, input_file: str) -> Union[str, int]:
         """
         Give the input_text as parameter, process this and return the result
         """
