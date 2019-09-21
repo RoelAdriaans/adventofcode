@@ -16,7 +16,7 @@ class Day1PartB(FileReaderSolution):
     def solve(self, input_data: str) -> int:
         frequency_to_reach = 2
 
-        visited_frequencies = Counter()
+        visited_frequencies: Counter = Counter()
         # We start at 0, add one for frequency 0
         visited_frequencies[0] += 1
         parts = input_data.split()

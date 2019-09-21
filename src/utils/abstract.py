@@ -4,7 +4,7 @@ from pathlib import Path
 
 class AbstractSolution(ABC):
     @abstractmethod
-    def solve(self, *args, **kwargs):  # type: ignore  # inheriting from Any
+    def solve(self, input_data: str) -> [str, int]:
         raise NotImplementedError
 
 

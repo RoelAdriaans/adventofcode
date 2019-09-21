@@ -1,3 +1,4 @@
+from typing import Tuple
 import click
 
 from solutions import (
@@ -56,12 +57,12 @@ def main(module):
         print(f"Module {module} not found")
         return False
     else:
-        item = item[0]
+        found_item: Tuple = item[0]
 
-    print(f"Running module '{item[0].__name__}'")
+    print(f"Running module '{found_item[0].__name__}'")
 
-    for filename in item[1]:
-        class_to_run = item[0]
+    for filename in found_item[1]:
+        class_to_run = found_item[0]
         class_instance = class_to_run()
         res = class_instance(filename)
         print(f"Result for {filename} -> {res}")
