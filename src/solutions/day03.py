@@ -1,13 +1,12 @@
 import re
 from collections import namedtuple
+from typing import Dict, List
 
 from utils.abstract import FileReaderSolution
 
 
 class Day3:
     square_size = 1_000
-    map = None
-
     Claim = namedtuple("Claim", "id, left, top, width, height")
 
     def split_claim_into_sections(self, input_data: str) -> "Claim":
@@ -42,7 +41,7 @@ class Day3:
         raise ValueError(f"String {input_data} could not be processed as a valid Claim")
 
     def make_map(self):
-        self.map = dict()
+        self.map: Dict[int, Dict] = dict()
         for i in range(0, self.square_size):
             self.map[i] = dict()
             for j in range(0, self.square_size):
@@ -56,7 +55,7 @@ class Day3:
                 self.map[j][i].append(claim.id)
         return True
 
-    def parse_claims(self, claims: [Claim]) -> bool:
+    def parse_claims(self, claims: List[Claim]) -> bool:
         for claim in claims:
             self._parse_claim(claim)
         return True
@@ -87,8 +86,8 @@ class Day3:
         Compute the ID of the Claim that is not overlapping with other claims
         :return: False if there is no overlapping claim
         """
-        valid_claims = []
-        invalid_claims = []
+        valid_claims: List = []
+        invalid_claims: List = []
         for i in range(0, self.square_size):
             for j in range(0, self.square_size):
                 claims_on_position = len(self.map[i][j])
