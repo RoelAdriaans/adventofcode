@@ -1,8 +1,9 @@
 import re
 import sys
-from utils.abstract import FileReaderSolution
-from string import ascii_lowercase
 from collections import Counter
+from string import ascii_lowercase
+
+from utils.abstract import FileReaderSolution
 
 
 class Day5:

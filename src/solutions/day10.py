@@ -1,8 +1,9 @@
-from utils.abstract import FileReaderSolution
+import re
+from itertools import count
 
 import matplotlib.pyplot as plt
-from itertools import count
-import re
+
+from utils.abstract import FileReaderSolution
 
 
 class Point:

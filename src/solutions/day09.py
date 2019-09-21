@@ -1,6 +1,6 @@
+from collections import Counter, deque
+
 from utils.abstract import FileReaderSolution
-from collections import Counter
-from collections import deque
 
 
 class Day09:

@@ -2,7 +2,8 @@ from collections import Counter
 from collections.abc import Iterable
 from functools import lru_cache
 from itertools import combinations
-from typing import Tuple, List
+from typing import List, Tuple
+
 from utils.abstract import FileReaderSolution
 
 

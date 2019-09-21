@@ -1,5 +1,7 @@
-import pytest
 import random
+
+import pytest
+
 from solutions.day04 import Day4PartA
 
 

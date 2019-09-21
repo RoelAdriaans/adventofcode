@@ -1,5 +1,7 @@
-from utils.abstract import FileReaderSolution
 import itertools
+
+from utils.abstract import FileReaderSolution
+
 
 """
 Game of live. Do we model the plants, or do we model the list?

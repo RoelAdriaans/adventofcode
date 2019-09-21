@@ -1,5 +1,6 @@
-from utils.abstract import FileReaderSolution
 import re
+
+from utils.abstract import FileReaderSolution
 
 
 class TimedNode:

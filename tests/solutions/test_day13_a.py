@@ -1,6 +1,6 @@
 import pytest
 
-from solutions.day13 import Day13PartA, MineCart, Direction, GridPosition
+from solutions.day13 import Day13PartA, Direction, GridPosition, MineCart
 
 
 class TestDay13PartA:

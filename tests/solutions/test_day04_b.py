@@ -1,4 +1,5 @@
 import random
+
 from solutions.day04 import Day4PartB
 
 

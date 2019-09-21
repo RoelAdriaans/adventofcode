@@ -1,6 +1,7 @@
-from utils.abstract import FileReaderSolution
 from enum import Enum
 from typing import List, Tuple, Union
+
+from utils.abstract import FileReaderSolution
 
 
 class GridPosition:

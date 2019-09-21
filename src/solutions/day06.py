@@ -1,5 +1,6 @@
-from utils.abstract import FileReaderSolution
 from collections import Counter, namedtuple
+
+from utils.abstract import FileReaderSolution
 
 Point = namedtuple("Point", "x y id")
 
