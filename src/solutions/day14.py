@@ -1,3 +1,4 @@
+import tqdm
 from utils.abstract import FileReaderSolution
 from typing import List
 
@@ -35,14 +36,7 @@ class Day14:
         will be one recipe, 5
         """
         sum_of_digits = sum([elve.current_recipe for elve in self.elves])
-        if sum_of_digits >= 10:
-
-            # Make a list out of the digits
-            list_of_digits = [int(num) for num in list(str(sum_of_digits))]
-            return list_of_digits
-        else:
-            # only one digit
-            return [sum_of_digits]
+        return [int(d) for d in str(sum_of_digits)]
 
     def initalise(self, input_data: str, num_elves: int):
         """
@@ -103,6 +97,30 @@ class Day14:
         result = "".join([str(number) for number in numbers])
         return result
 
+    def search_for_recipe(self, recipe: str) -> int:
+        """
+        Alves had it backwards, and we now want to search for `recipe`, and return
+        after how many recipes it is in the list
+        :param recipe:
+        :return:
+        """
+        # for recipe_step in count(0):
+        recipe_digits = [int(digit) for digit in list(recipe)]
+        num_digits = len(recipe_digits)
+        # 20_235_230
+        # 26_376_671
+        for counter in tqdm.tqdm(range(20235240)):
+            self.compute_next_recipes(1)
+            last_digits = self.scoreboard[-num_digits:]
+            if counter >= 20235200:
+                print(f"searching: {recipe_digits} - got {last_digits}")
+            if last_digits == recipe_digits:
+                print(f"len scores: {len(self.scoreboard)}")
+                return len(self.scoreboard) - num_digits
+
+        print("There should have been a solution now...")
+        print(f"Scoreboard: {len(self.scoreboard)}")
+
 
 class Day14PartA(Day14, FileReaderSolution):
     def solve(self, input_data: str) -> str:
@@ -117,5 +135,9 @@ class Day14PartA(Day14, FileReaderSolution):
 
 
 class Day14PartB(Day14, FileReaderSolution):
-    def solve(self, input_data: str) -> str:
-        raise NotImplementedError
+    def solve(self, input_data: str) -> int:
+        # We hardcode the puzzle input, since it's not in the input we're given
+        self.initalise(input_data="37", num_elves=2)
+
+        result = self.search_for_recipe(input_data)
+        return result

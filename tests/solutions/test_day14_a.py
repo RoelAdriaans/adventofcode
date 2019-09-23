@@ -50,9 +50,6 @@ class TestDay14PartA:
         round_15 = [3, 7, 1, 0, 1, 0, 1, 2, 4, 5, 1, 5, 8, 9, 1, 6, 7, 7, 9, 2]
         assert solution.scoreboard == round_15
 
-        # And let's compute the score
-        assert solution.total_score() == "5158916779"
-
     def test_day14a_test_num_recipes_created(self):
         input_data = "37"
         solution = Day14PartA()
@@ -86,5 +83,5 @@ class TestDay14PartA:
         """ Result we got when we did the real solution """
         solution = Day14PartA()
         res = solution("day_14/day14.txt")
-        assert res != 4281681601
-        assert res == 1342316410
+        assert res != "4281681601"
+        assert res == "1342316410"
