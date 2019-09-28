@@ -97,6 +97,35 @@ class Day14:
         result = "".join([str(number) for number in numbers])
         return result
 
+    @staticmethod
+    def find_sequence_in_list(needle: List, haystack: List) -> int:
+        """
+        Search for the list `needle` in `haystack`, and return offset from the
+        end where we search. If the needle is not found, return False
+
+        We only search at the end, or one or  two records before the end.
+        Eg: [2, 3] is in [2, 3, 4] and returns 1
+        Eg: [3, 4] is in [2, 3, 4] and returns 0
+
+        :param needle:
+        :param haystack:
+        :return: Offset
+        """
+        length_needle = len(needle)
+        last_digits = haystack[-length_needle:]
+        # Check for the last position
+        if last_digits == needle:
+            return 0
+        # Check for the first to last position
+        last_digits = haystack[-(length_needle + 1) : -1]
+        if last_digits == needle:
+            return 1
+        # Check for the second to last position
+        last_digits = haystack[-(length_needle + 2) : -2]
+        if last_digits == needle:
+            return 2
+        return False
+
     def search_for_recipe(self, recipe: str) -> int:
         """
         Alves had it backwards, and we now want to search for `recipe`, and return
@@ -107,19 +136,15 @@ class Day14:
         # for recipe_step in count(0):
         recipe_digits = [int(digit) for digit in list(recipe)]
         num_digits = len(recipe_digits)
-        # 20_235_230
-        # 26_376_671
-        for counter in tqdm.tqdm(range(20235240)):
+        for _ in tqdm.tqdm(range(20235240)):
             self.compute_next_recipes(1)
-            last_digits = self.scoreboard[-num_digits:]
-            if counter >= 20235200:
-                print(f"searching: {recipe_digits} - got {last_digits}")
-            if last_digits == recipe_digits:
-                print(f"len scores: {len(self.scoreboard)}")
-                return len(self.scoreboard) - num_digits
+            result = self.find_sequence_in_list(
+                needle=recipe_digits, haystack=self.scoreboard
+            )
+            if result:
+                return len(self.scoreboard) - num_digits - result
 
-        print("There should have been a solution now...")
-        print(f"Scoreboard: {len(self.scoreboard)}")
+        raise ValueError("There should have been a solution now...")
 
 
 class Day14PartA(Day14, FileReaderSolution):
