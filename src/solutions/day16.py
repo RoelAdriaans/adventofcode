@@ -3,6 +3,8 @@ import copy
 
 from utils.abstract import FileReaderSolution
 from abc import ABC, abstractmethod
+from typing import List, Dict
+from collections import Counter
 
 
 class Device:
@@ -219,15 +221,54 @@ class Eqrr(Instruction):
 
 
 class Day16:
-    def parse_strings(self, input_strings):
-        """
+    opcodes =  (
+            Addr,
+            Addi,
+            Mulr,
+            Muli,
+            Banr,
+            Bani,
+            Borr,
+            Bori,
+            Setr,
+            Seti,
+            Gtir,
+            Gtri,
+            Gtrr,
+            Eqir,
+            Eqri,
+            Eqrr,
+        )
 
-        :param input_strings:
-        :return:
+    @staticmethod
+    def fetch_instruction(input_strings):
+        """
+        Parse a string and yield only the instruction.
+        This function yields an instruction every time it is called.
+
+        :param input_strings: Text with instructions
+        :return: Dict with opcode, A, B, C as keys and respective values.
+        """
+        register_match = r"(?P<opcode>\d*) (?P<A>\d*) (?P<B>\d*) (?P<C>\d*)"
+        for line in input_strings.splitlines():
+            if register_result := re.match(register_match, line):
+
+                yield {
+                    "opcode": int(register_result["opcode"]),
+                    "A": int(register_result["A"]),
+                    "B": int(register_result["B"]),
+                    "C": int(register_result["C"]),
+                }
+
+    def resolve_instruction_to_opcode(self, input_strings) -> List[str]:
+        """
+        Resolve input strings into opcodes
+
+        :param input_strings: The input in the form of register before, opcode, regitser
+        after.
+        :return: A list with valid opcodes for this instruction
         """
         current_instruction, before_device, after_device = None, None, None
-
-        three_or_more = 0
 
         number_match = (
             r"\[(?P<reg_0>\d*), (?P<reg_1>\d*), (?P<reg_2>\d*), (?P<reg_3>\d*)\]"
@@ -245,6 +286,9 @@ class Day16:
                         int(before_result["reg_3"]),
                     ]
                 )
+            elif register_result := re.search(register_match, line):
+                current_instruction = register_result
+
             elif after_result := re.search(after_match, line):
                 after_device = Device(
                     [
@@ -257,35 +301,15 @@ class Day16:
                 result = self.match_registers(
                     current_instruction, before_device, after_device
                 )
-                if len(result) >= 3:
-                    three_or_more += 1
-
-            elif register_result := re.search(register_match, line):
-                current_instruction = register_result
-        return three_or_more
+                return result
+            else:
+                raise ValueError("Invalid regular match")
 
     def match_registers(self, current_instruction, before_device, after_device):
         """ Loop over all the instructions we have, and compare register before with
         the register after"""
         correct_opcodes = []
-        for instruction in (
-            Addr,
-            Addi,
-            Mulr,
-            Muli,
-            Banr,
-            Bani,
-            Borr,
-            Bori,
-            Setr,
-            Seti,
-            Gtir,
-            Gtri,
-            Gtrr,
-            Eqir,
-            Eqri,
-            Eqrr,
-        ):
+        for instruction in self.opcodes:
             device = copy.deepcopy(before_device)
             instruction.execute(
                 device,
@@ -300,11 +324,59 @@ class Day16:
 
 
 class Day16PartA(Day16, FileReaderSolution):
+    def number_of_instructions(self, input_data: str) -> int:
+        """
+        Loop over the instructions and calculate the valid opcodes.
+        Return how many times we have three or more valid opcodes.
+
+        :param input_data: Input data
+        :return: Number of opcodes with three or more instructions
+        """
+        blocks = input_data.split("\n\n")
+        three_or_more = 0
+        for block in blocks:
+            matched_opcodes = self.resolve_instruction_to_opcode(block)
+            if matched_opcodes and len(matched_opcodes) >= 3:
+                three_or_more += 1
+        return three_or_more
+
     def solve(self, input_data: str) -> int:
-        res = self.parse_strings(input_data)
-        return res
+        return self.number_of_instructions(input_data)
 
 
 class Day16PartB(Day16, FileReaderSolution):
+    def resolve_opcode_no_to_instruction(self, input_data: str) -> List[str]:
+        """
+        Resolve the opcode with the instruction
+
+        :param input_data: Sample input data
+        :return: List with opcode number as values and instruction as key.
+        """
+        blocks = input_data.split("\n\n")
+        opcodes_with_instructions = {}
+        for instruction in self.opcodes:
+            opcodes_with_instructions[instruction.__name__] = Counter()
+
+        for block in blocks:
+            matched_opcodes = self.resolve_instruction_to_opcode(block)
+            if matched_opcodes:
+                opcode = next(self.fetch_instruction(block))["opcode"]
+                # We now have opcode, and matched opcodes have the opcode that match.
+                # opcodes_with_instructions[opcode].update(matched_opcodes)
+                for matched in matched_opcodes:
+                    opcodes_with_instructions[matched][opcode] += 1
+
+
+        # opcodes_with_instructions now has the most common instruction per opcode,
+        # let's fetch that and return the max
+        opcodes = {}
+        for opcode, counter in opcodes_with_instructions.items():
+            most_common = counter.most_common(1)
+            opcodes[opcode] = most_common[0][0]
+        print (opcodes)
+        return opcodes
+
     def solve(self, input_data: str) -> int:
+        opcode_list = self.resolve_opcode_no_to_instruction(input_data)
+
         raise NotImplementedError
