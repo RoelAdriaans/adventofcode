@@ -221,24 +221,24 @@ class Eqrr(Instruction):
 
 
 class Day16:
-    opcodes =  (
-            Addr,
-            Addi,
-            Mulr,
-            Muli,
-            Banr,
-            Bani,
-            Borr,
-            Bori,
-            Setr,
-            Seti,
-            Gtir,
-            Gtri,
-            Gtrr,
-            Eqir,
-            Eqri,
-            Eqrr,
-        )
+    opcodes = (
+        Addr,
+        Addi,
+        Mulr,
+        Muli,
+        Banr,
+        Bani,
+        Borr,
+        Bori,
+        Setr,
+        Seti,
+        Gtir,
+        Gtri,
+        Gtrr,
+        Eqir,
+        Eqri,
+        Eqrr,
+    )
 
     @staticmethod
     def fetch_instruction(input_strings):
@@ -353,30 +353,65 @@ class Day16PartB(Day16, FileReaderSolution):
         :return: List with opcode number as values and instruction as key.
         """
         blocks = input_data.split("\n\n")
-        opcodes_with_instructions = {}
-        for instruction in self.opcodes:
-            opcodes_with_instructions[instruction.__name__] = Counter()
+        opcode_to_instruction = {}
+        for opcode in range(16):
+            opcode_to_instruction[opcode] = {
+                "valid": set(),
+                "invalid": set(),
+            }
 
         for block in blocks:
             matched_opcodes = self.resolve_instruction_to_opcode(block)
             if matched_opcodes:
                 opcode = next(self.fetch_instruction(block))["opcode"]
-                # We now have opcode, and matched opcodes have the opcode that match.
-                # opcodes_with_instructions[opcode].update(matched_opcodes)
-                for matched in matched_opcodes:
-                    opcodes_with_instructions[matched][opcode] += 1
+                opcode_dict = opcode_to_instruction[opcode]
+                for matched_opcode in matched_opcodes:
+                    if (
+                        matched_opcode not in opcode_dict["valid"]
+                        and matched_opcode not in opcode_dict["invalid"]
+                    ):
+                        # If the opcode is not yet in there, add it.
+                        opcode_dict["valid"].add(matched_opcode)
 
+                # In the end, remove all the opcode in opcode_dict['valid'] that are not
+                # in this set, and add them to the invalid opcodes.
+                # Loop over a copy of the dict, because we change is in place
+                for opcode in opcode_dict["valid"].copy():
+                    if opcode not in matched_opcodes:
+                        opcode_dict["valid"].remove(opcode)
+                        opcode_dict["invalid"].add(opcode)
 
-        # opcodes_with_instructions now has the most common instruction per opcode,
-        # let's fetch that and return the max
-        opcodes = {}
-        for opcode, counter in opcodes_with_instructions.items():
-            most_common = counter.most_common(1)
-            opcodes[opcode] = most_common[0][0]
-        print (opcodes)
-        return opcodes
+        # Let's clean is up:
+        while True:
+            for instruction, values in opcode_to_instruction.items():
+                if len(values["valid"]) == 1:
+                    # We have an instruction with only 1 match, let's remove this from
+                    # all the matches
+                    for (
+                        to_rm_instruction,
+                        to_rm_values,
+                    ) in opcode_to_instruction.items():
+                        if to_rm_instruction != instruction:
+                            print("removing!")
+                            to_rm_values["valid"] = (
+                                to_rm_values["valid"] - values["valid"]
+                            )
+
+            # Let's to a check to see if every instruction has one opcode:
+            all_one = True
+            for instruction, values in opcode_to_instruction.items():
+                if len(values["valid"]) != 1:
+                    all_one = False
+            if all_one:
+                # Everything is clean now!
+                result = {}
+                for instruction, values in opcode_to_instruction.items():
+                    result[instruction] = values['valid'].pop()
+                return result
 
     def solve(self, input_data: str) -> int:
         opcode_list = self.resolve_opcode_no_to_instruction(input_data)
+        # Run the computer
+        # @TODO.
 
         raise NotImplementedError
