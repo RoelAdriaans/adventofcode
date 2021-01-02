@@ -37,10 +37,9 @@ class Day14:
             entries = []
             for line in lines[1:]:
                 matches = re.match(r"mem\[(\d*)] = (\d*)", line)
-                # entries[int(matches[1])] = int(matches[2])
-                entries.append(
-                    Instruction(address=int(matches[1]), value=int(matches[2]))
-                )
+                assert matches
+                group = matches.groups()
+                entries.append(Instruction(address=int(group[0]), value=int(group[1])))
 
             prog = Program(bitmask=mask, entries=entries)
             programs.append(prog)
