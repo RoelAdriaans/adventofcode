@@ -8,7 +8,7 @@ from typing import Any, Dict, List, Set
 logger = logging.getLogger(__name__)
 
 
-class ProgramFinished(Exception):
+class ProgramFinished(Exception):   # noqa: N818
     """
     This exception is raised when the program is finished.
     This exception is usually not a fatal error, but used for control structure.
