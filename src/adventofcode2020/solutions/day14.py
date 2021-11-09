@@ -46,14 +46,14 @@ class Day14:
         return programs
 
     def compute_sum(self) -> int:
-        return sum(self.memory.values())
+        return sum(self.memory.values())  # type: ignore
 
     @abstractmethod
     def process_programs(self, programs: List[Program]):
         """Process the program based on the version"""
 
     def solve(self, input_data: str) -> int:
-        self.memory = defaultdict(int)
+        self.memory = defaultdict(int)  # type: ignore
 
         programs = self.parse_programs(input_data)
         self.process_programs(programs)
@@ -80,7 +80,7 @@ class Day14PartA(Day14, FileReaderSolution):
                 # Bitwise OR, keeping X as 0
                 value |= bits_one
 
-                self.memory[instr.address] = value
+                self.memory[instr.address] = value  # type: ignore
 
 
 class Day14PartB(Day14, FileReaderSolution):
@@ -141,4 +141,4 @@ class Day14PartB(Day14, FileReaderSolution):
                     mask=prog.bitmask, address=entry.address
                 )
                 for address in addresses:
-                    self.memory[address] = entry.value
+                    self.memory[address] = entry.value  # type: ignore
