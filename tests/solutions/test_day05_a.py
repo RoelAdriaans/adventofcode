@@ -26,7 +26,7 @@ class TestDay05PartA:
         assert solution.compute_seat_nr(input_data) == seat_nr
 
     def test_day05a_data(self):
-        """ Result we got when we did the real solution """
+        """Result we got when we did the real solution"""
         solution = Day05PartA()
         res = solution("day_05/day05.txt")
         assert res != 807  # Too low

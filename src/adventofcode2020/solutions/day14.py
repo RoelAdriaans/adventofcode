@@ -50,7 +50,7 @@ class Day14:
 
     @abstractmethod
     def process_programs(self, programs: List[Program]):
-        """ Process the program based on the version"""
+        """Process the program based on the version"""
 
     def solve(self, input_data: str) -> int:
         self.memory = defaultdict(int)

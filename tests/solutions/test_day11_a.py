@@ -28,7 +28,7 @@ L.LLLLL.LL""",
         assert result == expected_result
 
     def test_day11a_data(self):
-        """ Result we got when we did the real solution """
+        """Result we got when we did the real solution"""
         solution = Day11PartA()
         res = solution("day_11/day11.txt")
         assert res != 6415  # Too high

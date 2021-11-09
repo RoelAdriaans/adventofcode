@@ -10,7 +10,7 @@ class Day11:
 
     @abstractmethod
     def count_next_to_it(self, grid, row, col) -> int:
-        """ Count the number of seats next to it/ Depends on the part"""
+        """Count the number of seats next to it/ Depends on the part"""
 
     def str_to_map(self, input_data) -> Dict[int, Dict]:
         grid = {}
@@ -86,7 +86,7 @@ class Day11PartA(Day11, FileReaderSolution):
     count_seats = 4
 
     def count_next_to_it(self, grid, row, col) -> int:
-        """ Returns how many seats next to this one are filled"""
+        """Returns how many seats next to this one are filled"""
         res = [
             grid.get(row, {}).get(col - 1, 0),  # Left
             grid.get(row, {}).get(col + 1, 0),  # Right
