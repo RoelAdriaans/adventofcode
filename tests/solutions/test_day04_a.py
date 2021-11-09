@@ -21,7 +21,7 @@ iyr:2011 ecl:brn hgt:59in"""
         assert result == 2
 
     def test_day04a_data(self):
-        """ Result we got when we did the real solution """
+        """Result we got when we did the real solution"""
         solution = Day04PartA()
         res = solution("day_04/day04.txt")
         assert res == 216

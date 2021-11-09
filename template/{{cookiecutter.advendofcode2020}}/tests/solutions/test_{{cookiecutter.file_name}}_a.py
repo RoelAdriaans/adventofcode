@@ -13,7 +13,7 @@ class Test{{cookiecutter.class_name}}PartA:
         assert result == expected_result
 
     def test_{{cookiecutter.file_name}}a_data(self):
-        """ Result we got when we did the real solution """
+        """Result we got when we did the real solution"""
         solution = {{cookiecutter.class_name}}PartA()
         res = solution("{{cookiecutter.directory_name}}/{{cookiecutter.file_name}}.txt")
         assert res == 0

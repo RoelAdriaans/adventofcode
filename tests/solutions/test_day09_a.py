@@ -29,7 +29,7 @@ class TestDay09PartA:
         assert result is is_valid
 
     def test_day09a_data(self):
-        """ Result we got when we did the real solution """
+        """Result we got when we did the real solution"""
         solution = Day09PartA()
         res = solution("day_09/day09.txt")
         assert res != 53

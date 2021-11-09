@@ -22,7 +22,7 @@ class BoardingTicket(NamedTuple):
 class Day05:
     @staticmethod
     def compute_position_row(input_str: str) -> int:
-        """ Compute binary string to place in the plane, compute the row"""
+        """Compute binary string to place in the plane, compute the row"""
         hi = 128
         lo = 0
         for x in input_str[:6]:
@@ -41,7 +41,7 @@ class Day05:
 
     @staticmethod
     def compute_position_col(input_str: str) -> int:
-        """ Compute binary string to place in the plane, compute the column """
+        """Compute binary string to place in the plane, compute the column"""
         hi = 8
         lo = 0
         for x in input_str[-3:]:
