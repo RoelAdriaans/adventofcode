@@ -35,7 +35,7 @@ The new solution still have to be added to the `main.py` file.
 Install the application with:
 
 ```
-pip3 install -e .
+poetry install
 ```
 
 ### Run
