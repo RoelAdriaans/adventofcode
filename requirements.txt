@@ -2,7 +2,7 @@ anytree
 black
 Click
 cookiecutter
-matplotlib
+matplotlib==3.5.0rc1
 numpy==1.21.4
 pytest
 pytest-cov
