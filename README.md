@@ -16,7 +16,7 @@ cookiecutter template -f
 ```
 
 Answer the questions:
-* `advendofcode2020` : Accept default answer. This installs the result in the currect directory
+* `advendofcode2020` : Accept default answer. This installs the result in the current directory
 * `day` : Answer with day you're working on, with leading zero. Eg: 07, 10, 31.
 * `directory_name`, `file_name`, `class_name` : Accept default answer
 
