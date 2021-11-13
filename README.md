@@ -6,6 +6,27 @@ Advent of Code 2020 with tests and utils etc
 
 - Complete all puzzles (Doh)
 
+## Create a new day
+
+You can use the adventofcode script to create the scaffolding and download the
+input file for that day.
+
+An example:
+
+    adventofcode --create 20
+
+### Env variables
+
+Create a file `.env` with the content:
+
+```ini
+# Store the session key here
+AOC_SESSION = ""
+```
+
+The variable AOC_SESSION is the cookie from <https://adventofcode.com/>. This is available
+in your browser after you've logged in.
+
 ## Cookiecutter
 
 To create a new day with the CookieCutter version run the command from the

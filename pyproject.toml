@@ -12,6 +12,7 @@ click = "^8.0.3"
 matplotlib = "3.5.0rc1"
 numpy = "^1.21.4"
 tqdm = "^4.62.3"
+requests = "^2.26.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.10b0"
@@ -19,7 +20,9 @@ cookiecutter = "^1.7.3"
 pytest = "^6.2.5"
 pytest-cov = "^3.0.0"
 pytest-xdist = "^2.4.0"
+python-dotenv = "^0.19.2"
 tox = "^3.24.4"
+pre-commit = "^2.15.0"
 
 [tool.poetry.scripts]
 adventofcode = "adventofcode2020.main:main"

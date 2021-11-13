@@ -1,10 +1,15 @@
 import importlib
 import logging
+import os
 import sys
 import timeit
+from pathlib import Path
 
 import click
+import requests
 import tqdm
+from cookiecutter.main import cookiecutter
+from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
 
@@ -13,6 +18,11 @@ logger = logging.getLogger(__name__)
 @click.argument(
     "day",
     type=click.IntRange(1, 25),
+)
+@click.option(
+    "--create",
+    is_flag=True,
+    help="Create the files for a specific day",
 )
 @click.option("--parta", "part", flag_value="parta")
 @click.option("--partb", "part", flag_value="partb")
@@ -24,7 +34,7 @@ logger = logging.getLogger(__name__)
     help="Test the solution using timeit with timeit iterations",
 )
 @click.option("-v", "--verbose", is_flag=True)
-def main(day, part, timeit_, verbose):
+def main(day, create, part, timeit_, verbose):
     """
     Simple program that runs a module from the advent of code.
     DAY is an integer representing the day (1 - 25) that runs that day.
@@ -39,12 +49,98 @@ def main(day, part, timeit_, verbose):
         datefmt="%H:%M:%S",
     )
 
+    # Load env values from .env file, or from environment variables if set
+    load_dotenv()
+
     day = f"{int(day):02}"
 
     print(
-        f"Welcome to Advent of Code 2020 - {day=} - {part=} - {timeit_=} - {verbose=}"
+        f"Welcome to Advent of Code 2020 - {day=} - {part=} - {timeit_=} - "
+        f"{verbose=} - {create=}"
     )
 
+    if create:
+        # Create a new solution
+        ensure_correct_directory()
+        create_solution(day=day)
+        download_input_data(year="2020", day=day)
+    else:
+        # Run a specific day
+        run_solution(day=day, timeit_=timeit_, part=part)
+
+
+def ensure_correct_directory():
+    """Make sure that we are in the correct directory: Main sources root"""
+    main_file = Path("src/adventofcode2020/main.py")
+    if main_file.exists():
+        return True
+    else:
+        current_path = Path(__file__).parent.parent.parent.resolve()
+        print(f"Not in the correct folder. Please execute: cd {current_path}")
+        sys.exit(-65)
+
+
+def create_solution(day):
+    print(f"Creating solution for {day} --")
+
+    # Check before we overwrite
+    import_path = f"adventofcode2020.solutions.day{day}"
+    logger.debug(f"Importing {import_path}")
+    try:
+        importlib.import_module(import_path)
+    except ModuleNotFoundError:
+        pass
+        logger.debug(f"{import_path} does not exist, we can continue")
+    else:
+        print("Module already exists - Not creating")
+        sys.exit(-65)
+
+    cookiecutter(
+        "template/",
+        no_input=True,
+        extra_context={"day": day},
+        overwrite_if_exists=True,
+    )
+
+
+def download_input_data(year: str, day: str):
+    """Download the input data"""
+    session = os.environ.get("AOC_SESSION")
+    if not session:
+        print("AOC_SESSION key is not set in envonrment or .env file")
+        sys.exit(-65)
+
+    # Download the content, using the session key
+    r = requests.get(
+        f"https://adventofcode.com/{year}/day/{day}/input",
+        cookies={"session": session},
+    )
+    if r.status_code != 200:
+        print(f"Unable to download the input data. Response code {r.status_code}")
+        if r.status_code == 500:
+            print("An internal server error accured. Is your session valid?")
+        elif r.status_code == 404:
+            print(
+                "Solution not found: You are too early, or this day does not"
+                "have an input file."
+            )
+        else:
+            print(r.content)
+
+        sys.exit(-65)
+
+    logger.debug(f"Received data, length {len(r.content)}")
+
+    data_path = f"day_{day}/day{day}.txt"
+    root_dir = Path(__file__).parent
+    filename = root_dir / "solutions" / "data" / data_path
+    with open(filename, "wb") as f:
+        f.write(r.content)
+
+    logger.info(f"Input data writen to {filename}")
+
+
+def run_solution(day, timeit_, part):
     # Try to import the solution
     import_path = f"adventofcode2020.solutions.day{day}"
     data_path = f"day_{day}/day{day}.txt"
