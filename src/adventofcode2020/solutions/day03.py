@@ -7,7 +7,7 @@ class Day03:
     def solve_options(self, input_data: str, right: int, down: int) -> int:
         count = 0
         pos = 0
-        lines = input_data.split("\n")
+        lines = input_data.rstrip("\n").split("\n")
         for idx in range(0, len(lines), down):
             line = lines[idx]
             pos_mod = pos % len(line)
