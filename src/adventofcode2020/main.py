@@ -186,7 +186,7 @@ def run_solution(day, timeit_, part, submit):
         for _ in tqdm.trange(timeit_):
             time_prior = timeit.default_timer()
 
-            results = run_day(data_path, day, day_module, part)
+            results = run_day(data_path, day, day_module, part, submit=False)
 
             time_after = timeit.default_timer()
             execution_times.append(time_after - time_prior)
@@ -255,7 +255,7 @@ def submit_result(year, day, part, result):
     if result:
         print(f"{result}")
     else:
-        print(f"Could not parse content. Raw result:\n{r.content}")
+        print(f"Could not parse content. Raw result:\n{str(r.content)}")
 
 
 def parse_result(html_doc):
