@@ -8,6 +8,7 @@ from pathlib import Path
 import click
 import requests
 import tqdm
+from bs4 import BeautifulSoup
 from cookiecutter.main import cookiecutter
 from dotenv import load_dotenv
 
@@ -24,6 +25,16 @@ logger = logging.getLogger(__name__)
     is_flag=True,
     help="Create the files for a specific day",
 )
+@click.option(
+    "--submit",
+    is_flag=True,
+    help="Submit the results to Advent of Code",
+)
+@click.option(
+    "--download",
+    is_flag=True,
+    help="Download fresh copy of the input before starting",
+)
 @click.option("--parta", "part", flag_value="parta")
 @click.option("--partb", "part", flag_value="partb")
 @click.option(
@@ -34,7 +45,7 @@ logger = logging.getLogger(__name__)
     help="Test the solution using timeit with timeit iterations",
 )
 @click.option("-v", "--verbose", is_flag=True)
-def main(day, create, part, timeit_, verbose):
+def main(day, create, submit, download, part, timeit_, verbose):
     """
     Simple program that runs a module from the advent of code.
     DAY is an integer representing the day (1 - 25) that runs that day.
@@ -43,6 +54,17 @@ def main(day, create, part, timeit_, verbose):
         level = logging.DEBUG
     else:
         level = logging.WARNING
+
+    if create and submit:
+        print("Create and submit cannot be used at the same time")
+        sys.exit(-65)
+
+    if submit and not part:
+        print(
+            "Submit can only be used ony part at a time (Eg specify --parta or --partb)"
+        )
+        sys.exit(-65)
+
     logging.basicConfig(
         level=level,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -66,7 +88,9 @@ def main(day, create, part, timeit_, verbose):
         download_input_data(year="2020", day=day)
     else:
         # Run a specific day
-        run_solution(day=day, timeit_=timeit_, part=part)
+        if download:
+            download_input_data(year="2020", day=day)
+        run_solution(day=day, timeit_=timeit_, part=part, submit=submit)
 
 
 def ensure_correct_directory():
@@ -103,17 +127,20 @@ def create_solution(day):
     )
 
 
-def download_input_data(year: str, day: str):
-    """Download the input data"""
+def _get_session():
     session = os.environ.get("AOC_SESSION")
     if not session:
         print("AOC_SESSION key is not set in envonrment or .env file")
         sys.exit(-65)
+    return session
 
+
+def download_input_data(year: str, day: str):
+    """Download the input data"""
     # Download the content, using the session key
     r = requests.get(
-        f"https://adventofcode.com/{year}/day/{day}/input",
-        cookies={"session": session},
+        f"https://adventofcode.com/{year}/day/{day.lstrip('0')}/input",
+        cookies={"session": _get_session()},
     )
     if r.status_code != 200:
         print(f"Unable to download the input data. Response code {r.status_code}")
@@ -140,7 +167,7 @@ def download_input_data(year: str, day: str):
     logger.info(f"Input data writen to {filename}")
 
 
-def run_solution(day, timeit_, part):
+def run_solution(day, timeit_, part, submit):
     # Try to import the solution
     import_path = f"adventofcode2020.solutions.day{day}"
     data_path = f"day_{day}/day{day}.txt"
@@ -173,15 +200,21 @@ def run_solution(day, timeit_, part):
         )
     else:
         print("Results:")
-        print(run_day(data_path, day, day_module, part))
+        print(run_day(data_path, day, day_module, part, submit))
 
 
-def run_day(data_path, day, day_module, part):
+def run_day(data_path, day, day_module, part, submit):
     if part == "parta":
-        return run_parta(data_path, day, day_module)
+        result = run_parta(data_path, day, day_module)
+        if submit:
+            submit_result(year=2020, day=day, part=part, result=result)
+        return result
 
     elif part == "partb":
-        return run_partb(data_path, day, day_module)
+        result = run_partb(data_path, day, day_module)
+        if submit:
+            submit_result(year=2020, day=day, part=part, result=result)
+        return result
 
     else:
         a = run_parta(data_path, day, day_module)
@@ -197,6 +230,44 @@ def run_parta(data_path, day, day_module):
 
 def run_partb(data_path, day, day_module):
     result = getattr(day_module, f"Day{day}PartB")()(data_path)
+    return result
+
+
+def submit_result(year, day, part, result):
+    """Submit a solution to advent of code"""
+    day = day.lstrip("0")
+    post_url = f"https://adventofcode.com/{year}/day/{day}/answer"
+    logger.debug(f"Posting to {post_url}")
+
+    level = 1 if part == "parta" else 2
+    data = {"level": level, "answer": result}
+
+    logger.debug(f"Posting data: {data}")
+
+    r = requests.post(
+        url=post_url,
+        data=data,
+        cookies={"session": _get_session()},
+    )
+
+    result = parse_result(r.text)
+
+    if result:
+        print(f"{result}")
+    else:
+        print(f"Could not parse content. Raw result:\n{r.content}")
+
+
+def parse_result(html_doc):
+    # Parse the result, and print the first main.article
+    soup = BeautifulSoup(html_doc, "html.parser")
+    result = []
+    for m in soup.main:
+        # Skip empty sections or java scripts
+        if m == "\n" or "<script>" in str(m):
+            continue
+        else:
+            result.append(str(m.get_text()))
     return result
 
 
