@@ -1,5 +1,5 @@
 import re
-from typing import NamedTuple
+from typing import List, NamedTuple
 
 from adventofcode2020.utils.abstract import FileReaderSolution
 
@@ -40,12 +40,37 @@ class Ticket(NamedTuple):
 
 
 class Day16:
-    pass
+    ticket_rules: List[Ticket]
+    my_tickets: List[int]
+    nearby_tickets: List[List[int]]
+
+    def parse(self, input_data):
+        rules, my_tickets, nearby = input_data.split("\n\n")
+        self.ticket_rules = [
+            Ticket.parse_input(rule) for rule in rules.split("\n") if rule
+        ]
+        self.my_tickets = [
+            int(ticket) for ticket in my_tickets.split("\n")[1].split(",")
+        ]
+
+        rows = [row.split(",") for row in nearby.split("\n")[1:] if row]
+
+        self.nearby_tickets = []
+        for row in rows:
+            self.nearby_tickets.append([int(x) for x in row])
 
 
 class Day16PartA(Day16, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        self.parse(input_data)
+        numbers = [val for sublist in self.nearby_tickets for val in sublist]
+        error = []
+        for number in numbers:
+            valids = [rule.is_valid(number) for rule in self.ticket_rules]
+            if not any(valids):
+                error.append(number)
+
+        return sum(error)
 
 
 class Day16PartB(Day16, FileReaderSolution):
