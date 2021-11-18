@@ -26,6 +26,11 @@ logger = logging.getLogger(__name__)
     help="Create the files for a specific day",
 )
 @click.option(
+    "--force",
+    is_flag=True,
+    help="Overwrite if files already exist",
+)
+@click.option(
     "--submit",
     is_flag=True,
     help="Submit the results to Advent of Code",
@@ -45,7 +50,7 @@ logger = logging.getLogger(__name__)
     help="Test the solution using timeit with timeit iterations",
 )
 @click.option("-v", "--verbose", is_flag=True)
-def main(day, create, submit, download, part, timeit_, verbose):
+def main(day, create, force, submit, download, part, timeit_, verbose):
     """
     Simple program that runs a module from the advent of code.
     DAY is an integer representing the day (1 - 25) that runs that day.
@@ -84,7 +89,7 @@ def main(day, create, submit, download, part, timeit_, verbose):
     if create:
         # Create a new solution
         ensure_correct_directory()
-        create_solution(day=day)
+        create_solution(force=force, day=day)
         download_input_data(year="2020", day=day)
     else:
         # Run a specific day
@@ -104,7 +109,7 @@ def ensure_correct_directory():
         sys.exit(-65)
 
 
-def create_solution(day):
+def create_solution(force, day):
     print(f"Creating solution for {day} --")
 
     # Check before we overwrite
@@ -116,8 +121,9 @@ def create_solution(day):
         pass
         logger.debug(f"{import_path} does not exist, we can continue")
     else:
-        print("Module already exists - Not creating")
-        sys.exit(-65)
+        if not force:
+            print("Module already exists - Not creating")
+            sys.exit(-65)
 
     cookiecutter(
         "template/",
