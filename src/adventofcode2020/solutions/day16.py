@@ -21,6 +21,9 @@ class Ticket(NamedTuple):
         regex = r"^(.*): (\d*)-(\d*) or (\d*)-(\d*)"
         results = re.match(regex, rule)
 
+        if not results:
+            raise ValueError("Rule is not valid")
+
         return Ticket(
             rule=results[1],
             lower_range_1=int(results[2]),

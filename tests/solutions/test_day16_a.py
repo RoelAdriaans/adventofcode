@@ -1,7 +1,13 @@
+import pytest
+
 from adventofcode2020.solutions.day16 import Day16PartA, Ticket
 
 
 class TestDay16PartA:
+    def test_invalid_ticket(self):
+        with pytest.raises(ValueError):
+            Ticket.parse_input("class 1-3, 5-7")
+
     def test_ticket_range(self):
         ticket = Ticket.parse_input("class: 1-3 or 5-7")
 
