@@ -109,7 +109,8 @@ class Day16PartB(Day16, FileReaderSolution):
         In the end we should end up with only one option per group.
         """
 
-        options = {}
+        options: Dict[str, set[int]] = {}
+
         for rule in self.ticket_rules:
             options[rule.rule] = set(range(len(self.my_tickets)))
 
@@ -128,16 +129,19 @@ class Day16PartB(Day16, FileReaderSolution):
         # This ends up as seat 2, class 1, row = 0
         # Loop for as long we have an set that is bigger then one
         while any([len(s) > 1 for s in options.values()]):
-            for rule in options:
-                if len(options[rule]) == 1:
+            for ticket_rule in options:
+                if len(options[ticket_rule]) == 1:
                     # We have only option, remove this option from the rest of the set
                     for remove in options:
-                        if remove != rule:
-                            options[remove].discard(list(options[rule])[0])
+                        if remove != ticket_rule:
+                            options[remove].discard(list(options[ticket_rule])[0])
+
         # Cleanup, remove set
-        for rule in options:
-            options[rule] = list(options[rule])[0]
-        return options
+        cleaned_options: Dict[str, int] = {}
+        for cleanup_rule in options:
+            cleaned_options[cleanup_rule] = list(options[cleanup_rule])[0]
+
+        return cleaned_options
 
     def solve(self, input_data: str) -> int:
         self.parse(input_data)
