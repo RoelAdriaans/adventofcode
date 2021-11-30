@@ -24,20 +24,20 @@ Create a file `.env` with the content:
 AOC_SESSION = ""
 ```
 
-The variable AOC_SESSION is the cookie from <https://adventofcode.com/>. This is available
+The variable `AOC_SESSION` is the cookie from <https://adventofcode.com/>. This is available
 in your browser after you've logged in.
 
 ## Cookiecutter
 
 To create a new day with the CookieCutter version run the command from the
-`advent2020` directory.
+`advent2021` directory.
 
 ```shell script
 cookiecutter template -f
 ```
 
 Answer the questions:
-* `advendofcode2020` : Accept default answer. This installs the result in the current directory
+* `advendofcode2021` : Accept default answer. This installs the result in the current directory
 * `day` : Answer with day you're working on, with leading zero. Eg: 07, 10, 31.
 * `directory_name`, `file_name`, `class_name` : Accept default answer
 
