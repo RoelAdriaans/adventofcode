@@ -1,5 +1,3 @@
-import pytest
-
 from adventofcode2021.solutions.day01 import Day01PartA
 
 
@@ -20,7 +18,6 @@ class TestDay01PartA:
         result = solution.solve(test_data)
         assert result == 7
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     def test_day01a_data(self):
         """Result we got when we did the real solution"""
         solution = Day01PartA()
