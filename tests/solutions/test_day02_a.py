@@ -1,3 +1,5 @@
+import pytest
+
 from adventofcode2021.solutions.day02 import Day02PartA
 
 
@@ -13,6 +15,11 @@ forward 2
         solution = Day02PartA()
         result = solution.solve(test_data)
         assert result == 150
+
+    def test_day02a_invalid_direction(self):
+        with pytest.raises(ValueError):
+            solution = Day02PartA()
+            solution.solve("backwards 1")
 
     def test_day02a_data(self):
         """Result we got when we did the real solution"""
