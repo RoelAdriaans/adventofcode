@@ -35,7 +35,7 @@ class Day03PartB(Day03, FileReaderSolution):
     @staticmethod
     def find_most_common(input_lines: list[str], n: int) -> Counter:
         """Find the most common value in the list of inputs, on bit `n`"""
-        cnt = Counter()
+        cnt: Counter = Counter()
         for line in input_lines:
             cnt[line[n]] += 1
         return cnt
