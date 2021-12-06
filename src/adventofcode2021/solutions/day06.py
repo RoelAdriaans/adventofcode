@@ -15,7 +15,7 @@ class Day06:
         number_spawning = self.fish[0]
 
         # Decrease the age of the current population
-        new_counter = Counter()
+        new_counter: Counter[int] = Counter()
         for i in range(1, 9):
             new_counter[i - 1] = self.fish[i]
 
