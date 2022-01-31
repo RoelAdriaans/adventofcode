@@ -16,7 +16,7 @@ requests = "^2.27.1"
 beautifulsoup4 = "^4.10.0"
 
 [tool.poetry.dev-dependencies]
-black = "^21.12b0"
+black = "^22.1"
 cookiecutter = "^1.7.3"
 pytest = "^6.2.5"
 pytest-cov = "^3.0.0"
