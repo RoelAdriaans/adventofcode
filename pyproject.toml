@@ -11,7 +11,7 @@ anytree = "^2.8.0"
 click = "^8.0.4"
 requests = "^2.27.1"
 beautifulsoup4 = "^4.10.0"
-tqdm = "^4.63.1"
+tqdm = "^4.64.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3"
