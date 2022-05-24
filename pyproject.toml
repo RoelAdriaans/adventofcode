@@ -23,7 +23,7 @@ pytest-cov = "^3.0.0"
 pytest-xdist = "^2.5.0"
 python-dotenv = "^0.20.0"
 tox = "^3.25.0"
-pre-commit = "^2.18.1"
+pre-commit = "^2.19.0"
 
 [tool.poetry.scripts]
 adventofcode = "adventofcode2020.main:main"
