@@ -3,7 +3,6 @@ import re
 import typing
 from collections import Counter
 from dataclasses import dataclass
-from typing import Tuple
 
 from adventofcode2021.utils.abstract import FileReaderSolution
 
@@ -17,7 +16,7 @@ class Point:
 
 
 class Day05:
-    def parse_lines(self, line) -> Tuple[Point, Point]:
+    def parse_lines(self, line) -> tuple[Point, Point]:
         """ "
         Parse 2,2 -> 2,1 or 419,207 -> 419,109
         As x1,y1 -> x2,y2
@@ -29,7 +28,7 @@ class Day05:
         p2 = Point(x=int(matches["x2"]), y=int(matches["y2"]))
         return p1, p2
 
-    def find_overlap(self, points: list[Tuple[Point, Point]]) -> list[Point]:
+    def find_overlap(self, points: list[tuple[Point, Point]]) -> list[Point]:
         """Find the overlapping locations in the list of points"""
         locations: typing.Counter = Counter()
 
