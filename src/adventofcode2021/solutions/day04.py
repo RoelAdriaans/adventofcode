@@ -1,5 +1,5 @@
 from collections import defaultdict
-from typing import Literal, Union
+from typing import Literal
 
 from adventofcode2021.utils.abstract import FileReaderSolution
 
@@ -70,7 +70,7 @@ class Day04:
             board = Board(board_text)
             self.boards.append(board)
 
-    def is_winner(self) -> Union[Literal[False], Board]:
+    def is_winner(self) -> Literal[False] | Board:
         """Do we have any wining boards?"""
         for board in self.boards:
             if board.is_winner():
@@ -90,7 +90,7 @@ class Day04PartA(Day04, FileReaderSolution):
         self.read_input(input_data)
 
         number = -1
-        won_board: Union[Literal[False], Board] = False
+        won_board: Literal[False] | Board = False
 
         for number in self.random_numbers:
             self.draw(number)
@@ -110,7 +110,7 @@ class Day04PartB(Day04, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         self.read_input(input_data)
 
-        last_won: Union[Literal[False], Board] = False
+        last_won: Literal[False] | Board = False
         number = -1
         already_won = set()
         for number in self.random_numbers:

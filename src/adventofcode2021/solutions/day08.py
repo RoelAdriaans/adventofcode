@@ -1,11 +1,9 @@
-from typing import Tuple
-
 from adventofcode2021.utils.abstract import FileReaderSolution
 
 
 class Day08:
     @staticmethod
-    def parse(input_string: str) -> Tuple[list[str], list[str]]:
+    def parse(input_string: str) -> tuple[list[str], list[str]]:
         """
         Parse the input string into two components:
         - The 10 patterns we see
@@ -50,7 +48,7 @@ class Day08PartB(Day08, FileReaderSolution):
         of the digits
         """
         # Store every unique pattern we see, and remove them after we matched
-        pattern_set = set(["".join(sorted(v)) for v in patterns])
+        pattern_set = {"".join(sorted(v)) for v in patterns}
 
         # Store the total mapping, this will contain letters -> Digit, eg:
         # {"bcdf": 4, acdfg": 3}
