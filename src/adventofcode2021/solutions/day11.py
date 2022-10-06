@@ -32,7 +32,7 @@ class Day11:
         self.grid = {}
         for i, line in enumerate(lines):
             for j, value in enumerate(line):
-                self.grid[(i, j)] = Octopus(int(value))
+                self.grid[i, j] = Octopus(int(value))
         self.max_i = i
         self.max_j = j
 
@@ -53,23 +53,17 @@ class Day11:
 
     def _get_neighbours(self, i, j) -> Iterator[tuple[int, int]]:
         """Get a list of neighbours for this location."""
-        # breakpoint()
-        neighbours = [
-            (i + 1, j),
-            (i - 1, j),
-            (i, j + 1),
-            (i, j - 1),
-            (i - 1, j - 1),
-            (i + 1, j - 1),
-            (i - 1, j + 1),
-            (i + 1, j + 1),
-        ]
-        for location in neighbours:
-            if location[0] < 0 or location[0] > self.max_i:
-                continue
-            if location[1] < 0 or location[1] > self.max_j:
-                continue
-            yield location
+        for di in (-1, 0, 1):
+            for dj in (-1, 0, 1):
+                if di == 0 and dj == 0:
+                    continue
+                new_i = di + i
+                new_j = dj + j
+                if new_i < 0 or new_i > self.max_i:
+                    continue
+                if new_j < 0 or new_j > self.max_j:
+                    continue
+                yield new_i, new_j
 
     def step(self) -> int:
         """Perform a step, and return the number of Octopusses that flashed"""
@@ -85,7 +79,8 @@ class Day11:
                 if flashed:
                     flashed_octopuses.add(location)
                     # Find the neighbours for this location
-                    for i, j in self._get_neighbours(location[0], location[1]):
+                    for i, j in self._get_neighbours(*location):
+                        print(f"Neighbours: {i}, {j}")
                         queue.append((i, j))
         self.total_flashes += len(flashed_octopuses)
         self.total_steps += 1
