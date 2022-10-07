@@ -1,19 +1,20 @@
 from adventofcode2021.utils.abstract import FileReaderSolution
+from adventofcode2021.utils.graph import Graph
 
 
 class Day12:
+    g: Graph
+
     def create_graph(self, input_data: list[str]):
-        g = nx.Graph()
+        self.g = Graph()
         for line in input_data:
             start, end = line.split("-")
-            # g.add_edges_from([(start, end)])
-            g.add_edge(start, end)
-        return g
+            self.g.add_edge(start, end)
 
 
 class Day12PartA(Day12, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        graph = self.create_graph(input_data.splitlines())
+        self.create_graph(input_data.splitlines())
 
         return 0
 
