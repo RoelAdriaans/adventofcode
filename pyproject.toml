@@ -14,7 +14,7 @@ beautifulsoup4 = "^4.11.1"
 tqdm = "^4.64.0"
 
 [tool.poetry.dev-dependencies]
-black = "^22.6"
+black = "^22.10"
 cookiecutter = "^2.1.1"
 pytest = "^7.1.2"
 pytest-cov = "^4.0.0"
