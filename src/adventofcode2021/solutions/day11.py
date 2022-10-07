@@ -80,7 +80,6 @@ class Day11:
                     flashed_octopuses.add(location)
                     # Find the neighbours for this location
                     for i, j in self._get_neighbours(*location):
-                        print(f"Neighbours: {i}, {j}")
                         queue.append((i, j))
         self.total_flashes += len(flashed_octopuses)
         self.total_steps += 1
