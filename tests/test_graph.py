@@ -1,4 +1,4 @@
-from adventofcode2021.utils.graph import Graph, Edge
+from adventofcode2021.utils.graph import Edge, Graph
 
 
 def test_graph():
@@ -13,4 +13,8 @@ def test_graph():
     )
     assert repr(g) == "Graph with 4 nodes and 3 edges"
     assert g.nodes == {"a", "b", "c", "d"}
-    assert list(g.edges)[0] == Edge("a", "b")
+    assert Edge("a", "b") in list(g.edges)
+
+    # Test the nodes reachable. From "a", we can connect to "b" and "d"
+    assert g.edges_from_node("a") == [Edge("a", "b"), Edge("a", "d")]
+    assert list(g.nodes_from_node("a")) == ["b", "d"]

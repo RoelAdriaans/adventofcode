@@ -1,8 +1,7 @@
-from typing import TypeVar, Generic
+from collections import defaultdict
 from collections.abc import Iterator
 from dataclasses import dataclass
-from collections import defaultdict
-
+from typing import Generic, TypeVar
 
 # The type of the nodes
 V = TypeVar("V")
@@ -70,9 +69,21 @@ class Graph(Generic[V]):
     @property
     def edges(self) -> set[Edge]:
         """Return all the unique edges"""
-        return set([item for sublist in self._edges.values() for item in sublist])
+        return {item for sublist in self._edges.values() for item in sublist}
 
     @property
     def nodes(self) -> set[V]:
         """Return all the nodes"""
         return self._nodes
+
+    def edges_from_node(self, node: V) -> list[Edge]:
+        """Return all the edges directly connected to node"""
+        return self._edges[node]
+
+    def nodes_from_node(self, node: V) -> Iterator[V]:
+        """Return all the nodes directly connected to node"""
+        for edge in self._edges[node]:
+            if edge.v == node:
+                yield edge.u
+            else:
+                yield edge.v
