@@ -8,11 +8,11 @@ V = TypeVar("V")
 
 
 @dataclass
-class Edge:
+class Edge(Generic[V]):
     u: V
     v: V
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"{self.u} -> {self.v}"
 
     def __hash__(self):
@@ -51,7 +51,7 @@ class Graph(Generic[V]):
     def add_node(self, node: V):
         self._nodes.add(node)
 
-    def add_edge(self, u, v):
+    def add_edge(self, u: V, v: V):
         self.add_node(u)
         self.add_node(v)
         new_edge = Edge(u, v)
@@ -63,7 +63,7 @@ class Graph(Generic[V]):
         for edge in edges:
             self.add_edge(*edge)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"Graph with {len(self.nodes)} nodes and {len(self.edges)} edges"
 
     @property
