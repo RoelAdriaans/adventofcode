@@ -71,8 +71,14 @@ class Day12:
                 else:
                     # We can visit a lowercase node only once
                     visited_list = Node.node_to_path(current_node)
-                    if visited_list.count(child) >= max_visits:
-                        continue
+                    if max_visits == 2:
+                        lower_cases = [node for node in visited_list if node.islower()]
+                        unique_lower = set(lower_cases)
+                        if len(lower_cases) == len(unique_lower) + 2:
+                            continue
+                    else:
+                        if visited_list.count(child) >= max_visits:
+                            continue
 
                 frontier.push(Node(child, current_node))
         return paths
