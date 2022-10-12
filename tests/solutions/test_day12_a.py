@@ -46,8 +46,8 @@ class TestDay12PartA:
         ("input_data", "expected_result"),
         [
             (test_data_short, 10),
-            # (test_data, 19),
-            # (test_data_longer, 226),
+            (test_data, 19),
+            (test_data_longer, 226),
         ],
     )
     def test_day12a_solve(self, input_data, expected_result):
@@ -55,9 +55,8 @@ class TestDay12PartA:
         result = solution.solve(input_data)
         assert result == expected_result
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     def test_day12a_data(self):
         """Result we got when we did the real solution"""
         solution = Day12PartA()
         res = solution("day_12/day12.txt")
-        assert res == 0
+        assert res == 5212

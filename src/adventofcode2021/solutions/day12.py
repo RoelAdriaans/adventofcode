@@ -19,7 +19,23 @@ class Node(Generic[T]):
         self.parent: Node | None = parent
 
     def __repr__(self):
-        return repr(self.state)
+        if self.parent:
+            parents = self.node_to_path(self)
+            return f"{repr(self.state)} ({parents})"
+        else:
+            return repr(self.state)
+
+    @staticmethod
+    def node_to_path(node: Node[T]) -> list[T]:
+        path: list[T] = [node.state]
+
+        # work backwards from end to front
+        while node.parent is not None:
+            node = node.parent
+            path.append(node.state)
+
+        path.reverse()
+        return path
 
 
 class Day12:
@@ -31,36 +47,48 @@ class Day12:
             start, end = line.split("-")
             self.g.add_edge(start, end)
 
-    def find_paths(self, initial: str) -> int:
+    def find_paths(self, initial: str, max_visits: int = 1) -> list[Node]:
         """Find all the paths possible"""
         frontier: Stack = Stack()
         frontier.push(Node(initial, None))
 
         # Explored is where we have been
-        explored = {initial}
+        paths = []
 
         while not frontier.empty:
             current_node = frontier.pop()
             if current_node.state == "end":
-                return current_node
+                paths.append(current_node)
+                continue
 
             for child in self.g.nodes_from_node(current_node.state):
-                if child in explored:
+                if child == "start":
+                    # We can visit start only once
                     continue
+                elif child.isupper():
+                    # Uppercase, we can visit this node mode
+                    pass
+                else:
+                    # We can visit a lowercase node only once
+                    visited_list = Node.node_to_path(current_node)
+                    if visited_list.count(child) >= max_visits:
+                        continue
 
-                explored.add(child)
                 frontier.push(Node(child, current_node))
-        return None
+        return paths
 
 
 class Day12PartA(Day12, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         self.create_graph(input_data.splitlines())
         # Find path
-        paths = self.find_paths("start")
+        paths = self.find_paths("start", 1)
         return len(paths)
 
 
 class Day12PartB(Day12, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        self.create_graph(input_data.splitlines())
+        # Find path
+        paths = self.find_paths("start", 2)
+        return len(paths)
