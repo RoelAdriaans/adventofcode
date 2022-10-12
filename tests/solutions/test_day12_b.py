@@ -1,11 +1,18 @@
 import pytest
 
 from adventofcode2021.solutions.day12 import Day12PartB
+from test_day12_a import test_data_short, test_data, test_data_longer
 
 
 class TestDay12PartB:
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
-    @pytest.mark.parametrize(("input_data", "expected_result"), [("", ""), ("", "")])
+    @pytest.mark.parametrize(
+        ("input_data", "expected_result"),
+        [
+            (test_data_short, 36),
+            # (test_data, 103),
+            # (test_data_longer, 3509),
+        ],
+    )
     def test_day12b_solve(self, input_data, expected_result):
         solution = Day12PartB()
         result = solution.solve(input_data)
