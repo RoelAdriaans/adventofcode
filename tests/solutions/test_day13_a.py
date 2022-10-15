@@ -47,7 +47,7 @@ class TestDay13PartA:
     @pytest.mark.parametrize(
         ("input_data", "expected_result"),
         [
-            (test_small_data, 7),
+            (test_small_data, 13),
             (test_data, 17),
         ],
     )
