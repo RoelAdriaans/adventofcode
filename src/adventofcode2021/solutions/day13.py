@@ -24,8 +24,9 @@ class Day13:
         p = re.compile(r"^fold along (?P<direction>[x|y])=(?P<fold_line>\d*)$")
         self.folds = Queue()
         for line in lines:
-            match = p.search(line).groupdict()
-            self.folds.push((match["direction"], int(match["fold_line"])))
+            if match := p.search(line):
+                mdict = match.groupdict()
+                self.folds.push((mdict["direction"], int(mdict["fold_line"])))
 
     def repr_grid(self):  # pragma: nocover
         lines = []
@@ -67,7 +68,14 @@ class Day13:
         """Get the location oposide to this location, based on the fold"""
         return i - ((i - fold) * 2)
 
-    def start_folding(self, loops=1):
+    def start_folding(self, loops=None):
+        """Start the folding process.
+
+        If loops is not specified or None, loop until we run out of folds
+        """
+        if not loops:
+            loops = len(self.folds)
+
         for n in range(loops):
             self._fold()
         return True
@@ -88,5 +96,10 @@ class Day13PartA(Day13, FileReaderSolution):
 
 
 class Day13PartB(Day13, FileReaderSolution):
-    def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+    def solve(self, input_data: str) -> str:
+        locations, folds = input_data.split("\n\n")
+
+        self.create_grid(locations.splitlines())
+        self.create_folds(folds.splitlines())
+        self.start_folding()
+        return self.repr_grid()

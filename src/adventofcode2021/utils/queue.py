@@ -24,3 +24,6 @@ class Queue(Generic[T]):
 
     def __repr__(self) -> str:
         return repr(self._container)
+
+    def __len__(self) -> int:
+        return len(self._container)
