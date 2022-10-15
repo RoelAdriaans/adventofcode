@@ -15,6 +15,7 @@ def test_queue():
     q.push("c")
 
     assert not q.empty
+    assert len(q) == 3
     assert q.__repr__() == "deque(['a', 'b', 'c'])"
 
     # First in is First out
@@ -24,6 +25,7 @@ def test_queue():
 
     # And empty again
     assert q.empty
+    assert len(q) == 0
 
     with pytest.raises(IndexError):
         q.pop()
