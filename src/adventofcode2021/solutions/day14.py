@@ -1,9 +1,8 @@
 from __future__ import annotations
 
+from abc import ABC, abstractmethod
 from collections import Counter
 from typing import Generic, TypeVar
-
-import tqdm
 
 from adventofcode2021.utils.abstract import FileReaderSolution
 
@@ -39,13 +38,26 @@ class Polymer(Generic[T]):
         return repr(self._content)
 
 
-class Day14(Generic[T]):
-    root_node: Polymer
-
+class Day14(ABC):
     def initialize(self, input_data: str):
         lines = input_data.splitlines()
         self.parse_template(lines[0])
         self.parse_rules(lines[2:])
+
+    @abstractmethod
+    def parse_template(self, template: str):
+        raise NotImplementedError
+
+    def parse_rules(self, rules: list[str]):
+        self.rules: dict[str, str] = {}
+
+        for rule in rules:
+            pair = rule.split(" -> ")
+            self.rules[pair[0]] = pair[1]
+
+
+class Day14PartA(Day14, FileReaderSolution, Generic[T]):
+    root_node: Polymer
 
     def polimers_to_list(self) -> list[str]:
         path: list[str] = [self.root_node.content]
@@ -62,12 +74,6 @@ class Day14(Generic[T]):
         current = self.root_node
         for element in template[1:]:
             current = Polymer(element, current)
-
-    def parse_rules(self, rules: list[str]):
-        self.rules: dict[str, str] = {}
-        for rule in rules:
-            pair = rule.split(" -> ")
-            self.rules[pair[0]] = pair[1]
 
     def step(self):
         """Apply the rules to the polymers"""
@@ -90,8 +96,6 @@ class Day14(Generic[T]):
         common = cnt.most_common()
         return common[0][1] - common[-1][1]
 
-
-class Day14PartA(Day14, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         self.initialize(input_data)
         for _ in range(10):
@@ -100,8 +104,39 @@ class Day14PartA(Day14, FileReaderSolution):
 
 
 class Day14PartB(Day14, FileReaderSolution):
+    cnt: Counter[str]
+    word_counter: Counter[str]
+
+    def parse_template(self, template: str):
+        self.cnt = Counter()
+        for step in range(0, len(template) - 1):
+            self.cnt[template[step : step + 2]] += 1
+
+    def step(self):
+        new_counter: Counter[str] = Counter()
+        self.word_counter = Counter()
+        for item, count in self.cnt.items():
+            new_polymer = self.rules[item]
+            left = f"{item[0]}{new_polymer}"
+            right = f"{new_polymer}{item[1]}"
+            new_counter[left] += count
+            new_counter[right] += count
+
+            self.word_counter[item[0]] += count
+            self.word_counter[new_polymer] += count
+
+        self.cnt = new_counter
+
+    def count(self, char_to_fix: str) -> int:
+        # Fix off by one error for the last character in the recipe
+        self.word_counter[char_to_fix] += 1
+        common = self.word_counter.most_common()
+        return common[0][1] - common[-1][1]
+
     def solve(self, input_data: str) -> int:
         self.initialize(input_data)
-        for _ in tqdm.trange(40):
+        self.word_counter = Counter()
+        for _ in range(40):
             self.step()
-        return self.count()
+        char_to_fix = input_data.splitlines()[0][-1]
+        return self.count(char_to_fix)
