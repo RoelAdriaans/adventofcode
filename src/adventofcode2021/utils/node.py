@@ -24,9 +24,9 @@ class Node(Generic[T]):
     def __repr__(self):
         if self.parent:
             parents = self.node_to_path(self)
-            return f"{repr(self.state)} ({parents})"
+            return f"{repr(self.state)} <{self.cost}/{self.heuristic}> ({parents})"
         else:
-            return repr(self.state)
+            return f"{repr(self.state)} <{self.cost}/{self.heuristic}>"
 
     @staticmethod
     def node_to_path(node: Node[T]) -> list[T]:
