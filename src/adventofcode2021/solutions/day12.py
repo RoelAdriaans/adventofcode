@@ -1,41 +1,9 @@
 from __future__ import annotations
 
-from typing import Generic, TypeVar
-
 from adventofcode2021.utils.abstract import FileReaderSolution
 from adventofcode2021.utils.graph import Graph
+from adventofcode2021.utils.node import Node
 from adventofcode2021.utils.stack import Stack
-
-T = TypeVar("T")
-
-
-class Node(Generic[T]):
-    def __init__(
-        self,
-        state: T,
-        parent: Node | None,
-    ) -> None:
-        self.state: T = state
-        self.parent: Node | None = parent
-
-    def __repr__(self):
-        if self.parent:
-            parents = self.node_to_path(self)
-            return f"{repr(self.state)} ({parents})"
-        else:
-            return repr(self.state)
-
-    @staticmethod
-    def node_to_path(node: Node[T]) -> list[T]:
-        path: list[T] = [node.state]
-
-        # work backwards from end to front
-        while node.parent is not None:
-            node = node.parent
-            path.append(node.state)
-
-        path.reverse()
-        return path
 
 
 class Day12:
