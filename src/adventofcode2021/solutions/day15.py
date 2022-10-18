@@ -59,7 +59,9 @@ class Day15(ABC):
     ) -> Node[Point] | None:
         # frontier is where we've yet to go
         frontier: PriorityQueue[Node[Point]] = PriorityQueue()
-        frontier.push(Node(initial, None, 0.0, self.cave[initial]))
+        # Create the first node. Setting the cost to 0, since we will not count
+        # this node in the path.
+        frontier.push(Node(initial, None, cost=0.0))
 
         # explored is where we've been
         explored: dict[Point, float] = {initial: 0.0}
@@ -80,7 +82,7 @@ class Day15(ABC):
 
                 if child not in explored or explored[child] > new_cost:
                     explored[child] = new_cost
-                    frontier.push(Node(child, current_node, new_cost, child_value))
+                    frontier.push(Node(child, current_node, new_cost))
         return None
 
     def _get_neighbours(self, x, y) -> Iterator[tuple[int, int]]:
@@ -100,12 +102,9 @@ class Day15(ABC):
 
     def solve(self, input_data: str) -> int:
         self.fill_cave(input_data.splitlines())
+        # The path should have the total cost from start to end
         path = self.find_astar()
-        locations = Node.node_to_path(path)
-        values = [self.get_value(x, y) for x, y in locations]
-        # We skip the first location
-        total = sum(values[1:])
-        return total
+        return int(path.cost)
 
 
 class Day15PartA(Day15, FileReaderSolution):
