@@ -2,17 +2,17 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from collections.abc import Iterator
-from typing import Generic
 from functools import cache
+
 from adventofcode2021.utils.abstract import FileReaderSolution
-from adventofcode2021.utils.node import Node, T
+from adventofcode2021.utils.node import Node
 from adventofcode2021.utils.priority_queue import PriorityQueue
 
+Point = tuple[int, int]
 
-class Day15(Generic[T], ABC):
-    cave: dict[tuple[int, int], int]
-    max_x: int
-    max_y: int
+
+class Day15(ABC):
+    cave: dict[Point, int]
 
     def fill_cave(self, input_data: list[str]):
         self.cave = {}
@@ -44,8 +44,8 @@ class Day15(Generic[T], ABC):
         raise NotImplementedError
 
     def find_astar(self):
-        initial: T = (0, 0)
-        goal: T = (self.max_y, self.max_y)
+        initial: Point = (0, 0)
+        goal: Point = (self.max_y, self.max_y)
         path = self.astar(
             initial=initial,
             goal=goal,
@@ -54,20 +54,20 @@ class Day15(Generic[T], ABC):
 
     def astar(
         self,
-        initial: T,
-        goal: T,
-    ) -> Node[T] | None:
+        initial: Point,
+        goal: Point,
+    ) -> Node[Point] | None:
         # frontier is where we've yet to go
-        frontier: PriorityQueue[Node[T]] = PriorityQueue()
+        frontier: PriorityQueue[Node[Point]] = PriorityQueue()
         frontier.push(Node(initial, None, 0.0, self.cave[initial]))
 
         # explored is where we've been
-        explored: dict[T, float] = {initial: 0.0}
+        explored: dict[Point, float] = {initial: 0.0}
 
         # keep going while there is more to explore
         while not frontier.empty:
-            current_node: Node[T] = frontier.pop()
-            current_state: T = current_node.state
+            current_node: Node[Point] = frontier.pop()
+            current_state: Point = current_node.state
             # if we found the goal, we're done
             if current_state == goal:
                 return current_node
@@ -98,6 +98,15 @@ class Day15(Generic[T], ABC):
                 continue
             yield new_x, new_y
 
+    def solve(self, input_data: str) -> int:
+        self.fill_cave(input_data.splitlines())
+        path = self.find_astar()
+        locations = Node.node_to_path(path)
+        values = [self.get_value(x, y) for x, y in locations]
+        # We skip the first location
+        total = sum(values[1:])
+        return total
+
 
 class Day15PartA(Day15, FileReaderSolution):
     def get_value(self, x: int, y: int) -> int:
@@ -113,29 +122,40 @@ class Day15PartA(Day15, FileReaderSolution):
     def max_x(self) -> int:
         return max(x for x, _ in self.cave)
 
-    def solve(self, input_data: str) -> int:
-        self.fill_cave(input_data.splitlines())
-        path = self.find_astar()
-        locations = Node.node_to_path(path)
-        values = [self.cave[x, y] for x, y in locations]
-        # We skip the first location
-        total = sum(values[1:])
-        return total
-
 
 class Day15PartB(Day15, FileReaderSolution):
     def get_value(self, x: int, y: int) -> int:
-        return self.cave[x, y]
+        multiplier = self.real_max_x + 1
+        mod_x = x % multiplier
+        mod_y = y % multiplier
+
+        delta_x = x // multiplier
+        delta_y = y // multiplier
+
+        old_value = self.cave[mod_x, mod_y]
+        quadrant = delta_x + delta_y
+        new_value = quadrant + old_value
+        # Wrap around when 10 or higher
+        if new_value >= 10:
+            new_value -= 9
+        return new_value
+
+    @property
+    @cache
+    def real_max_x(self) -> int:
+        return max(x for x, _ in self.cave)
+
+    @property
+    @cache
+    def real_max_y(self) -> int:
+        return max(y for _, y in self.cave)
 
     @property
     @cache
     def max_x(self) -> int:
-        return max(x for x, _ in self.cave) * 5
+        return (max(x for x, _ in self.cave) + 1) * 5 - 1
 
     @property
     @cache
     def max_y(self) -> int:
-        return max(y for _, y in self.cave) * 5
-
-    def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        return (max(y for _, y in self.cave) + 1) * 5 - 1
