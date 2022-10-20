@@ -25,38 +25,47 @@ class Packet:
     length_type_id: int | None
     sub_packets: list[Packet]
 
-    packet_str: deque[str]
+    packet_deq: deque[str]
     _original_packet_data: str | deque
 
-    def from_hex(self, packet_data: str):
-        # Create the packet as a string, and fill on the left based on 4 bits chunks
-        packet_length = len(f"{packet_data:b}")
+    def __init__(self):
+        self.sub_packets = []
 
-        zfill_value = packet_length + (packet_length % 4)
-        self.packet_str = deque(f"{int(packet_data, 16):b}".zfill(zfill_value))
+    def from_hex(self, packet_data: str) -> Packet:
+        # Add one, then convert to bin and remove the one again.
+        # This will make sure we have the leading zeros in the bit string
+        bin_value = bin(int("1" + packet_data, 16))[3:]
+        deque_data = deque(bin_value)
 
-        # Store the original packet data for later reference
+        return self.from_deque(deque_data)
+
+    def from_deque(self, packet_data: deque) -> Packet:
+        self.packet_deq = packet_data
         self._original_packet_data = packet_data
-
         self._parse_data()
+        return self
 
-    def from_deque(self, packet_data: deque):
-        self.packet_str = packet_data
-        self._original_packet_data = packet_data
-        self._parse_data()
-
-    def _take_bits(self, num_bits: int = None) -> int:
-        """Take n bits from the packet_str, return the value as int.
+    def _take_bits(self, num_bits: int) -> int:
+        """Take n bits from the packet_deq, return the value as int.
         Consumes the packet data
         """
         # Pop num_bits from the string on the left
-        res = [self.packet_str.popleft() for _ in range(num_bits)]
+        res = [self.packet_deq.popleft() for _ in range(num_bits)]
         # Convert to integer, from binary base 2
         return int("".join(res), 2)
 
+    def _take_bits_as_deque(self, num_bits: int) -> deque:
+        """Take n bits from the packet_deq, return the value as int.
+        Consumes the packet data
+        """
+        # Pop num_bits from the string on the left
+        res = [self.packet_deq.popleft() for _ in range(num_bits)]
+        # Convert to integer, from binary base 2
+        return deque(res)
+
     def _peek_bits(self, num_bits: int) -> int:
         """Look at the first num_bits bits"""
-        value = [self.packet_str[n] for n in range(num_bits)]
+        value = [self.packet_deq[n] for n in range(num_bits)]
         return int("".join(value), 2)
 
     def _parse_data(self):
@@ -77,7 +86,7 @@ class Packet:
         next_bit: int = 1
         value: int = 0
         while next_bit == 1:
-            next_bit: int = self._take_bits(1)
+            next_bit = self._take_bits(1)
             group_bits = self._take_bits(4)
             value = (value << 4) | group_bits
 
@@ -85,7 +94,7 @@ class Packet:
         return
 
     def _parse_operator(self):
-        self.sub_packets = list()
+        # self.sub_packets = []
 
         self.length_type_id = self._take_bits(1)
 
@@ -93,22 +102,21 @@ class Packet:
             # the next 15 bits are a number that represents the total length in bits
             # of the sub-packets contained by this packet.
             length_subpacket = self._take_bits(15)
-            subpackets = self._take_bits(length_subpacket)
+            subpackets = self._take_bits_as_deque(length_subpacket)
 
             while subpackets:
-                # Convert subpacket into hex
-
                 new_packet = Packet().from_deque(subpackets)
                 self.sub_packets.append(new_packet)
                 # If there is any data left, process it now
-                subpackets = int("".join(new_packet.packet_str), 2)
-            return
+                subpackets = new_packet.packet_deq
 
         elif self.length_type_id == 1:
             # The next 11 bits are a number that represents the number of
             # sub-packets immediately contained by this packet.
-            subpackets = self._take_bits(11)
-            ...
+            num_subpackets = self._take_bits(11)
+            for n in range(num_subpackets):
+                new_packet = Packet().from_deque(self.packet_deq)
+                self.sub_packets.append(new_packet)
 
 
 class Day16:
@@ -116,8 +124,19 @@ class Day16:
 
 
 class Day16PartA(Day16, FileReaderSolution):
+    def sum_version(self, packet: Packet) -> int:
+        """Recurse into subpackages and sum the total versions"""
+        total = packet.version
+        for subpack in packet.sub_packets:
+            total += self.sum_version(subpack)
+
+        return total
+
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        root_packet = Packet().from_hex(input_data)
+        # Deep dive into the packets
+        res = self.sum_version(root_packet)
+        return res
 
 
 class Day16PartB(Day16, FileReaderSolution):
