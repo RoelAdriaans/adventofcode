@@ -9,7 +9,16 @@ class TestDay16PartA:
         packet = Packet(test_data)
         assert packet.version == 6
         assert packet.type_id == 4
-        assert packet.number == 2021
+        assert packet.value == 2021
+
+        # We still have 3 unused bits over
+        assert len(packet.packet_str) == 3
+
+    def test_packet_operator(self):
+        test_data = "38006F45291200"
+        packet = Packet(test_data)
+        assert packet.version == 1
+        assert packet.type_id == 6
 
     @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     @pytest.mark.parametrize(("input_data", "expected_result"), [("", ""), ("", "")])
