@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import logging
+import math
 from collections import deque
 from enum import IntEnum
 
@@ -10,8 +10,14 @@ from adventofcode2021.utils.abstract import FileReaderSolution
 class TypeID(IntEnum):
     """Define the different type of packages"""
 
+    SUM = 0
+    PRODUCT = 1
+    MINIMUM = 2
+    MAXIMUM = 3
     LITERAL_VALUE = 4
-    OPERATOR = 6
+    GREATHER_THAN = 5
+    LESS_THAN = 6
+    EQUAL_TO = 7
 
 
 class Packet:
@@ -19,7 +25,7 @@ class Packet:
     type_id: int
 
     # Literal value packets
-    value: int | None
+    value: int
 
     # Operator packets
     length_type_id: int | None
@@ -75,10 +81,8 @@ class Packet:
         # Parse the different types
         match self.type_id:
             case TypeID.LITERAL_VALUE.value:
-                logging.debug("Found literal value in packet")
                 self._parse_literal_value()
             case _:
-                logging.debug("Found operator in packet")
                 self._parse_operator()
 
     def _parse_literal_value(self):
@@ -140,5 +144,49 @@ class Day16PartA(Day16, FileReaderSolution):
 
 
 class Day16PartB(Day16, FileReaderSolution):
+    def evaluate(self, packet: Packet) -> int:
+        """Evaluate the packet, and its subpackets"""
+        if packet.type_id in (
+            TypeID.SUM.value,
+            TypeID.PRODUCT.value,
+            TypeID.MAXIMUM.value,
+            TypeID.MINIMUM.value,
+        ):
+            # Evaluate the sub-packets. By using evaluate, we get the literal value
+            # or the package is parsed with the subpackages
+            lit_values = [self.evaluate(sub) for sub in packet.sub_packets]
+
+            # Now appy the function to the literal values
+            if packet.type_id == TypeID.SUM.value:
+                return sum(lit_values)
+            elif packet.type_id == TypeID.PRODUCT.value:
+                return math.prod(lit_values)
+            elif packet.type_id == TypeID.MAXIMUM.value:
+                return max(lit_values)
+            elif packet.type_id == TypeID.MINIMUM.value:
+                return min(lit_values)
+            else:
+                raise ValueError("Unknown operator %s", packet.type_id)
+        elif packet.type_id in (
+            TypeID.GREATHER_THAN.value,
+            TypeID.LESS_THAN.value,
+            TypeID.EQUAL_TO.value,
+        ):
+            left = self.evaluate(packet.sub_packets[0])
+            right = self.evaluate(packet.sub_packets[1])
+            if packet.type_id == TypeID.GREATHER_THAN.value:
+                return 1 if left > right else 0
+            elif packet.type_id == TypeID.LESS_THAN.value:
+                return 1 if left < right else 0
+            if packet.type_id == TypeID.EQUAL_TO.value:
+                return 1 if left == right else 0
+        elif packet.type_id == TypeID.LITERAL_VALUE.value:
+            return packet.value
+        else:
+            raise ValueError("Unknown operator %s", packet.type_id)
+        return -1
+
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        root_packet = Packet().from_hex(input_data)
+        result = self.evaluate(root_packet)
+        return result
