@@ -29,13 +29,13 @@ class Packet:
 
     # Operator packets
     length_type_id: int | None
-    sub_packets: list[Packet]
+    sub: list[Packet]
 
     packet_deq: deque[str]
     _original_packet_data: str | deque
 
     def __init__(self):
-        self.sub_packets = []
+        self.sub = []
 
     def from_hex(self, packet_data: str) -> Packet:
         # Add one, then convert to bin and remove the one again.
@@ -110,7 +110,7 @@ class Packet:
 
             while subpackets:
                 new_packet = Packet().from_deque(subpackets)
-                self.sub_packets.append(new_packet)
+                self.sub.append(new_packet)
                 # If there is any data left, process it now
                 subpackets = new_packet.packet_deq
 
@@ -120,7 +120,7 @@ class Packet:
             num_subpackets = self._take_bits(11)
             for n in range(num_subpackets):
                 new_packet = Packet().from_deque(self.packet_deq)
-                self.sub_packets.append(new_packet)
+                self.sub.append(new_packet)
 
 
 class Day16:
@@ -131,7 +131,7 @@ class Day16PartA(Day16, FileReaderSolution):
     def sum_version(self, packet: Packet) -> int:
         """Recurse into subpackages and sum the total versions"""
         total = packet.version
-        for subpack in packet.sub_packets:
+        for subpack in packet.sub:
             total += self.sum_version(subpack)
 
         return total
@@ -144,49 +144,31 @@ class Day16PartA(Day16, FileReaderSolution):
 
 
 class Day16PartB(Day16, FileReaderSolution):
-    def evaluate(self, packet: Packet) -> int:
+    def eval(self, packet: Packet) -> int:
         """Evaluate the packet, and its subpackets"""
-        if packet.type_id in (
-            TypeID.SUM.value,
-            TypeID.PRODUCT.value,
-            TypeID.MAXIMUM.value,
-            TypeID.MINIMUM.value,
-        ):
-            # Evaluate the sub-packets. By using evaluate, we get the literal value
-            # or the package is parsed with the subpackages
-            lit_values = [self.evaluate(sub) for sub in packet.sub_packets]
-
-            # Now appy the function to the literal values
-            if packet.type_id == TypeID.SUM.value:
-                return sum(lit_values)
-            elif packet.type_id == TypeID.PRODUCT.value:
-                return math.prod(lit_values)
-            elif packet.type_id == TypeID.MAXIMUM.value:
-                return max(lit_values)
-            elif packet.type_id == TypeID.MINIMUM.value:
-                return min(lit_values)
-            else:
-                raise ValueError("Unknown operator %s", packet.type_id)
-        elif packet.type_id in (
-            TypeID.GREATHER_THAN.value,
-            TypeID.LESS_THAN.value,
-            TypeID.EQUAL_TO.value,
-        ):
-            left = self.evaluate(packet.sub_packets[0])
-            right = self.evaluate(packet.sub_packets[1])
-            if packet.type_id == TypeID.GREATHER_THAN.value:
-                return 1 if left > right else 0
-            elif packet.type_id == TypeID.LESS_THAN.value:
-                return 1 if left < right else 0
-            if packet.type_id == TypeID.EQUAL_TO.value:
-                return 1 if left == right else 0
+        # Evaluate the sub-packets. By using evaluate, we get the literal value
+        # or the package is parsed with the subpackages
+        # Now appy the function to the literal values
+        if packet.type_id == TypeID.SUM.value:
+            return sum([self.eval(sub) for sub in packet.sub])
+        elif packet.type_id == TypeID.PRODUCT.value:
+            return math.prod([self.eval(sub) for sub in packet.sub])
+        elif packet.type_id == TypeID.MAXIMUM.value:
+            return max([self.eval(sub) for sub in packet.sub])
+        elif packet.type_id == TypeID.MINIMUM.value:
+            return min([self.eval(sub) for sub in packet.sub])
+        elif packet.type_id == TypeID.GREATHER_THAN.value:
+            return 1 if self.eval(packet.sub[0]) > self.eval(packet.sub[1]) else 0
+        elif packet.type_id == TypeID.LESS_THAN.value:
+            return 1 if self.eval(packet.sub[0]) < self.eval(packet.sub[1]) else 0
+        elif packet.type_id == TypeID.EQUAL_TO.value:
+            return 1 if self.eval(packet.sub[0]) == self.eval(packet.sub[1]) else 0
         elif packet.type_id == TypeID.LITERAL_VALUE.value:
             return packet.value
         else:
             raise ValueError("Unknown operator %s", packet.type_id)
-        return -1
 
     def solve(self, input_data: str) -> int:
         root_packet = Packet().from_hex(input_data)
-        result = self.evaluate(root_packet)
+        result = self.eval(root_packet)
         return result

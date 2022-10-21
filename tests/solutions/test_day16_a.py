@@ -20,9 +20,9 @@ class TestDay16PartA:
         assert packet.version == 1
         assert packet.type_id == 6
         assert packet.length_type_id == 0
-        assert len(packet.sub_packets) == 2
-        assert packet.sub_packets[0].value == 10
-        assert packet.sub_packets[1].value == 20
+        assert len(packet.sub) == 2
+        assert packet.sub[0].value == 10
+        assert packet.sub[1].value == 20
 
     def test_packet_operator_one(self):
         test_data = "EE00D40C823060"
@@ -30,18 +30,18 @@ class TestDay16PartA:
         assert packet.version == 7
         assert packet.type_id == 3
         assert packet.length_type_id == 1
-        assert len(packet.sub_packets) == 3
-        assert packet.sub_packets[0].value == 1
-        assert packet.sub_packets[1].value == 2
-        assert packet.sub_packets[2].value == 3
+        assert len(packet.sub) == 3
+        assert packet.sub[0].value == 1
+        assert packet.sub[1].value == 2
+        assert packet.sub[2].value == 3
 
     def test_nested(self):
         packet = Packet().from_hex("8A004A801A8002F478")
         assert packet.version == 4
-        assert len(packet.sub_packets) == 1
-        assert packet.sub_packets[0].version == 1
-        assert packet.sub_packets[0].sub_packets[0].version == 5
-        assert packet.sub_packets[0].sub_packets[0].sub_packets[0].version == 6
+        assert len(packet.sub) == 1
+        assert packet.sub[0].version == 1
+        assert packet.sub[0].sub[0].version == 5
+        assert packet.sub[0].sub[0].sub[0].version == 6
 
     @pytest.mark.parametrize(
         ("input_data", "expected_result"),
