@@ -77,11 +77,10 @@ class Packet:
         self.type_id = self._take_bits(3)
 
         # Parse the different types
-        match self.type_id:
-            case TypeID.LITERAL_VALUE.value:
-                self._parse_literal_value()
-            case _:
-                self._parse_operator()
+        if self.type_id == TypeID.LITERAL_VALUE.value:
+            self._parse_literal_value()
+        else:
+            self._parse_operator()
 
     def _parse_literal_value(self):
         """Parse literal value"""
@@ -96,8 +95,6 @@ class Packet:
         return
 
     def _parse_operator(self):
-        # self.sub_packets = []
-
         self.length_type_id = self._take_bits(1)
 
         if self.length_type_id == 0:
