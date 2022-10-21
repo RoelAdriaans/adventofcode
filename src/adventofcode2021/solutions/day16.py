@@ -32,7 +32,6 @@ class Packet:
     sub: list[Packet]
 
     packet_deq: deque[str]
-    _original_packet_data: str | deque
 
     def __init__(self):
         self.sub = []
@@ -47,7 +46,6 @@ class Packet:
 
     def from_deque(self, packet_data: deque) -> Packet:
         self.packet_deq = packet_data
-        self._original_packet_data = packet_data
         self._parse_data()
         return self
 
