@@ -63,7 +63,7 @@ class Day17:
         """Compute the trajectory and return the max height (y) from the course.
         Returns an integer with the highest path, or false if we overshot
         """
-        max_y = 0
+        max_y = float("-inf")
         location = Point(0, 0)
         dx, dy = launch_speed
         while not target.overshot(location):
@@ -78,7 +78,7 @@ class Day17:
             max_y = max(max_y, location.y)
             if target.is_in_target(location):
                 # We hit the target!
-                return max_y
+                return int(max_y)
         # We overshot, not target reachable from here
         return False
 
@@ -101,4 +101,23 @@ class Day17PartA(Day17, FileReaderSolution):
 
 class Day17PartB(Day17, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        destination = self.parse_str(input_data)
+        found = []
+
+        min_dy, min_dx = float("inf"), float("inf")
+        max_dy, max_dx = float("-inf"), float("-inf")
+
+        for dx in range(21, 304):
+            for dy in range(-92, 91):
+                res = self.compute_trajectory((dx, dy), destination)
+                if res is not False:
+                    min_dx = min(min_dx, dx)
+                    min_dy = min(min_dy, dy)
+                    max_dx = max(max_dx, dx)
+                    max_dy = max(max_dy, dy)
+                    found.append(res)
+
+        logging.info(f"{min_dy=}, {max_dy=}")
+        logging.info(f"{min_dx=}, {max_dx=}")
+
+        return len(found)
