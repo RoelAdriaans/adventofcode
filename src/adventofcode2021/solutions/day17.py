@@ -107,8 +107,8 @@ class Day17PartB(Day17, FileReaderSolution):
         min_dy, min_dx = float("inf"), float("inf")
         max_dy, max_dx = float("-inf"), float("-inf")
 
-        for dx in range(21, 304):
-            for dy in range(-92, 91):
+        for dx in range(1, destination.max_x + 1):
+            for dy in range(destination.min_y, abs(destination.min_y)):
                 res = self.compute_trajectory((dx, dy), destination)
                 if res is not False:
                     min_dx = min(min_dx, dx)
