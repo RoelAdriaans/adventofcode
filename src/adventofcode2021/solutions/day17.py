@@ -23,21 +23,14 @@ class TargetArea:
 
     def is_in_target(self, location: Point) -> bool:
         """Return if we are withing the target spot"""
-        # This is not the best solution, but it works. Can be optimized.. :)
-        if location.x in range(self.min_x, self.max_x + 1) and location.y in range(
-            self.min_y, self.max_y + 1
-        ):
-            return True
-        else:
-            return False
+        return (
+            self.min_x <= location.x <= self.max_x
+            and self.min_y <= location.y <= self.max_y
+        )
 
     def overshot(self, location: Point) -> bool:
         """Returns True if the location is further away then the location"""
-        if location.x > self.max_x:
-            return True
-        if location.y < self.min_y:
-            return True
-        return False
+        return location.x > self.max_x or location.y < self.min_y
 
 
 class Day17:
@@ -88,8 +81,8 @@ class Day17PartA(Day17, FileReaderSolution):
         destination = self.parse_str(input_data)
         found_max, max_dx, max_dy = 0, 0, 0
 
-        for dx in range(0, 23):
-            for dy in range(0, 91):
+        for dx in range(1, destination.max_x + 1):
+            for dy in range(destination.min_y, abs(destination.min_y)):
                 res = self.compute_trajectory((dx, dy), destination)
                 if res > found_max:
                     found_max = res
