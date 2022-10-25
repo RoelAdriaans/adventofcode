@@ -14,10 +14,7 @@ class TestDay17PartB:
         solution = Day17PartB()
         destination = solution.parse_str("target area: x=20..30, y=-10..-5")
         result = solution.compute_trajectory(velocity, target=destination)
-        if expected_result is True:
-            assert result is not False
-        else:
-            assert result is False
+        assert result is not expected_result
 
     @pytest.mark.parametrize(
         ("input_data", "expected_result"), [("target area: x=20..30, y=-10..-5", 112)]
