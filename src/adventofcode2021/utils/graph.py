@@ -29,7 +29,7 @@ class Graph(Generic[V]):
 
     """
 
-    def __init__(self, edges: Iterator[tuple[V, V]] = None):
+    def __init__(self, edges: Iterator[tuple[V, V]] | None = None):
         """Create a new graph.
 
         If edges is given, the network is created based on the edges.
