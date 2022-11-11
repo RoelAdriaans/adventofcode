@@ -112,12 +112,12 @@ class Day15PartA(Day15, FileReaderSolution):
         return self.cave[x, y]
 
     @property
-    @cache
+    @cache  # type: ignore
     def max_y(self) -> int:
         return max(y for _, y in self.cave)
 
     @property
-    @cache
+    @cache  # type: ignore
     def max_x(self) -> int:
         return max(x for x, _ in self.cave)
 
@@ -140,21 +140,21 @@ class Day15PartB(Day15, FileReaderSolution):
         return new_value
 
     @property
-    @cache
+    @cache  # type: ignore
     def real_max_x(self) -> int:
         return max(x for x, _ in self.cave)
 
     @property
-    @cache
+    @cache  # type: ignore
     def real_max_y(self) -> int:
         return max(y for _, y in self.cave)
 
     @property
-    @cache
+    @cache  # type: ignore
     def max_x(self) -> int:
         return (max(x for x, _ in self.cave) + 1) * 5 - 1
 
     @property
-    @cache
+    @cache  # type: ignore
     def max_y(self) -> int:
         return (max(y for _, y in self.cave) + 1) * 5 - 1
