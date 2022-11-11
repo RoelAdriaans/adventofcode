@@ -14,7 +14,7 @@ class Snail:
     right: Snail
     parent: Snail
 
-    def __init__(self, value: int = None, left=None, right=None, parent=None):
+    def __init__(self, value: int | None = None, left=None, right=None, parent=None):
         self.value = value  # type: ignore
         self.left = left
         self.right = right
