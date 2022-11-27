@@ -21,7 +21,7 @@ class Day21:
         dice = self.dice()
         player_1 = True
         for n in itertools.count(start=1):
-            throw = sum([next(dice) for n in range(3)])
+            throw = sum([next(dice) for _ in range(3)])
             if player_1:
                 location_1 = self.modulo(location_1 + throw)
                 score_1 += location_1
