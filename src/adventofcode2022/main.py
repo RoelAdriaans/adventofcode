@@ -151,10 +151,10 @@ def download_input_data(year: str, day: str):
     if r.status_code != 200:
         print(f"Unable to download the input data. Response code {r.status_code}")
         if r.status_code == 500:
-            print("An internal server error accured. Is your session valid?")
+            print("An internal server error occured. Is your session valid?")
         elif r.status_code == 404:
             print(
-                "Solution not found: You are too early, or this day does not"
+                "Solution not found: You are too early, or this day does not "
                 "have an input file."
             )
         else:
