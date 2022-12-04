@@ -1,7 +1,18 @@
 from adventofcode2022.utils.abstract import FileReaderSolution
 
 
-class Day04:
+class Day04(FileReaderSolution):
+    @staticmethod
+    def in_range(range1: range, range2: range) -> bool:
+        raise NotImplementedError
+
+    def solve(self, input_data: str) -> int:
+        ranges = self.parse(input_data.splitlines())
+        return sum(
+            self.in_range(range1, range2) or self.in_range(range2, range1)
+            for range1, range2 in ranges
+        )
+
     @staticmethod
     def parse(lines) -> list[tuple[range, range]]:
         ranges = []
@@ -15,41 +26,13 @@ class Day04:
         return ranges
 
 
-class Day04PartA(Day04, FileReaderSolution):
+class Day04PartA(Day04):
     @staticmethod
-    def fully_in_range(range1: range, range2: range) -> bool:
-        lst1 = list(range1)
-        lst2 = list(range2)
-        for i in lst1:
-            if i not in lst2:
-                return False
-        return True
-
-    def solve(self, input_data: str) -> int:
-        ranges = self.parse(input_data.splitlines())
-        total = 0
-        for range1, range2 in ranges:
-            if self.fully_in_range(range1, range2) or self.fully_in_range(
-                range2, range1
-            ):
-                total += 1
-        return total
+    def in_range(range1: range, range2: range) -> bool:
+        return all(i in range2 for i in range1)
 
 
-class Day04PartB(Day04, FileReaderSolution):
+class Day04PartB(Day04):
     @staticmethod
-    def any_in_range(range1: range, range2: range) -> bool:
-        lst1 = list(range1)
-        lst2 = list(range2)
-        for i in lst1:
-            if i in lst2:
-                return True
-        return False
-
-    def solve(self, input_data: str) -> int:
-        ranges = self.parse(input_data.splitlines())
-        total = 0
-        for range1, range2 in ranges:
-            if self.any_in_range(range1, range2) or self.any_in_range(range2, range1):
-                total += 1
-        return total
+    def in_range(range1: range, range2: range) -> bool:
+        return any(i in range2 for i in range1)
