@@ -1,3 +1,5 @@
+from parse import parse
+
 from adventofcode2022.utils.abstract import FileReaderSolution
 
 
@@ -17,12 +19,10 @@ class Day04(FileReaderSolution):
     def parse(lines) -> list[tuple[range, range]]:
         ranges = []
         for line in lines:
-            pair1, pair2 = line.split(",")
-            start1, stop1 = pair1.split("-")
-            start2, stop2 = pair2.split("-")
-            range1 = range(int(start1), int(stop1) + 1)
-            range2 = range(int(start2), int(stop2) + 1)
-            ranges.append((range1, range2))
+            p = parse("{start1:d}-{stop1:d},{start2:d}-{stop2:d}", line)
+            ranges.append(
+                (range(p["start1"], p["stop1"] + 1), range(p["start2"], p["stop2"] + 1))
+            )
         return ranges
 
 
