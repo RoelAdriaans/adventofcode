@@ -21,4 +21,12 @@ class Day06PartA(Day06, FileReaderSolution):
 
 class Day06PartB(Day06, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        input_data = input_data.strip()
+        for start in range(0, len(input_data)):
+            packet = input_data[start : start + 14]
+            if len(set(packet)) != 14:
+                # Duplicated characters
+                continue
+            # We have something new, return starting position + 4 chars in this packet
+            return start + 14
+        return -1
