@@ -15,7 +15,7 @@ class Instruction(NamedTuple):
 
 class Day05(FileReaderSolution):
     stacks: dict[int, Stack]
-    moves = list[Instruction]
+    moves: list[Instruction]
 
     @staticmethod
     def parse_start(start_lines: str) -> dict[int, Stack]:
