@@ -42,9 +42,8 @@ class TestDay07PartA:
         result = solution.solve(dedent(self.test_data))
         assert result == 95437
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     def test_day07a_data(self):
         """Result we got when we did the real solution"""
         solution = Day07PartA()
         res = solution("day_07/day07.txt")
-        assert res == 0
+        assert res == 1444896
