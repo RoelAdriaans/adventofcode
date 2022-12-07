@@ -18,9 +18,9 @@ class Type(str, Enum):
 class Node:
     name: str
     node_type: Type
-    size: int | None
+    size: int
     contains: list[Node]
-    parent: Node | None
+    parent: Node
 
     def __init__(self, name, node_type: Type, size=0, parent=None):
         self.name = name
@@ -115,9 +115,9 @@ class Day07PartA(Day07, FileReaderSolution):
 
 
 class Day07PartB(Day07, FileReaderSolution):
-    def calculate_directory_sizes(self, root_node:Node)->dict[str, int]:
+    def calculate_directory_sizes(self, root_node: Node) -> Counter[str]:
         to_check: list[Node] = [root_node]
-        dir_sizes = {}
+        dir_sizes: Counter[str] = Counter()
 
         while to_check:
             node = to_check.pop()
@@ -129,21 +129,19 @@ class Day07PartB(Day07, FileReaderSolution):
 
         return dir_sizes
 
-
     def solve(self, input_data: str) -> int:
         logger.info("Start parsing")
         root_node = self.parse_input(input_data)
         logger.info("Parsing done")
 
         sizes = self.calculate_directory_sizes(root_node)
-        sorted_sizes = dict(sorted(sizes.items(), key=lambda item: item[1]))
         total_size = 70_000_000
         required_free_space = 30_000_000
         total_used = sizes["/"]
         unused = total_size - total_used
         # We have `unused` unused free space, we need required_free_space;
         still_required = required_free_space - unused
-        for name, size in sorted_sizes.items():
+        for name, size in reversed(sizes.most_common()):
             if size > still_required:
                 return size
         return -1

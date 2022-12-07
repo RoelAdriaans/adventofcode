@@ -1,7 +1,5 @@
 from textwrap import dedent
 
-import pytest
-
 from adventofcode2022.solutions.day07 import Day07PartA
 
 
