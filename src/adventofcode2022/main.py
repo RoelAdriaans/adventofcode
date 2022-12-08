@@ -171,6 +171,8 @@ def download_input_data(year: str, day: str):
         f.write(r.content)
 
     logger.info(f"Input data writen to {filename}")
+    print("First lines:")
+    print(r.content.decode("utf-8")[:300])
 
 
 def run_solution(day, timeit_, part, submit):
