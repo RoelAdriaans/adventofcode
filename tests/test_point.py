@@ -64,3 +64,9 @@ def test_invalid_together():
         xy + xyz
 
     assert xy != xyz
+
+
+def test_hashing():
+    p1 = point.XYPoint(1, 2)
+    p2 = point.XYPoint(2, 1)
+    assert p1.__hash__() != p2.__hash__()

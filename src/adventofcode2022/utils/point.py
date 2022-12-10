@@ -1,8 +1,7 @@
-from typing import NamedTuple
 from dataclasses import dataclass
 
 
-@dataclass
+@dataclass(unsafe_hash=True)
 class XYZPoint:
     x: int
     y: int
@@ -22,7 +21,7 @@ class XYZPoint:
         return abs(self.x - other.x) + abs(self.y - other.y) + abs(self.z - other.z)
 
 
-@dataclass
+@dataclass(unsafe_hash=True)
 class XYPoint:
     x: int
     y: int

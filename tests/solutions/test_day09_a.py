@@ -1,10 +1,9 @@
-import pytest
 from textwrap import dedent
+
 from adventofcode2022.solutions.day09 import Day09PartA
 
 
 class TestDay09PartA:
-
     def test_day09a_solve(self):
         test_data = """\
         R 4
@@ -20,9 +19,8 @@ class TestDay09PartA:
         result = solution.solve(dedent(test_data))
         assert result == 13
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     def test_day09a_data(self):
         """Result we got when we did the real solution"""
         solution = Day09PartA()
         res = solution("day_09/day09.txt")
-        assert res == 0
+        assert res == 6057
