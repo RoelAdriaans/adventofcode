@@ -1,19 +1,46 @@
-import pytest
+import pathlib
+from textwrap import dedent
 
 from adventofcode2022.solutions.day10 import Day10PartB
 
 
 class TestDay10PartB:
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
-    @pytest.mark.parametrize(("input_data", "expected_result"), [("", ""), ("", "")])
-    def test_day10b_solve(self, input_data, expected_result):
-        solution = Day10PartB()
-        result = solution.solve(input_data)
-        assert result == expected_result
+    @staticmethod
+    def load_testdata():
+        test_path = (
+            pathlib.Path(__file__).parent.parent.parent
+            / "src"
+            / "adventofcode2022"
+            / "solutions"
+            / "data"
+            / "day_10"
+            / "day10_test.txt"
+        )
+        with open(test_path) as f:
+            test_data = f.read()
+        return test_data
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
+    def test_day10b_solve(self):
+        expected_output = """\
+        ##..##..##..##..##..##..##..##..##..##..
+        ###...###...###...###...###...###...###.
+        ####....####....####....####....####....
+        #####.....#####.....#####.....#####.....
+        ######......######......######......####
+        #######.......#######.......#######....."""
+        solution = Day10PartB()
+        result = solution.solve(self.load_testdata())
+        assert result == dedent(expected_output)
+
     def test_day10b_data(self):
         """Result we got when we did the real solution"""
         solution = Day10PartB()
         res = solution("day_10/day10.txt")
-        assert res == 0
+        expected_output = """\
+        ###..#..#.#....#..#...##..##..####..##..
+        #..#.#..#.#....#..#....#.#..#....#.#..#.
+        #..#.####.#....####....#.#......#..#..#.
+        ###..#..#.#....#..#....#.#.##..#...####.
+        #....#..#.#....#..#.#..#.#..#.#....#..#.
+        #....#..#.####.#..#..##...###.####.#..#."""
+        assert res == dedent(expected_output)

@@ -8,6 +8,10 @@ class Instruction(NamedTuple):
     value: int | None
 
 
+class ProgramEnded(Exception):  # noqa: N818
+    """Signal that the program has ended"""
+
+
 class CPU:
     x: int
     instructions: list[Instruction]
@@ -22,6 +26,9 @@ class CPU:
         self.current_step = 0
 
     def cycle(self):
+        if self.program_counter >= len(self.instructions):
+            raise ProgramEnded
+
         current_instruction = self.instructions[self.program_counter]
         # Single cycle instructions
         if current_instruction.instruction == "noop":
@@ -32,7 +39,8 @@ class CPU:
         elif current_instruction.instruction == "addx" and self.current_step == 1:
             self.program_counter += 1
             self.current_step = 0
-            self.x += current_instruction.value
+            if current_instruction.value:
+                self.x += current_instruction.value
 
         else:
             raise ValueError("Invalid instruction %s", current_instruction)
@@ -53,21 +61,48 @@ class Day10:
 
         return instructions
 
+    @staticmethod
+    def fill_buffer(instructions: list[Instruction]) -> list[int]:
+        cpu = CPU(instructions)
+        frame_buffer = []
+        while True:
+            frame_buffer.append(cpu.x)
+            try:
+                cpu.cycle()
+            except ProgramEnded:
+                break
+        return frame_buffer
+
 
 class Day10PartA(Day10, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         instructions = self.parse(input_data=input_data)
-        cpu = CPU(instructions)
+        frame_buffer = self.fill_buffer(instructions)
+        total = 0
+        for cycle in (20, 60, 100, 140, 180, 220):
+            total += cycle * frame_buffer[cycle - 1]
 
-        cycles = [20, 60, 100, 140, 180, 220]
-        total_sums = []
-        for i in range(1, max(cycles) + 1):
-            cpu.cycle()
-            if i + 1 in cycles:
-                total_sums.append(cpu.x * (i + 1))
-        return sum(total_sums)
+        return total
+
+
+ON = "#"
+OFF = "."
 
 
 class Day10PartB(Day10, FileReaderSolution):
-    def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+    def solve(self, input_data: str) -> str:
+        instructions = self.parse(input_data=input_data)
+
+        frame_buffer = self.fill_buffer(instructions)
+
+        screen = [[OFF] * 40 for _ in range(6)]
+
+        for row in range(6):
+            for col in range(40):
+                counter = row * 40 + col
+                if abs(frame_buffer[counter] - col) <= 1:
+                    screen[row][col] = ON
+                else:
+                    screen[row][col] = OFF
+
+        return "\n".join("".join(line) for line in screen)

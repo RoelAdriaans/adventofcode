@@ -1,7 +1,5 @@
 import pathlib
 
-import pytest
-
 from adventofcode2022.solutions.day10 import CPU, Day10PartA
 
 
@@ -48,7 +46,6 @@ class TestDay10PartA:
         result = solution.solve(self.load_testdata())
         assert result == 13140
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     def test_day10a_data(self):
         """Result we got when we did the real solution"""
         solution = Day10PartA()
