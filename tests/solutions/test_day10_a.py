@@ -1,24 +1,7 @@
-import pathlib
-
 from adventofcode2022.solutions.day10 import CPU, Day10PartA
 
 
 class TestDay10PartA:
-    @staticmethod
-    def load_testdata():
-        test_path = (
-            pathlib.Path(__file__).parent.parent.parent
-            / "src"
-            / "adventofcode2022"
-            / "solutions"
-            / "data"
-            / "day_10"
-            / "day10_test.txt"
-        )
-        with open(test_path) as f:
-            test_data = f.read()
-        return test_data
-
     def test_day10_simple(self):
         program = "noop\naddx 3\naddx -5\n"
         instructions = Day10PartA.parse(program)
@@ -41,9 +24,9 @@ class TestDay10PartA:
         cpu.cycle()
         assert cpu.x == -1
 
-    def test_day10a_solve(self):
+    def test_day10a_solve(self, testdata):
         solution = Day10PartA()
-        result = solution.solve(self.load_testdata())
+        result = solution.solve(testdata)
         assert result == 13140
 
     def test_day10a_data(self):
