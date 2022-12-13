@@ -76,9 +76,18 @@ class Monkey:
                 throws.append(Throw(self.false_to, new))
         return throws
 
-    def _apply_operation(self, item):
-        action = self.operation.replace("old", str(item))
-        return eval(action)
+    def _apply_operation(self, item: str) -> int:
+        left, op, right = self.operation.split(" ")
+        if left == "old":
+            left = item
+
+        if right == "old":
+            right = item
+
+        if op == "*":
+            return int(left) * int(right)
+        elif op == "+":
+            return int(left) + int(right)
 
 
 class Day11:
