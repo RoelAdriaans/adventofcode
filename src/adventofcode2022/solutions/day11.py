@@ -19,15 +19,19 @@ class Monkey:
     items: Queue[int]
     operation: str
 
+    perform_modulo: bool
+    modulo_factor: int
+
     test_division: int
     true_to: int
     false_to: int
 
     inspections: int
 
-    def __init__(self):
+    def __init__(self, perform_modulo: bool = True):
         self.items = Queue()
         self.inspections = 0
+        self.perform_modulo = perform_modulo
 
     def __repr__(self):
         return (
@@ -36,9 +40,9 @@ class Monkey:
         )
 
     @staticmethod
-    def from_string(data: str) -> Monkey:
+    def from_string(data: str, perform_modulo: bool) -> Monkey:
         lines = [line.strip() for line in data.splitlines()]
-        monkey = Monkey()
+        monkey = Monkey(perform_modulo=perform_modulo)
 
         monkey.monkid = parse.parse("Monkey {:d}:", lines[0])[0]
         for item in parse.findall("{:d}", lines[1]):
@@ -59,8 +63,13 @@ class Monkey:
             # Inspect an item
             # Appla operation
             new = self._apply_operation(item)
-            # Divide by 3
-            new //= 3
+
+            if self.perform_modulo:
+                new = new % self.modulo_factor
+            else:
+                # Divide by 3
+                new //= 3
+
             if new % self.test_division == 0:
                 throws.append(Throw(self.true_to, new))
             else:
@@ -76,8 +85,18 @@ class Day11:
     monkeys: list[Monkey]
 
     @staticmethod
-    def parse(input_data: str) -> list[Monkey]:
-        monkeys = [Monkey.from_string(string) for string in input_data.split("\n\n")]
+    def parse(input_data: str, perform_modulo: bool) -> list[Monkey]:
+        monkeys = [
+            Monkey.from_string(string, perform_modulo)
+            for string in input_data.split("\n\n")
+        ]
+
+        if perform_modulo:
+            # Now that we have all the monkeys, we can our modulo factor.
+            # This means getting the product of all the test_division tests.
+            mod_factor = math.prod(m.test_division for m in monkeys)
+            for monkey in monkeys:
+                monkey.modulo_factor = mod_factor
         return monkeys
 
     def play_rounds(self, rounds: int):
@@ -97,11 +116,13 @@ class Day11:
 
 class Day11PartA(Day11, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        self.monkeys = self.parse(input_data)
+        self.monkeys = self.parse(input_data, perform_modulo=False)
         self.play_rounds(20)
         return self.compute_score()
 
 
 class Day11PartB(Day11, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        self.monkeys = self.parse(input_data, perform_modulo=True)
+        self.play_rounds(10000)
+        return self.compute_score()

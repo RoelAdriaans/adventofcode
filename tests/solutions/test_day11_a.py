@@ -14,9 +14,9 @@ class TestDay11PartA:
             If false: throw to monkey 3
         """
 
-        monkey = Monkey.from_string(dedent(test_string))
+        monkey = Monkey.from_string(dedent(test_string), perform_modulo=False)
         assert monkey.monkid == 0
-        assert monkey.items == [79, 98]
+        assert repr(monkey.items) == "deque([79, 98])"
         assert monkey.operation == "old * 19"
         assert monkey.true_to == 2
         assert monkey.false_to == 3
