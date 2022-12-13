@@ -102,7 +102,5 @@ class Day10PartB(Day10, FileReaderSolution):
                 counter = row * 40 + col
                 if abs(frame_buffer[counter] - col) <= 1:
                     screen[row][col] = ON
-                else:
-                    screen[row][col] = OFF
 
         return "\n".join("".join(line) for line in screen)
