@@ -29,8 +29,6 @@ class Day12:
         self.max_x = max(point.x for point in self.grid.keys())
         self.max_y = max(point.y for point in self.grid.keys())
 
-
-class Day12PartA(Day12, FileReaderSolution):
     def goal_test(self, pnt: Point) -> bool:
         return pnt == self.end_position
 
@@ -58,18 +56,14 @@ class Day12PartA(Day12, FileReaderSolution):
                 neighbours.append(new_point)
         return neighbours
 
+
+class Day12PartA(Day12, FileReaderSolution):
     def find_sortest_path(self):
         shortest_node = BFS().search(
             initial=self.start_position,
             goal_test=self.goal_test,
             successors=self.neighbours,
         )
-        # shortest_node = Astar.astar(
-        #     initial=self.start_position,
-        #     goal_test=self.goal_test,
-        #     successors=self.neighbours,
-        #     heuristic=self.heuristic,
-        # )
         if shortest_node:
             path = Node.node_to_path(shortest_node)
             # Subtract the start and ending node
@@ -100,5 +94,24 @@ class Day12PartA(Day12, FileReaderSolution):
 
 
 class Day12PartB(Day12, FileReaderSolution):
+    def find_sortest_path(self):
+        # Find all the possible starting positions
+        start_points = [point for point, value in self.grid.items() if value == 1]
+        shortest = 9999
+
+        for point in start_points:
+            shortest_node = BFS().search(
+                initial=point,
+                goal_test=self.goal_test,
+                successors=self.neighbours,
+            )
+
+            if shortest_node:
+                path = Node.node_to_path(shortest_node)
+                # Subtract the start and ending node, and compute the minimum value
+                shortest = min(len(path) - 1, shortest)
+        return shortest
+
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        self.parse(input_data)
+        return self.find_sortest_path()
