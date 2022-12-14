@@ -1,5 +1,3 @@
-from copy import deepcopy
-
 from adventofcode2022.utils.abstract import FileReaderSolution
 from adventofcode2022.utils.generic_search import BFS
 from adventofcode2022.utils.node import Node
@@ -24,7 +22,7 @@ class Day12:
                     int_value = 0
                 elif char == "E":
                     self.end_position = pnt
-                    int_value = 27
+                    int_value = 26
                 else:
                     int_value = ord(char) - ord("a") + 1
                 self.grid[pnt] = int_value
@@ -36,26 +34,28 @@ class Day12PartA(Day12, FileReaderSolution):
     def goal_test(self, pnt: Point) -> bool:
         return pnt == self.end_position
 
+    def heuristic(self, pnt: Point) -> float:
+        distance = self.end_position.distance(pnt)
+        return distance
+
     def neighbours(self, pnt: Point) -> list[Point]:
         neighbours = []
-        for dx in (-1, 0, 1):
-            for dy in (-1, 0, 1):
-                if dx == dy:
-                    continue
-                new_point = Point(dx, dy) + pnt
-                if (
-                    new_point.x < 0
-                    or new_point.y < 0
-                    or new_point.x > self.max_x
-                    or new_point.y > self.max_y
-                ):
-                    continue
-                current_value = self.grid[pnt]
-                if (
-                    self.grid[new_point] <= current_value
-                    or self.grid[new_point] == current_value + 1
-                ):
-                    neighbours.append(new_point)
+        for dx, dy in ((-1, 0), (1, 0), (0, 1), (0, -1)):
+            new_point = Point(dx, dy) + pnt
+            if (
+                new_point.x < 0
+                or new_point.y < 0
+                or new_point.x > self.max_x
+                or new_point.y > self.max_y
+            ):
+                continue
+            current_value = self.grid[pnt]
+            if (
+                self.grid[new_point] <= current_value
+                or self.grid[new_point] == current_value + 1
+                or self.grid[new_point] == self.end_position
+            ):
+                neighbours.append(new_point)
         return neighbours
 
     def find_sortest_path(self):
@@ -64,9 +64,14 @@ class Day12PartA(Day12, FileReaderSolution):
             goal_test=self.goal_test,
             successors=self.neighbours,
         )
+        # shortest_node = Astar.astar(
+        #     initial=self.start_position,
+        #     goal_test=self.goal_test,
+        #     successors=self.neighbours,
+        #     heuristic=self.heuristic,
+        # )
         if shortest_node:
             path = Node.node_to_path(shortest_node)
-            self.print_path(path)
             # Subtract the start and ending node
             return len(path) - 1
         else:
@@ -91,17 +96,6 @@ class Day12PartA(Day12, FileReaderSolution):
 
     def solve(self, input_data: str) -> int:
         self.parse(input_data)
-
-        lines = []
-        for x in range(self.max_x + 1):
-            line = []
-            for y in range(self.max_y + 1):
-                char = chr(self.grid[Point(x, y)] + +ord("a") - 1)
-                line.append(f"{char}")
-            lines.append("".join(line))
-        print()
-        print("\n".join(lines))
-        return -1
         return self.find_sortest_path()
 
 

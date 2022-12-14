@@ -1,5 +1,3 @@
-import pytest
-
 from adventofcode2022.solutions.day12 import Day12PartA
 
 
@@ -16,4 +14,4 @@ class TestDay12PartA:
         assert res > 311
         assert res != 312
         assert res < 459
-        assert res == 0
+        assert res == 350
