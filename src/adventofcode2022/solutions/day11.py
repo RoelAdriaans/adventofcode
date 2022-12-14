@@ -61,7 +61,7 @@ class Monkey:
             self.inspections += 1
             item = self.items.pop()
             # Inspect an item
-            # Appla operation
+            # Apply operation
             new = self._apply_operation(item)
 
             if self.perform_modulo:
@@ -76,18 +76,24 @@ class Monkey:
                 throws.append(Throw(self.false_to, new))
         return throws
 
-    def _apply_operation(self, item: str) -> int:
+    def _apply_operation(self, item: int) -> int:
         left, op, right = self.operation.split(" ")
         if left == "old":
-            left = item
+            left_op = int(item)
+        else:
+            left_op = int(left)
 
         if right == "old":
-            right = item
+            right_op = int(item)
+        else:
+            right_op = int(right)
 
         if op == "*":
-            return int(left) * int(right)
+            return left_op * right_op
         elif op == "+":
-            return int(left) + int(right)
+            return left_op + right_op
+        else:
+            raise ValueError("Invalid op %s", op)
 
 
 class Day11:
