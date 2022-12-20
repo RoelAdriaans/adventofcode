@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from certifi import contents
-
 from adventofcode2022.utils.abstract import FileReaderSolution
 from collections import deque
 
