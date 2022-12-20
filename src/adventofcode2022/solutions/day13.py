@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from adventofcode2022.utils.abstract import FileReaderSolution
 from collections import deque
+
+from adventofcode2022.utils.abstract import FileReaderSolution
 
 
 class Pair:
