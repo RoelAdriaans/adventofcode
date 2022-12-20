@@ -18,6 +18,7 @@ class TestDay13PartA:
             # "[1,[2,[3,[4,[5,6,7]]]],8,9]",
         ),
     )
+    @pytest.mark.skip(reason="Not yet implemented")
     def test_day13a_parsing(self, input_string):
         solution = Day13PartA()
         assert repr(solution.parse(deque(input_string))) == input_string
@@ -35,6 +36,7 @@ class TestDay13PartA:
             (8, False),
         ],
     )
+    @pytest.mark.skip(reason="Not yet implemented")
     def test_day13a_individual_pairs(self, testdata, pair, valid):
         pairs = testdata.split("\n\n")
 
@@ -42,6 +44,7 @@ class TestDay13PartA:
         result = solution.solve(pairs[pair - 1])
         assert result == valid
 
+    @pytest.mark.skip(reason="Not yet implemented")
     def test_day13a_solve(self, testdata):
         solution = Day13PartA()
         result = solution.solve(testdata)
