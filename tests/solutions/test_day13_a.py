@@ -1,5 +1,7 @@
-import pytest
 from collections import deque
+
+import pytest
+
 from adventofcode2022.solutions.day13 import Day13PartA
 
 

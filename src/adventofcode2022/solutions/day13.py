@@ -20,11 +20,13 @@ class Pair:
 
 class Packet:
     parent: Packet
-    left: Packet
-    right: Packet
+    left: Packet | None
+    right: Packet | None
     content: list[int]
 
-    def __init__(self, left: Packet = None, right: Packet = None, content=None):
+    def __init__(
+        self, left: Packet | None = None, right: Packet | None = None, content=None
+    ):
         self.left = left
         self.right = right
         if content is None:
