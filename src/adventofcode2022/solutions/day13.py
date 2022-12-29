@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from ast import literal_eval
+from functools import cmp_to_key
 
 from adventofcode2022.utils.abstract import FileReaderSolution
 
@@ -19,9 +20,10 @@ class Pair:
 
     def is_valid(self) -> bool:
         """Validate if a packet is has valid pairs"""
-        return self._compare(self.left, self.right) == 1
+        return self.compare(self.left, self.right) == 1
 
-    def _compare(self, left: Packet | int, right: Packet | int) -> int:
+    @classmethod
+    def compare(cls, left: Packet | int, right: Packet | int) -> int:
         # Convert to list if needed
         if isinstance(right, int) and isinstance(left, int):
             if left < right:
@@ -50,7 +52,7 @@ class Pair:
                 # so inputs are not in the right order
                 return -1
 
-            res = self._compare(left_value, right_value)
+            res = cls.compare(left_value, right_value)
             if res != 0:
                 return res
 
@@ -91,4 +93,19 @@ class Day13PartA(Day13, FileReaderSolution):
 
 class Day13PartB(Day13, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        pairs: list[Pair] = []
+
+        for index, input_pair in enumerate(input_data.split("\n\n"), start=1):
+            pairs.append(self.parse(input_pair, index))
+
+        # Add the divider packets:
+        divider_packets = "[[2]]\n[[6]]"
+        pairs.append(self.parse(divider_packets, 0))
+
+        # Now, extract all the packets into a list:
+        packets = [p.left for p in pairs] + [p.right for p in pairs]
+
+        sorted_packets = sorted(packets, key=cmp_to_key(Pair.compare), reverse=True)
+        i1 = sorted_packets.index([[2]]) + 1
+        i2 = sorted_packets.index([[6]]) + 1
+        return i1 * i2
