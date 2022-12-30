@@ -14,7 +14,7 @@ repos:
       args: ["--ignore", "E203,W503"]
 
   - repo: https://github.com/PyCQA/isort
-    rev: 5.11.2
+    rev: 5.11.4
     hooks:
     - id: isort
 
