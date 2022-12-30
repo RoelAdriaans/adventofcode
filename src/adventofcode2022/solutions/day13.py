@@ -20,22 +20,13 @@ class Pair:
 
     def is_valid(self) -> bool:
         """Validate if a packet is has valid pairs"""
-        return self.compare(self.left, self.right) == 1
+        return self.compare(self.left, self.right) < 0
 
     @classmethod
     def compare(cls, left: Packet | int, right: Packet | int) -> int:
         # Convert to list if needed
         if isinstance(right, int) and isinstance(left, int):
-            if left < right:
-                # Right Order
-                return 1
-            if left == right:
-                # Same, continue checking
-                return 0
-            if left > right:
-                # Not right
-                return -1
-
+            return left - right
         if isinstance(left, int):
             left = [left]
         if isinstance(right, int):
@@ -50,24 +41,13 @@ class Pair:
                 # Until now, all the values have been the same.
                 # Right side ran out of items,
                 # so inputs are not in the right order
-                return -1
+                return 1
 
             res = cls.compare(left_value, right_value)
             if res != 0:
                 return res
 
-        # All the values are the same, we have to dive deeper
-        if len(left) == len(right):
-            # Left and right arrays are the same length, and we did not find
-            # any wrong digits. Return 0 to contue comparing
-            return 0
-        # If the left list runs out of items first, the inputs are in
-        # the right order
-        if len(left) < len(right):
-            return 1
-
-        # If we are here, and all has failed, just return 0
-        return 0
+        return len(left) - len(right)
 
 
 class Day13:
@@ -105,7 +85,7 @@ class Day13PartB(Day13, FileReaderSolution):
         # Now, extract all the packets into a list:
         packets = [p.left for p in pairs] + [p.right for p in pairs]
 
-        sorted_packets = sorted(packets, key=cmp_to_key(Pair.compare), reverse=True)
+        sorted_packets = sorted(packets, key=cmp_to_key(Pair.compare))
         i1 = sorted_packets.index([[2]]) + 1
         i2 = sorted_packets.index([[6]]) + 1
         return i1 * i2
