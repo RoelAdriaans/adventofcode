@@ -9,7 +9,7 @@ class Pixel(StrEnum):
     ROCK = "#"
     AIR = "."
     SAND = "o"
-    SPROUT = "v"
+    SPROUT = "+"
 
 
 class Day14:
@@ -17,6 +17,7 @@ class Day14:
 
     def parse(self, input_lines: list[str]):
         self.grid = defaultdict(lambda: Pixel.AIR)
+        self.grid[Point(500, 0)] = Pixel.SPROUT
 
         for line in input_lines:
             points = [
@@ -35,6 +36,7 @@ class Day14:
 
     def min_max_values(self) -> tuple[int, int, int, int]:
         """Return max_x, min_x, max_y, min_y for image"""
+
         values = [pnt for pnt in self.grid.keys()]
         max_x = max(pnt.x for pnt in values)
         min_x = min(pnt.x for pnt in values)
