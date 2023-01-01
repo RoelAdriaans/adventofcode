@@ -9,15 +9,15 @@ class Pixel(StrEnum):
     ROCK = "#"
     AIR = "."
     SAND = "o"
-    SPROUT = "+"
+    SOURCE = "+"
 
 
 class Day14:
-    grid: defaultdict[Point, Pixel.AIR]
+    grid: defaultdict[Point, Pixel]
 
     def parse(self, input_lines: list[str]):
         self.grid = defaultdict(lambda: Pixel.AIR)
-        self.grid[Point(500, 0)] = Pixel.SPROUT
+        self.grid[Point(500, 0)] = Pixel.SOURCE
 
         for line in input_lines:
             points = [
@@ -47,7 +47,8 @@ class Day14:
     def repr_grid(self) -> str:
         max_x, min_x, max_y, min_y = self.min_max_values()
         min_y = min(0, min_y)
-        lines = []
+        clear = chr(27) + "[2J"
+        lines = [clear]
         for y in range(min_y, max_y + 1):
             line = [f"{y:03} "]
             for x in range(min_x, max_x + 1):
@@ -55,14 +56,53 @@ class Day14:
             lines.append("".join(line))
         return "\n".join(lines)
 
+    def count_sand_left(self) -> int:
+        return len([p for p in self.grid.values() if p == Pixel.SAND])
+
 
 class Day14PartA(Day14, FileReaderSolution):
+    def move_sand(self, sand: Point) -> Point | bool:
+        """Move a grain of salt, one step at a time.
+        Returns false if no moves are possible"""
+        # Check down
+        down_location = Point(0, 1) + sand
+        if self.grid[down_location] == Pixel.AIR:
+            return down_location
+
+        # We cannot move down, check down, left
+        down_left = Point(-1, 1) + sand
+        if self.grid[down_left] == Pixel.AIR:
+            return down_left
+
+        down_right = Point(1, 1) + sand
+        if self.grid[down_right] == Pixel.AIR:
+            return down_right
+
+        # No valid moves left,
+        return False
+
+    def loop(self, start):
+        """Let sand fall until a grain of salt falls off"""
+        # Define the bottom
+        _, _, max_y, _ = self.min_max_values()
+        bottom = max_y + 1
+        while True:
+            sand = Point(*start)
+            while True:
+                new_location = self.move_sand(sand)
+                if not new_location:
+                    # We cannot move anymore
+                    self.grid[sand] = Pixel.SAND
+                    break
+                else:
+                    sand = new_location  # type: ignore
+                if sand.y > bottom:
+                    return
+
     def solve(self, input_data: str) -> int:
         self.parse(input_data.splitlines())
-        print()
-        print(self.repr_grid())
-        print()
-        return -1
+        self.loop(start=Point(500, 0))
+        return self.count_sand_left()
 
 
 class Day14PartB(Day14, FileReaderSolution):
