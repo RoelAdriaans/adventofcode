@@ -65,5 +65,13 @@ class Day15PartA(Day15, FileReaderSolution):
 
 
 class Day15PartB(Day15, FileReaderSolution):
+    def find_frequency(self, factor: int) -> int:
+        """Find the tuning frequency"""
+        return -1
+
+    def execute(self, input_data: str, factor: int) -> int:
+        self.parse(input_data.splitlines())
+        return self.find_frequency(factor)
+
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        return self.execute(input_data, factor=4000000)
