@@ -9,9 +9,9 @@ class TestDay15PartB:
         result = solution.execute(testdata, 20)
         assert result == 56000011
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
+    @pytest.mark.skip(reason="Right answer, but very slow")
     def test_day15b_data(self):
         """Result we got when we did the real solution"""
         solution = Day15PartB()
         res = solution("day_15/day15.txt")
-        assert res == 0
+        assert res == 13134039205729

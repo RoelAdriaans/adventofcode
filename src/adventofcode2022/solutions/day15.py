@@ -1,8 +1,9 @@
+from typing import NamedTuple
+
 from parse import parse
 
 from adventofcode2022.utils.abstract import FileReaderSolution
 from adventofcode2022.utils.point import XYPoint as Point
-from typing import NamedTuple
 
 
 class Line(NamedTuple):
@@ -72,34 +73,26 @@ class Day15PartB(Day15, FileReaderSolution):
         """Find the tuning frequency"""
         y = 0
         while y < factor:
-            print(f"New line {y}")
             x = 0
             while x <= factor:
-                # print(f"new {x=}")
                 new_x = x
                 for line in self.lines:
                     new_x = self.skip_over_line(line, x, y)
-                    # print(f"{new_x=}")
                     if x != new_x:
                         break
                 if new_x == x:
                     # Return here?
-                    res = (x * factor) + y
-                    print(f"Result ?? {res=}")
-                    y = factor + 1
-                    break
+                    res = (x * 4000000) + y
+                    return res
                 x = new_x
             y += 1
-        return (x * factor) + y
+        return -1
 
     def skip_over_line(self, line, x, y):
         remaining = self.remaining_on_line(line, y)
-        if x >= line.sensor.x - remaining and x <= line.sensor.x + remaining:
-            return line.sensor.x + 1
+        if line.sensor.x - remaining <= x <= line.sensor.x + remaining:
+            return line.sensor.x + 1 + remaining
         return x
-        # if line[0].x - remaining <= x <= line[0].x + remaining:
-        #     return line[0].x + remaining + 1
-        # return x
 
     def execute(self, input_data: str, factor: int) -> int:
         self.parse(input_data.splitlines())
