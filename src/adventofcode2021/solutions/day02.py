@@ -29,7 +29,6 @@ class Day02PartB(Day02, FileReaderSolution):
         depth = position = aim = 0
 
         for line in [line for line in input_data.split("\n") if line]:
-
             direction, movement = line.split(" ")[0], int(line.split(" ")[1])
             match direction:
                 case "down":
