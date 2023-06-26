@@ -22,12 +22,6 @@ def test_xyzpoint():
     assert p1 == p1_same
     assert p1 != p2
 
-    # Since it's a named tuple, we can also get the values from it:
-    x, y, z = p1
-    assert x == 1
-    assert y == 2
-    assert z == 3
-
 
 def test_xyzdistance():
     p1 = point.XYZPoint(1105, -1205, 1229)
