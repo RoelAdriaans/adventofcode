@@ -11,7 +11,7 @@ class Day02:
     def create_grid(self):
         self.grid = defaultdict(lambda: defaultdict(int))
 
-    def find_location(self, location) -> XYPoint:
+    def find_location(self, location: str | int) -> XYPoint:
         for x in range(0, self.max_x):
             for y in range(0, self.max_x):
                 if self.grid[x][y] == location:
@@ -73,3 +73,23 @@ class Day02PartA(Day02, FileReaderSolution):
 class Day02PartB(Day02, FileReaderSolution):
     def create_grid(self):
         super().create_grid()
+        # Yep, we're hard-coding the grid here.. :(
+        self.grid[0][2] = 1
+
+        self.grid[1][1] = 2
+        self.grid[1][2] = 3
+        self.grid[1][3] = 4
+
+        self.grid[2][0] = 5
+        self.grid[2][1] = 6
+        self.grid[2][2] = 7
+        self.grid[2][3] = 8
+        self.grid[2][4] = 9
+
+        self.grid[3][1] = "A"
+        self.grid[3][2] = "B"
+        self.grid[3][3] = "C"
+
+        self.grid[4][2] = "D"
+
+        self.max_x = 5
