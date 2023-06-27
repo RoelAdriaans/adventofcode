@@ -1,15 +1,24 @@
+from collections import defaultdict
+
 from adventofcode2016.utils.abstract import FileReaderSolution
 from adventofcode2016.utils.point import XYPoint
 
 
 class Day02:
-    grid = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    grid: defaultdict[int, defaultdict[int]]
+    max_x: int
+
+    def create_grid(self):
+        self.grid = defaultdict(lambda: defaultdict(int))
 
     def find_location(self, location) -> XYPoint:
-        for x in range(0, 3):
-            for y in range(0, 3):
+        for x in range(0, self.max_x):
+            for y in range(0, self.max_x):
                 if self.grid[x][y] == location:
                     return XYPoint(x, y)
+
+    def valid_location(self, x: int, y: int) -> bool:
+        return self.grid[x][y] != 0
 
     def start_solving(self, start_location: int, steps: str) -> int:
         """Working from `start_location`, we will follow the steps in `steps`
@@ -20,22 +29,26 @@ class Day02:
         for step in steps:
             match step:
                 case "L":
-                    location.y = max(0, location.y - 1)
+                    direction = (0, -1)
                 case "R":
-                    location.y = min(2, location.y + 1)
+                    direction = (0, 1)
                 case "U":
-                    location.x = max(0, location.x - 1)
+                    direction = (-1, 0)
                 case "D":
-                    location.x = min(2, location.x + 1)
+                    direction = (1, 0)
                 case _:
                     raise ValueError(f"Invalid step {step}")
+            if self.valid_location(location.x + direction[0], location.y):
+                location.x += direction[0]
+
+            if self.valid_location(location.x, location.y + direction[1]):
+                location.y += direction[1]
 
         return self.grid[location.x][location.y]
 
-
-class Day02PartA(Day02, FileReaderSolution):
     def solve(self, input_data: str) -> str:
         lines = input_data.splitlines()
+        self.create_grid()
         current_position = 5
         digits = []
         for line in lines:
@@ -45,6 +58,18 @@ class Day02PartA(Day02, FileReaderSolution):
         return "".join(str(digit) for digit in digits)
 
 
+class Day02PartA(Day02, FileReaderSolution):
+    def create_grid(self):
+        """Create a grid"""
+        super().create_grid()
+        n = 1
+        for x in range(0, 3):
+            for y in range(0, 3):
+                self.grid[x][y] = n
+                n += 1
+        self.max_x = 3
+
+
 class Day02PartB(Day02, FileReaderSolution):
-    def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+    def create_grid(self):
+        super().create_grid()
