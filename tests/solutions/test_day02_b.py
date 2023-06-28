@@ -1,5 +1,3 @@
-import pytest
-
 from adventofcode2016.solutions.day02 import Day02PartB, XYPoint
 
 
@@ -27,7 +25,6 @@ class TestDay02PartB:
         result = solution.solve(testdata)
         assert result == "5DB3"
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     def test_day02b_data(self):
         """Result we got when we did the real solution"""
         solution = Day02PartB()
