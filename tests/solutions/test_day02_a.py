@@ -33,7 +33,6 @@ class TestDay02PartA:
         result = solution.solve(testdata)
         assert result == "1985"
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     def test_day02a_data(self):
         """Result we got when we did the real solution"""
         solution = Day02PartA()

@@ -30,6 +30,24 @@ class Room:
         )
         return most_common_letters == self.checksum
 
+    def decrypt(self) -> str:
+        """Decrypt the name"""
+        result = []
+
+        for letter in self.encrypted_name:
+            if letter == "-":
+                result.append(" ")
+            else:
+                # This is ugly: For evey sector_id, the letter is updated.
+                # If the next letter is {, (Z + 1 in ASCII), we loop around
+                # This can be solved with some modulo magic, but 🍷...
+                for _ in range(self.sector_id):
+                    letter = chr(ord(letter) + 1)
+                    if letter == "{":
+                        letter = "a"
+                result.append(letter)
+        return "".join(result)
+
 
 class Day04:
     pass
@@ -43,4 +61,9 @@ class Day04PartA(Day04, FileReaderSolution):
 
 class Day04PartB(Day04, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        rooms = [Room.from_string(line) for line in input_data.splitlines()]
+        for room in rooms:
+            # We have to look for a magic string, that is nowhere in the assignment..
+            if room.decrypt() == "northpole object storage":
+                return room.sector_id
+        return -1
