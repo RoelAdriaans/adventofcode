@@ -16,10 +16,6 @@ class MatchResult:
 
 
 class Day05:
-    pass
-
-
-class Day05PartA(Day05, FileReaderSolution):
     @staticmethod
     def find_match(prefix: str, starting: int) -> MatchResult:
         """With prefix, start at a specific number. Return the value of the first
@@ -33,6 +29,8 @@ class Day05PartA(Day05, FileReaderSolution):
                 )
             position += 1
 
+
+class Day05PartA(Day05, FileReaderSolution):
     def solve(self, input_data: str) -> str:
         prefix = input_data.strip()
         result = []
@@ -51,5 +49,28 @@ class Day05PartA(Day05, FileReaderSolution):
 
 
 class Day05PartB(Day05, FileReaderSolution):
-    def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+    def solve(self, input_data: str) -> str:
+        prefix = input_data.strip()
+        result = [None] * 8
+        current_location = 0
+
+        while not all(result):
+            match = self.find_match(prefix, current_location)
+            current_location = match.current_position + 1
+            password_position = match.hash[5]
+            password_character = match.hash[6]
+
+            if password_position.isdigit() and int(password_position) <= 7:
+                numeric_position = int(password_position)
+                if not result[numeric_position]:
+                    result[numeric_position] = password_character
+
+                    logging.debug(
+                        "Found digit %s at location %d, current password: %s",
+                        password_character,
+                        numeric_position,
+                        "".join(x if x else "_" for x in result),
+                    )
+
+        logging.info("Found password after %d runs", current_location)
+        return "".join(x if x else "_" for x in result)
