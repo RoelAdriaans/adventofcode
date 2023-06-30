@@ -6,17 +6,12 @@ from adventofcode2016.utils.abstract import FileReaderSolution
 
 
 class Day06:
-    def compute_checksum(self, input_data: str, position: int) -> str:
-        lines = input_data.splitlines()
-        # Transpose the list
-        transposed = zip(*lines)
-        res = []
-        for line in transposed:
-            cnt = Counter(line)
-            letter = cnt.most_common()[position][0]
-            res.append(letter)
-
-        return "".join(res)
+    @staticmethod
+    def compute_checksum(input_data: str, position: int) -> str:
+        return "".join(
+            Counter(line).most_common()[position][0]
+            for line in zip(*input_data.splitlines())
+        )
 
 
 class Day06PartA(Day06, FileReaderSolution):
