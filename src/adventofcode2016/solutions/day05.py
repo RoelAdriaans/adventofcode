@@ -51,7 +51,7 @@ class Day05PartA(Day05, FileReaderSolution):
 class Day05PartB(Day05, FileReaderSolution):
     def solve(self, input_data: str) -> str:
         prefix = input_data.strip()
-        result = [None] * 8
+        result: list[str | None] = [None] * 8
         current_location = 0
 
         while not all(result):

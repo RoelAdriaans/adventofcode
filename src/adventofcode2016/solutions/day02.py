@@ -5,7 +5,7 @@ from adventofcode2016.utils.point import XYPoint
 
 
 class Day02:
-    grid: defaultdict[int, defaultdict[int]]
+    grid: defaultdict[int, defaultdict[int, int | str]]
     max_x: int
 
     def create_grid(self):
@@ -16,11 +16,12 @@ class Day02:
             for y in range(0, self.max_x):
                 if self.grid[x][y] == location:
                     return XYPoint(x, y)
+        raise ValueError("Location %s not found", location)
 
     def valid_location(self, x: int, y: int) -> bool:
         return self.grid[x][y] != 0
 
-    def start_solving(self, start_location: int, steps: str) -> int:
+    def start_solving(self, start_location: int | str, steps: str) -> int | str:
         """Working from `start_location`, we will follow the steps in `steps`
         and return the ending position"""
 
@@ -49,7 +50,7 @@ class Day02:
     def solve(self, input_data: str) -> str:
         lines = input_data.splitlines()
         self.create_grid()
-        current_position = 5
+        current_position: str | int = 5
         digits = []
         for line in lines:
             current_position = self.start_solving(current_position, line)

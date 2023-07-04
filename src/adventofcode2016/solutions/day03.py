@@ -12,12 +12,13 @@ class Day03:
         return sides[0] + sides[1] > sides[2]
 
     @staticmethod
-    def _split_into_parts(input_data: str) -> list[list[int, int, int]]:
+    def _split_into_parts(input_data: str) -> list[list[int]]:
         find_digits_re = re.compile(r"\s*(\d+)\s+(\d+)\s+(\d+)\s*")
         lines = input_data.splitlines()
         res = []
         for line in lines:
             m = re.match(find_digits_re, line)
+            assert m is not None
             sides = [int(m.group(1)), int(m.group(2)), int(m.group(3))]
             res.append(sides)
         return res
@@ -31,7 +32,7 @@ class Day03PartA(Day03, FileReaderSolution):
 
 
 class Day03PartB(Day03, FileReaderSolution):
-    def find_triangles(self, input_lines: str) -> list[list[int, int, int]]:
+    def find_triangles(self, input_lines: str) -> list[list[int]]:
         """Parse the input and return a list of triangles"""
         list_if_sides = self._split_into_parts(input_lines)
         # Transpose
@@ -39,7 +40,7 @@ class Day03PartB(Day03, FileReaderSolution):
         # And now, chain everything together to create one big list again, in groups
         # of 3.
         grouped = [iter(itertools.chain(*transposed))] * 3
-        return zip(*grouped)
+        return zip(*grouped)  # type: ignore
 
     def solve(self, input_data: str) -> int:
         return sum(
