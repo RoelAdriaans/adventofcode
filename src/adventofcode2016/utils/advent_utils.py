@@ -28,4 +28,14 @@ digits_re = re.compile(r"\d+")
 
 
 def extract_digits_from_string(input_string: str) -> list[int]:
+    """Extract all the digits from a string. For example:
+
+    >>> extract_digits_from_string("this 5 is a 6 plus 10")
+    [5, 6, 10]
+
+    Does not support decimal:
+
+    >>> extract_digits_from_string("4.5")
+    [4, 5]
+    """
     return list(map(int, digits_re.findall(input_string)))
