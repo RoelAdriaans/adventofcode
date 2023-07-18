@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import re
+from collections import defaultdict
 from enum import Enum, auto
 
 import attrs
@@ -58,12 +58,26 @@ class Instruction:
 
 
 class Day08:
-    pass
+    @staticmethod
+    def parse(input_data: str) -> list[Instruction]:
+        return [Instruction.from_string(line) for line in input_data.splitlines()]
 
+    def init_screen(self, x:int, y:int):
+        self.screen = defaultdict(lambda: defaultdict(dict))
+
+
+    def draw_screen(self, x: int, y: int, instructions: list[Instruction]):
+        self.init_screen(x, y)
 
 class Day08PartA(Day08, FileReaderSolution):
-    def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+    def count_pixels(self) -> int:
+        assert self.screen
+        return -1
+
+    def solve(self, input_data: str, x: int = 50, y: int = 6) -> int:
+        instructions = self.parse(input_data)
+        self.draw_screen(x, y, instructions)
+        return self.count_pixels()
 
 
 class Day08PartB(Day08, FileReaderSolution):
