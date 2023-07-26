@@ -1,10 +1,11 @@
+import numpy as np
 import pytest
 
 from adventofcode2016.solutions.day08 import (
     Day08PartA,
+    Direction,
     Instruction,
     Operation,
-    Direction,
 )
 
 
@@ -51,16 +52,43 @@ class TestDay08PartA:
     def test_instruction(self, string, expected_instruction):
         assert Instruction.from_string(string) == expected_instruction
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
-    @pytest.mark.parametrize(("input_data", "expected_result"), [("", ""), ("", "")])
-    def test_day08a_solve(self, input_data, expected_result):
+    def test_draw(self):
         solution = Day08PartA()
-        result = solution.solve(input_data)
-        assert result == expected_result
+        # Create a rectangle in top left
+        instructions = solution.parse("rect 3x2")
+        solution.init_screen(3, 7)
+        solution.draw_screen(instructions)
+        expected = [
+            [True, True, True, False, False, False, False],
+            [True, True, True, False, False, False, False],
+            [False, False, False, False, False, False, False],
+        ]
+        np.testing.assert_allclose(solution.screen, expected)
+        # And now, rotate column
+        instructions = solution.parse("rotate column x=1 by 1")
+        solution.draw_screen(instructions)
+        expected = [
+            [True, False, True, False, False, False, False],
+            [True, True, True, False, False, False, False],
+            [False, True, False, False, False, False, False],
+        ]
+        np.testing.assert_allclose(solution.screen, expected)
+        # And now rotate row
+        instructions = solution.parse("rotate row y=0 by 4")
+        solution.draw_screen(instructions)
+        expected = [
+            [False, False, False, False, True, False, True],
+            [True, True, True, False, False, False, False],
+            [False, True, False, False, False, False, False],
+        ]
+        np.testing.assert_allclose(solution.screen, expected)
+        # Last row in the example
+        instructions = solution.parse("rotate column x=1 by 1")
+        solution.draw_screen(instructions)
+        assert solution.count_pixels() == 6
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     def test_day08a_data(self):
         """Result we got when we did the real solution"""
         solution = Day08PartA()
         res = solution("day_08/day08.txt")
-        assert res == 0
+        assert res == 115

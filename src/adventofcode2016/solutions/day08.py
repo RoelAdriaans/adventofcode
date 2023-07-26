@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from collections import defaultdict
 from enum import Enum, auto
 
 import attrs
+import numpy as np
 
 from adventofcode2016.utils.abstract import FileReaderSolution
 from adventofcode2016.utils.advent_utils import extract_digits_from_string
@@ -58,25 +58,52 @@ class Instruction:
 
 
 class Day08:
+    x: int
+    y: int
+    screen: np.ndarray
+
     @staticmethod
     def parse(input_data: str) -> list[Instruction]:
         return [Instruction.from_string(line) for line in input_data.splitlines()]
 
-    def init_screen(self, x:int, y:int):
-        self.screen = defaultdict(lambda: defaultdict(dict))
+    def init_screen(self, x: int, y: int):
+        self.x = x
+        self.y = y
+        self.screen = np.full((x, y), False)
 
+    def _draw_rect(self, instruction: Instruction):
+        """Draw a rectangle, (eg, put pixels on) from 0,0 until x,y in instruction"""
+        for x in range(0, instruction.x):
+            for y in range(0, instruction.y):
+                self.screen[y, x] = True
 
-    def draw_screen(self, x: int, y: int, instructions: list[Instruction]):
-        self.init_screen(x, y)
+    def _rotate(self, instruction: Instruction):
+        """Rotate a row or column"""
+        if instruction.direction == Direction.column:
+            self.screen[:, instruction.x] = np.roll(
+                self.screen[:, instruction.x], instruction.dx
+            )
+        else:
+            self.screen[instruction.y] = np.roll(
+                self.screen[instruction.y], instruction.dy
+            )
+
+    def draw_screen(self, instructions: list[Instruction]):
+        for instruction in instructions:
+            if instruction.operation == Operation.rect:
+                self._draw_rect(instruction)
+            else:
+                self._rotate(instruction)
+
 
 class Day08PartA(Day08, FileReaderSolution):
     def count_pixels(self) -> int:
-        assert self.screen
-        return -1
+        return int(sum(sum(self.screen)))
 
-    def solve(self, input_data: str, x: int = 50, y: int = 6) -> int:
+    def solve(self, input_data: str, x: int = 6, y: int = 50) -> int:
         instructions = self.parse(input_data)
-        self.draw_screen(x, y, instructions)
+        self.init_screen(x, y)
+        self.draw_screen(instructions)
         return self.count_pixels()
 
 
