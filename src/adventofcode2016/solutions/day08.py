@@ -108,5 +108,15 @@ class Day08PartA(Day08, FileReaderSolution):
 
 
 class Day08PartB(Day08, FileReaderSolution):
-    def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+    def repr_screen(self) -> str:
+        output = []
+        for line in self.screen:
+            output.append("".join("█" if char else " " for char in line))
+
+        return "\n".join(output)
+
+    def solve(self, input_data: str, x: int = 6, y: int = 50) -> str:
+        instructions = self.parse(input_data)
+        self.init_screen(x, y)
+        self.draw_screen(instructions)
+        return self.repr_screen()
