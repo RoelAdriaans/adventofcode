@@ -51,6 +51,8 @@ class Instruction:
             direction = Direction.column
             x = locations[0]
             dx = locations[1]
+        else:
+            raise ValueError("Unknown instruction %s", instruction_string)
 
         return Instruction(
             operation=operation, direction=direction, x=x, y=y, dx=dx, dy=dy
