@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import attrs
+from adventofcodeutils.point import XYPoint
 
 from adventofcode2016.utils.abstract import FileReaderSolution
-from adventofcode2016.utils.point import XYPoint
 
 
 @attrs.define(kw_only=True)

@@ -3,10 +3,10 @@ from __future__ import annotations
 from collections import defaultdict
 
 import attrs
+from adventofcodeutils.graph import Graph
+from adventofcodeutils.parsing import extract_digits_from_string
 
 from adventofcode2016.utils.abstract import FileReaderSolution
-from adventofcode2016.utils.advent_utils import extract_digits_from_string
-from adventofcode2016.utils.graph import Graph
 
 
 class Output:
@@ -47,6 +47,11 @@ class Day10:
         # Process the values
         for bot, values in values.items():
             self.bots[bot].values = values
+
+        # Create new Graph
+        g = Graph()
+        # Make flake8 happy, for now
+        assert g
 
     def find_compare(self, a: int, b: int) -> int:
         return -1

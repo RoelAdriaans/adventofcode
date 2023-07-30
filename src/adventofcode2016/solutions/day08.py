@@ -4,9 +4,9 @@ from enum import Enum, auto
 
 import attrs
 import numpy as np
+from adventofcodeutils.parsing import extract_digits_from_string
 
 from adventofcode2016.utils.abstract import FileReaderSolution
-from adventofcode2016.utils.advent_utils import extract_digits_from_string
 
 
 class Operation(Enum):
