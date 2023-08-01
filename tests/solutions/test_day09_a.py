@@ -4,7 +4,6 @@ from adventofcode2016.solutions.day09 import Day09PartA
 
 
 class TestDay09PartA:
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     @pytest.mark.parametrize(
         ("input_data", "decompressed_string", "expected_result"),
         [
