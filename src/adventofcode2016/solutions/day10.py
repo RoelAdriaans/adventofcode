@@ -69,9 +69,6 @@ class Day10:
         """
         if len(bot.chips) < 2:
             # Bot only less than 2 chips, nothing to do
-            logging.debug(
-                "[Bot %s] Only %s chips - Doing nothing", bot.number, len(bot.chips)
-            )
             return {}
         logging.debug(
             "[Bot %s] Cascading down to %s %s and %s %s",
@@ -95,6 +92,8 @@ class Day10:
             output_bins[bot.low_output] = bot.chips.pop()
         return output_bins
 
+
+class Day10PartA(Day10, FileReaderSolution):
     def run(self, a: int, b: int) -> int:
         # Run until a solution is found
         output_bin = defaultdict(list)
@@ -108,13 +107,27 @@ class Day10:
                 for bin_nr, value in output_data:
                     output_bin[bin_nr].append(value)
 
-
-class Day10PartA(Day10, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         self.parse(input_data)
         return self.run(61, 17)
 
 
 class Day10PartB(Day10, FileReaderSolution):
+    def run(self) -> int:
+        # Run until a solution is found
+        output_bin = defaultdict(list)
+        while True:
+            # Loop over the robots
+            for n, bot in self.bots.items():
+                output_data = self.cascade(bot)
+
+                for bin_nr, value in output_data.items():
+                    output_bin[bin_nr].append(value)
+            logging.debug("Output bin: %s", dict(output_bin))
+
+            if {1, 2, 3}.issubset(set(output_bin.keys())):
+                return output_bin[0][0] * output_bin[1][0] * output_bin[2][0]
+
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        self.parse(input_data)
+        return self.run()
