@@ -1,3 +1,5 @@
+import textwrap
+
 import pytest
 
 from adventofcode2016.solutions.day11 import Day11PartA, FacilityState
@@ -14,6 +16,47 @@ class TestDay11PartA:
     )
     def test_str_element(self, input_data, expected_result):
         assert FacilityState.str_element(input_data) == expected_result
+
+    def test_parser(self, testdata):
+        facility = Day11PartA().parse(testdata)
+        assert len(facility.floors) == 4
+        assert facility.floors[0] == [
+            "elevator",
+            "hydrogen microchip",
+            "lithium microchip",
+        ]
+        assert str(facility) == "\n".join(
+            [
+                "F4",
+                "F3 LIGE",
+                "F2 HYGE",
+                "F1 ELEV HYMI LIMI",
+            ]
+        )
+
+    def test_parser_solutiondata(self, solutiondata):
+        facility = Day11PartA().parse(solutiondata)
+        assert len(facility.floors) == 4
+        assert facility.floors[0] == [
+            "elevator",
+            "polonium generator",
+            "thulium generator",
+            "thulium microchip",
+            "promethium generator",
+            "ruthenium generator",
+            "ruthenium microchip",
+            "cobalt generator",
+            "cobalt microchip",
+        ]
+        assert facility.floors[1] == ["polonium microchip", "promethium microchip"]
+        assert str(facility) == "\n".join(
+            [
+                "F4",
+                "F3",
+                "F2 POMI PRMI",
+                "F1 ELEV POGE THGE THMI PRGE RUGE RUMI COGE COMI",
+            ]
+        )
 
     def test_day11a_solve(self, testdata):
         solution = Day11PartA()

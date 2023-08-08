@@ -3,16 +3,8 @@ import pathlib
 import pytest
 
 
-@pytest.fixture
-def testdata(request) -> str:
-    """Load data from a testfile.
-    If `filename` is given, this file is loaded, otherwise the default `daynn_test.txt`
-    file is used.
-    """
-
-    # Parse the class name, eg
-    day = int("".join(x for x in request.keywords.parent.name if x.isdigit()))
-
+def read_file(day: int, filename: str) -> str:
+    """Load data from a file in data directory."""
     test_path = (
         pathlib.Path(__file__).parent.parent.parent
         / "src"
@@ -20,8 +12,28 @@ def testdata(request) -> str:
         / "solutions"
         / "data"
         / f"day_{day:02}"
-        / f"day{day:02}_test.txt"
+        / filename
     )
     with open(test_path) as f:
         test_data = f.read()
     return test_data
+
+
+def parse_classname(request) -> int:
+    # Parse the class name
+    day = int("".join(x for x in request.keywords.parent.name if x.isdigit()))
+    return day
+
+
+@pytest.fixture
+def testdata(request) -> str:
+    """Load data from a testfile."""
+    day = parse_classname(request)
+    return read_file(day, f"day{day:02}_test.txt")
+
+
+@pytest.fixture
+def solutiondata(request) -> str:
+    """Load data from a solution file."""
+    day = parse_classname(request)
+    return read_file(day, f"day{day:02}.txt")

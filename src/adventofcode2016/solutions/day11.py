@@ -30,23 +30,51 @@ class FacilityState:
     @property
     def is_legal(self) -> bool:
         """Is this state legal?"""
-        return True
+        return False
 
     def __str__(self) -> str:
         ret = []
-        for idx, floor in enumerate(self.floors):
-            ret.append(f"F{idx} ")
+        for idx, floor in enumerate(reversed(self.floors)):
+            elements = " ".join(self.str_element(element) for element in floor)
+            ret.append(f"F{len(self.floors) - idx} {elements}".strip())
+        return "\n".join(ret)
 
     @staticmethod
-    def str_element(element:str) -> str:
+    def str_element(element: str) -> str:
         """Create a short-form for an element"""
         if element == "elevator":
-            return "E "
+            return "ELEV"
         parts = element.split()
-        return f"{parts[0][0].upper()}{parts[-1][0].upper()}"
+        return f"{parts[0][:2].upper()}{parts[-1][:2].upper()}"
+
 
 class Day11:
-    pass
+    def parse(self, input_data: str) -> FacilityState:
+        floors = []
+
+        for line in input_data.splitlines():
+            floor = []
+
+            parts = line.split()
+            name = None
+            for part in parts[5:]:
+                if part in ("and", ",", "a", "relevant."):
+                    continue
+
+                if name is None:
+                    name = part.rstrip(",.").replace("-compatible", "").strip()
+                else:
+                    # We name and type:
+                    floor.append(f"{name} {part.rstrip(',.').strip()}")
+                    name = None
+
+            floors.append(floor)
+
+        # When you enter the containment area, you and the elevator will start on the
+        # first floor.
+        floors[0].insert(0, "elevator")
+
+        return FacilityState(floors=floors)
 
 
 class Day11PartA(Day11, FileReaderSolution):
