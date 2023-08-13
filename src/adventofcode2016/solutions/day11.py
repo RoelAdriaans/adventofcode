@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import copy
+import difflib
 import itertools
 import logging
+from collections.abc import Callable
 
-from adventofcodeutils.generic_search import BFS
+from adventofcodeutils.generic_search import BFS, DFS, Astar
 
 from adventofcode2016.utils.abstract import FileReaderSolution
 
@@ -27,15 +29,38 @@ class FacilityState:
             raise ValueError("Elevator not found!")
 
     def __eq__(self, other: FacilityState) -> bool:
-        return self.floors == other.floors and self.all_objects == other.all_objects
+        return hash(self) == hash(other)
+        # return self.floors == other.floors and self.all_objects == other.all_objects
 
     def __hash__(self):
         # Convert the floors to tuples to make it hashable
-        return hash(tuple(tuple(x) for x in self.floors))
+        lst = []
+        for floor in self.floors:
+            lst.append(tuple(item.split()[0] for item in sorted(floor)))
+        return hash(tuple(lst))
 
     def goal_test(self) -> bool:
         """Validate that we are in the end-state, and that this is a legal setting."""
         return self.is_legal and set(self.floors[3]) == set(self.all_objects)
+
+    @staticmethod
+    def _test_is_legal(floor: list[str]) -> bool:
+        generators = {item.split()[0] for item in floor if item.endswith("generator")}
+        chips = {item.split()[0] for item in floor if item.endswith("chip")}
+
+        if not generators:
+            # No generators, nothing to check
+            return True
+        for chip in chips.copy():
+            if chip in generators:
+                # We have a chip-generator combo:
+                chips.remove(chip)
+
+        # Currently, chips only contains chips without a generator.
+        # if we have a chip without generator, and we do have generators, we are in error
+        if chips and generators:
+            return False
+        return True
 
     @property
     def is_legal(self) -> bool:
@@ -48,26 +73,7 @@ class FacilityState:
         connected to their corresponding RTG when they're in the same room, and away
         from other RTGs otherwise.
         """
-        for floor in self.floors:
-            generators = {
-                item.split()[0] for item in floor if item.endswith("generator")
-            }
-            chips = {item.split()[0] for item in floor if item.endswith("chip")}
-
-            if not generators:
-                # No generators, nothing to check
-                continue
-            for chip in chips:
-                if chip not in generators:
-                    return False
-                generators.remove(chip)
-            # If we have any unconnected generators: We are in danger
-            # (But, only if we have chips on this floor!, otherwise there is nothing
-            # to fry
-            if chips and generators:
-                return False
-
-        return True
+        return all(self._test_is_legal(floor) for floor in self.floors)
 
     @property
     def elevator(self) -> int:
@@ -83,12 +89,19 @@ class FacilityState:
         # Move everything except the elevator, if it exists
         items.discard("elevator")
 
-        return list(
+        combinations = list(
             itertools.chain(
                 itertools.combinations(items, 1),
                 itertools.combinations(items, 2),
             )
         )
+        # Validate the set in the elevator
+        valid = [
+            combination
+            for combination in combinations
+            if self._test_is_legal(combination)
+        ]
+        return valid
 
     def successors(self) -> list[FacilityState]:
         """The list of successors from this state.
@@ -125,29 +138,12 @@ class FacilityState:
                 if ns.is_legal:
                     sucs.append(ns)
 
-            # Also add a stage where we only move the elevator
-            ns = copy.deepcopy(self)
-            ns.floors[current_floor].remove("elevator")
-            ns.floors[destination].append("elevator")
-            sucs.append(ns)
-
         return sucs
-
-    def heuristic(self) -> float:
-        """Determine the order"""
-        res = (
-            len(self.floors[3]) * 1000
-            + len(self.floors[2]) * 100
-            + len(self.floors[1]) * 10
-            + len(self.floors[0]) * 1
-        )
-        logging.debug("Heuristig %s", res)
-        return res
 
     def __str__(self) -> str:
         ret = []
         for idx, floor in enumerate(reversed(self.floors)):
-            elements = " ".join(self.str_element(element) for element in floor)
+            elements = ", ".join(self.str_element(element) for element in floor)
             ret.append(f"F{len(self.floors) - idx} {elements}".strip())
         return "\n".join(ret)
 
@@ -157,7 +153,21 @@ class FacilityState:
         if element == "elevator":
             return "ELEV"
         parts = element.split()
-        return f"{parts[0][:2].upper()}{parts[-1][:2].upper()}"
+        return f"{parts[0]}-{parts[-1]}"
+        # return f"{parts[0][:2].upper()}{parts[-1][:2].lower()}"
+
+    def diff(self, prev: FacilityState) -> str:
+        res = []
+        for idx, floor in enumerate(self.floors):
+            res.append(f"F{len(self.floors) - idx}")
+            cur = set(floor)
+            oht = set(prev.floors[idx])
+            if add := cur.difference(oht):
+                res.append(f"+++ {', '.join(self.str_element(itm) for itm in add)}")
+            if sub := oht.difference(cur):
+                res.append(f"--- {', '.join(self.str_element(itm) for itm in sub)}")
+
+        return "\n".join(res)
 
 
 class Day11:
@@ -196,9 +206,8 @@ class Day11PartA(Day11, FileReaderSolution):
             initial=start_state,
             goal_test=FacilityState.goal_test,
             successors=FacilityState.successors,
-            # heuristic=FacilityState.heuristic,
         )
-        return len(path.node_to_path(path)) + 1
+        return len(path.node_to_path(path)) - 1
 
 
 class Day11PartB(Day11, FileReaderSolution):

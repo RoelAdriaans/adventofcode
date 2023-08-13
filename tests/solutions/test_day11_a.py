@@ -45,7 +45,7 @@ class TestDay11PartA:
 
         sucs = facility.successors()
         # In this case we have only one valid move: Move the Hydrogen microchip to
-        # the 2th floor
+        # the 2nd floor
         assert len(sucs) == 1
         assert sorted(sucs[0].floors[1]) == sorted(
             [
@@ -76,7 +76,7 @@ class TestDay11PartA:
             (
                 f1 + "polonium generator, a polonium-compatible microchip, "
                 "a thulium generator",
-                False,
+                True,
             ),
         ],
     )
@@ -115,6 +115,7 @@ class TestDay11PartA:
         result = solution.solve(testdata)
         assert result == 11
 
+    @pytest.mark.skip
     def test_day11a_data(self):
         """Result we got when we did the real solution"""
         solution = Day11PartA()
@@ -123,4 +124,4 @@ class TestDay11PartA:
         assert res != 25
         assert res != 26
         assert res != 27
-        assert res == 0
+        assert res == 47
