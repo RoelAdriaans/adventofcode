@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import itertools
+import logging
 
 from adventofcodeutils.generic_search import BFS
 
@@ -25,9 +26,16 @@ class FacilityState:
         if "elevator" not in self.all_objects:
             raise ValueError("Elevator not found!")
 
+    def __eq__(self, other: FacilityState) -> bool:
+        return self.floors == other.floors and self.all_objects == other.all_objects
+
+    def __hash__(self):
+        # Convert the floors to tuples to make it hashable
+        return hash(tuple(tuple(x) for x in self.floors))
+
     def goal_test(self) -> bool:
         """Validate that we are in the end-state, and that this is a legal setting."""
-        return self.is_legal and set(self.floors[4]) == set(self.all_objects)
+        return self.is_legal and set(self.floors[3]) == set(self.all_objects)
 
     @property
     def is_legal(self) -> bool:
@@ -48,7 +56,7 @@ class FacilityState:
 
             if not generators:
                 # No generators, nothing to check
-                break
+                continue
             for chip in chips:
                 if chip not in generators:
                     return False
@@ -99,7 +107,7 @@ class FacilityState:
         destination_floors = []
         if current_floor > 0:
             destination_floors.append(current_floor - 1)
-        if current_floor <= len(self.floors):
+        if current_floor < len(self.floors) - 1:
             destination_floors.append(current_floor + 1)
 
         for destination in destination_floors:
@@ -114,9 +122,27 @@ class FacilityState:
                     ns.floors[destination].append(item)
                 ns.floors[current_floor].remove("elevator")
                 ns.floors[destination].append("elevator")
-                sucs.append(ns)
+                if ns.is_legal:
+                    sucs.append(ns)
 
-        return [x for x in sucs if x.is_legal]
+            # Also add a stage where we only move the elevator
+            ns = copy.deepcopy(self)
+            ns.floors[current_floor].remove("elevator")
+            ns.floors[destination].append("elevator")
+            sucs.append(ns)
+
+        return sucs
+
+    def heuristic(self) -> float:
+        """Determine the order"""
+        res = (
+            len(self.floors[3]) * 1000
+            + len(self.floors[2]) * 100
+            + len(self.floors[1]) * 10
+            + len(self.floors[0]) * 1
+        )
+        logging.debug("Heuristig %s", res)
+        return res
 
     def __str__(self) -> str:
         ret = []
@@ -166,8 +192,13 @@ class Day11:
 class Day11PartA(Day11, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         start_state = self.parse(input_data)
-
-        return -1
+        path = BFS().search(
+            initial=start_state,
+            goal_test=FacilityState.goal_test,
+            successors=FacilityState.successors,
+            # heuristic=FacilityState.heuristic,
+        )
+        return len(path.node_to_path(path)) + 1
 
 
 class Day11PartB(Day11, FileReaderSolution):

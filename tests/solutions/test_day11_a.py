@@ -1,5 +1,3 @@
-import textwrap
-
 import pytest
 
 from adventofcode2016.solutions.day11 import Day11PartA, FacilityState
@@ -46,7 +44,22 @@ class TestDay11PartA:
         )
 
         sucs = facility.successors()
-        assert len(sucs) >= 1
+        # In this case we have only one valid move: Move the Hydrogen microchip to
+        # the 2th floor
+        assert len(sucs) == 1
+        assert sorted(sucs[0].floors[1]) == sorted(
+            [
+                "elevator",
+                "hydrogen microchip",
+                "hydrogen generator",
+            ]
+        )
+
+    def test_eq_facility(self, testdata):
+        facility1 = Day11PartA().parse(testdata)
+        facility2 = Day11PartA().parse(testdata)
+        assert facility1 == facility2
+        assert hash(facility1) == hash(facility2)
 
     def test_facility_without_elevator(self):
         with pytest.raises(ValueError, match="Elevator not found"):
@@ -102,9 +115,12 @@ class TestDay11PartA:
         result = solution.solve(testdata)
         assert result == 11
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     def test_day11a_data(self):
         """Result we got when we did the real solution"""
         solution = Day11PartA()
         res = solution("day_11/day11.txt")
+        assert res < 113
+        assert res != 25
+        assert res != 26
+        assert res != 27
         assert res == 0
