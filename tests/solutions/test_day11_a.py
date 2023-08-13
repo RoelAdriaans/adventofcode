@@ -19,6 +19,7 @@ class TestDay11PartA:
 
     def test_parser(self, testdata):
         facility = Day11PartA().parse(testdata)
+        assert facility.is_legal
         assert len(facility.floors) == 4
         assert facility.floors[0] == [
             "elevator",
@@ -34,8 +35,23 @@ class TestDay11PartA:
             ]
         )
 
+    f1 = "The first floor contains a "
+
+    @pytest.mark.parametrize(
+        ("input_data", "expected_result"),
+        [
+            (f1 + "polonium generator, a thulium generator", True),
+            (f1 + "polonium generator, a hydrogen-compatible microchip", False),
+            (f1 + "polonium generator, a polonium-compatible microchip", True),
+        ],
+    )
+    def test_parser_isvalid(self, input_data, expected_result):
+        facility = Day11PartA().parse(input_data)
+        assert facility.is_legal == expected_result
+
     def test_parser_solutiondata(self, solutiondata):
         facility = Day11PartA().parse(solutiondata)
+        assert facility.is_legal
         assert len(facility.floors) == 4
         assert facility.floors[0] == [
             "elevator",

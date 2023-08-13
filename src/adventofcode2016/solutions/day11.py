@@ -30,7 +30,20 @@ class FacilityState:
     @property
     def is_legal(self) -> bool:
         """Is this state legal?"""
-        return False
+        for floor in self.floors:
+            generators = {
+                item.split()[0] for item in floor if item.endswith("generator")
+            }
+            chips = {item.split()[0] for item in floor if item.endswith("chip")}
+
+            for chip in chips:
+                if not generators:
+                    # No generators, nothing to check
+                    break
+                if chip not in generators:
+                    return False
+
+        return True
 
     def __str__(self) -> str:
         ret = []
@@ -79,7 +92,9 @@ class Day11:
 
 class Day11PartA(Day11, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        start_state = self.parse(input_data)
+
+        return -1
 
 
 class Day11PartB(Day11, FileReaderSolution):
