@@ -1,9 +1,9 @@
 from __future__ import annotations
 
+import copy
 import itertools
 
 from adventofcodeutils.generic_search import BFS
-from adventofcodeutils.node import Node
 
 from adventofcode2016.utils.abstract import FileReaderSolution
 
@@ -18,10 +18,12 @@ class FacilityState:
         """Create a new state of the Facility.
 
         Args:
-            floors: All th objects on floors
+            floors: All the objects on floors
         """
         self.floors = floors
         self.all_objects = list(itertools.chain(*floors))
+        if "elevator" not in self.all_objects:
+            raise ValueError("Elevator not found!")
 
     def goal_test(self) -> bool:
         """Validate that we are in the end-state, and that this is a legal setting."""
@@ -29,21 +31,92 @@ class FacilityState:
 
     @property
     def is_legal(self) -> bool:
-        """Is this state legal?"""
+        """Is this state legal?
+
+        If a chip is ever left in the same area as another RTG, and it's not connected
+        to its own RTG, the chip will be fried.
+
+        Therefore, it is assumed that you will follow procedure and keep chips
+        connected to their corresponding RTG when they're in the same room, and away
+        from other RTGs otherwise.
+        """
         for floor in self.floors:
             generators = {
                 item.split()[0] for item in floor if item.endswith("generator")
             }
             chips = {item.split()[0] for item in floor if item.endswith("chip")}
 
+            if not generators:
+                # No generators, nothing to check
+                break
             for chip in chips:
-                if not generators:
-                    # No generators, nothing to check
-                    break
                 if chip not in generators:
                     return False
+                generators.remove(chip)
+            # If we have any unconnected generators: We are in danger
+            # (But, only if we have chips on this floor!, otherwise there is nothing
+            # to fry
+            if chips and generators:
+                return False
 
         return True
+
+    @property
+    def elevator(self) -> int:
+        for idx, floor in enumerate(self.floors):
+            if "elevator" in floor:
+                return idx
+        raise IndexError
+
+    def list_of_items_from_floor(self, floor: int) -> list[tuple[str]]:
+        """Take items from floor `floor`. Skip the elevator. Returns 1 or 2 items"""
+
+        items = set(self.floors[floor])
+        # Move everything except the elevator, if it exists
+        items.discard("elevator")
+
+        return list(
+            itertools.chain(
+                itertools.combinations(items, 1),
+                itertools.combinations(items, 2),
+            )
+        )
+
+    def successors(self) -> list[FacilityState]:
+        """The list of successors from this state.
+
+        We can:
+        - move 1 or 2 things
+        - not move a generator and a microchip at the same time, if they are different
+        - The elevator stops on every floor
+        - If the elevator stops - the state must be valid
+        """
+        sucs: list[FacilityState] = []
+
+        # From the current floor, where the elevator is, we can move 1 or 2 things
+        current_floor = self.elevator
+
+        destination_floors = []
+        if current_floor > 0:
+            destination_floors.append(current_floor - 1)
+        if current_floor <= len(self.floors):
+            destination_floors.append(current_floor + 1)
+
+        for destination in destination_floors:
+            items_to_move = self.list_of_items_from_floor(
+                current_floor,
+            )
+            # New state: Move items from `items_to_move` to floor `destination`
+            for items in items_to_move:
+                ns = copy.deepcopy(self)
+                for item in items:
+                    ns.floors[current_floor].remove(item)
+                    ns.floors[destination].append(item)
+                ns.floors[current_floor].remove("elevator")
+                ns.floors[destination].append("elevator")
+                sucs.append(ns)
+
+        return [x for x in sucs if x.is_legal]
 
     def __str__(self) -> str:
         ret = []

@@ -21,6 +21,7 @@ class TestDay11PartA:
         facility = Day11PartA().parse(testdata)
         assert facility.is_legal
         assert len(facility.floors) == 4
+        assert facility.elevator == 0
         assert facility.floors[0] == [
             "elevator",
             "hydrogen microchip",
@@ -34,6 +35,22 @@ class TestDay11PartA:
                 "F1 ELEV HYMI LIMI",
             ]
         )
+        assert facility.list_of_items_from_floor(2) == [("lithium generator",)]
+        assert (
+            facility.list_of_items_from_floor(0).sort()
+            == [
+                ("hydrogen microchip",),
+                ("lithium microchip",),
+                ("hydrogen microchip", "lithium microchip"),
+            ].sort()
+        )
+
+        sucs = facility.successors()
+        assert len(sucs) >= 1
+
+    def test_facility_without_elevator(self):
+        with pytest.raises(ValueError, match="Elevator not found"):
+            FacilityState(floors=[])
 
     f1 = "The first floor contains a "
 
@@ -43,6 +60,11 @@ class TestDay11PartA:
             (f1 + "polonium generator, a thulium generator", True),
             (f1 + "polonium generator, a hydrogen-compatible microchip", False),
             (f1 + "polonium generator, a polonium-compatible microchip", True),
+            (
+                f1 + "polonium generator, a polonium-compatible microchip, "
+                "a thulium generator",
+                False,
+            ),
         ],
     )
     def test_parser_isvalid(self, input_data, expected_result):
@@ -52,6 +74,7 @@ class TestDay11PartA:
     def test_parser_solutiondata(self, solutiondata):
         facility = Day11PartA().parse(solutiondata)
         assert facility.is_legal
+        assert facility.elevator == 0
         assert len(facility.floors) == 4
         assert facility.floors[0] == [
             "elevator",
