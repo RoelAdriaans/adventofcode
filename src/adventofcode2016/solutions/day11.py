@@ -34,6 +34,7 @@ class FacilityState:
 
     def __hash__(self):
         # Convert the floors to tuples to make it hashable
+        return hash(tuple(tuple(x) for x in self.floors))
         lst = []
         for floor in self.floors:
             lst.append(tuple(item.split()[0] for item in sorted(floor)))
@@ -41,7 +42,7 @@ class FacilityState:
 
     def goal_test(self) -> bool:
         """Validate that we are in the end-state, and that this is a legal setting."""
-        return self.is_legal and set(self.floors[3]) == set(self.all_objects)
+        return self.is_legal and len(self.floors[3]) == len(self.all_objects)
 
     @staticmethod
     def _test_is_legal(floor: list[str]) -> bool:
@@ -156,6 +157,9 @@ class FacilityState:
         return f"{parts[0]}-{parts[-1]}"
         # return f"{parts[0][:2].upper()}{parts[-1][:2].lower()}"
 
+    def heuricstic(self) -> int:
+        return len(self.floors[3]) - len(self.all_objects)
+
     def diff(self, prev: FacilityState) -> str:
         res = []
         for idx, floor in enumerate(self.floors):
@@ -212,4 +216,17 @@ class Day11PartA(Day11, FileReaderSolution):
 
 class Day11PartB(Day11, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        start_state = self.parse(input_data)
+
+        start_state.floors[0].append("elerium generator")
+        start_state.floors[0].append("elerium microchip")
+        start_state.floors[0].append("dilithium generator")
+        start_state.floors[0].append("dilithium microchip")
+
+        path = Astar().astar(
+            initial=start_state,
+            goal_test=FacilityState.goal_test,
+            successors=FacilityState.successors,
+            heuristic=FacilityState.heuricstic,
+        )
+        return len(path.node_to_path(path)) - 1
