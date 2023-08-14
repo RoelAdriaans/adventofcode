@@ -127,7 +127,7 @@ class FacilityState:
             items_to_move = self.list_of_items_from_floor(current_floor)
             # New state: Move items from `items_to_move` to floor `destination`
             for items in items_to_move:
-                ns = copy.deepcopy(self)
+                ns = self.copy()
                 for item in items:
                     ns.floors[current_floor].remove(item)
                     ns.floors[destination].append(item)
@@ -169,6 +169,10 @@ class FacilityState:
                 res.append(f"--- {', '.join(self.str_element(itm) for itm in sub)}")
 
         return "\n".join(res)
+
+    def copy(self) -> FacilityState:
+        new_floors = [floor[:] for floor in self.floors]
+        return FacilityState(new_floors)
 
 
 class Day11:
