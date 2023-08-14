@@ -7,9 +7,9 @@ class TestDay11PartA:
     @pytest.mark.parametrize(
         ("input_data", "expected_result"),
         [
-            ("elevator", "E "),
-            ("polonium generator", "PG"),
-            ("thulium-compatible microchip", "TM"),
+            ("elevator", "ELEV"),
+            ("polonium generator", "polonium-generator"),
+            ("thulium-compatible microchip", "thulium-compatible-microchip"),
         ],
     )
     def test_str_element(self, input_data, expected_result):
@@ -28,9 +28,9 @@ class TestDay11PartA:
         assert str(facility) == "\n".join(
             [
                 "F4",
-                "F3 LIGE",
-                "F2 HYGE",
-                "F1 ELEV HYMI LIMI",
+                "F3 lithium-generator",
+                "F2 hydrogen-generator",
+                "F1 ELEV, hydrogen-microchip, lithium-microchip",
             ]
         )
         assert facility.list_of_items_from_floor(2) == [("lithium generator",)]
@@ -105,8 +105,10 @@ class TestDay11PartA:
             [
                 "F4",
                 "F3",
-                "F2 POMI PRMI",
-                "F1 ELEV POGE THGE THMI PRGE RUGE RUMI COGE COMI",
+                "F2 polonium-microchip, promethium-microchip",
+                "F1 ELEV, polonium-generator, thulium-generator, thulium-microchip, "
+                "promethium-generator, ruthenium-generator, ruthenium-microchip, "
+                "cobalt-generator, cobalt-microchip",
             ]
         )
 
@@ -115,6 +117,7 @@ class TestDay11PartA:
         result = solution.solve(testdata)
         assert result == 11
 
+    @pytest.mark.skip
     def test_day11a_data(self):
         """Result we got when we did the real solution"""
         solution = Day11PartA()

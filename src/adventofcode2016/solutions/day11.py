@@ -1,12 +1,8 @@
 from __future__ import annotations
 
-import copy
-import difflib
 import itertools
-import logging
-from collections.abc import Callable
 
-from adventofcodeutils.generic_search import BFS, DFS, Astar
+from adventofcodeutils.generic_search import BFS, Astar
 
 from adventofcode2016.utils.abstract import FileReaderSolution
 
