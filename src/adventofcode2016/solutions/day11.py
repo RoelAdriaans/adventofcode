@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import itertools
 
-from adventofcodeutils.generic_search import BFS, Astar
+from adventofcodeutils.generic_search import BFS
 
 from adventofcode2016.utils.abstract import FileReaderSolution
 
@@ -11,7 +11,6 @@ class FacilityState:
     """Current state of the facility"""
 
     floors: list[list[str]]
-    all_objects: list[str]
 
     def __init__(self, floors: list[list[str]]) -> None:
         """Create a new state of the Facility.
@@ -20,13 +19,9 @@ class FacilityState:
             floors: All the objects on floors
         """
         self.floors = floors
-        self.all_objects = list(itertools.chain(*floors))
-        if "elevator" not in self.all_objects:
-            raise ValueError("Elevator not found!")
 
     def __eq__(self, other: FacilityState) -> bool:
         return hash(self) == hash(other)
-        # return self.floors == other.floors and self.all_objects == other.all_objects
 
     def __hash__(self):
         # Convert the floors to tuples to make it hashable
@@ -38,7 +33,7 @@ class FacilityState:
 
     def goal_test(self) -> bool:
         """Validate that we are in the end-state, and that this is a legal setting."""
-        return self.is_legal and len(self.floors[3]) == len(self.all_objects)
+        return self.is_legal and all(len(floor) == 0 for floor in self.floors[:-1])
 
     @staticmethod
     def _test_is_legal(floor: list[str]) -> bool:
@@ -150,9 +145,6 @@ class FacilityState:
         return f"{parts[0]}-{parts[-1]}"
         # return f"{parts[0][:2].upper()}{parts[-1][:2].lower()}"
 
-    def heuricstic(self) -> int:
-        return len(self.floors[3]) - len(self.all_objects)
-
     def diff(self, prev: FacilityState) -> str:
         res = []
         for idx, floor in enumerate(self.floors):
@@ -220,10 +212,9 @@ class Day11PartB(Day11, FileReaderSolution):
         start_state.floors[0].append("dilithium generator")
         start_state.floors[0].append("dilithium microchip")
 
-        path = Astar().astar(
+        path = BFS().search(
             initial=start_state,
             goal_test=FacilityState.goal_test,
             successors=FacilityState.successors,
-            heuristic=FacilityState.heuricstic,
         )
         return len(path.node_to_path(path)) - 1
