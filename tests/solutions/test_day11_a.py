@@ -115,7 +115,6 @@ class TestDay11PartA:
         result = solution.solve(testdata)
         assert result == 11
 
-    @pytest.mark.skip
     def test_day11a_data(self):
         """Result we got when we did the real solution"""
         solution = Day11PartA()

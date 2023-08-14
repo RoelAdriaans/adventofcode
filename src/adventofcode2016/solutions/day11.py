@@ -34,7 +34,7 @@ class FacilityState:
 
     def __hash__(self):
         # Convert the floors to tuples to make it hashable
-        return hash(tuple(tuple(x) for x in self.floors))
+        # return hash(tuple(tuple(x) for x in self.floors))
         lst = []
         for floor in self.floors:
             lst.append(tuple(item.split()[0] for item in sorted(floor)))
@@ -52,15 +52,14 @@ class FacilityState:
         if not generators:
             # No generators, nothing to check
             return True
-        for chip in chips.copy():
+
+        for chip in chips:
             if chip in generators:
                 # We have a chip-generator combo:
-                chips.remove(chip)
+                pass
+            else:
+                return False
 
-        # Currently, chips only contains chips without a generator.
-        # if we have a chip without generator, and we do have generators, we are in error
-        if chips and generators:
-            return False
         return True
 
     @property
@@ -125,9 +124,7 @@ class FacilityState:
             destination_floors.append(current_floor + 1)
 
         for destination in destination_floors:
-            items_to_move = self.list_of_items_from_floor(
-                current_floor,
-            )
+            items_to_move = self.list_of_items_from_floor(current_floor)
             # New state: Move items from `items_to_move` to floor `destination`
             for items in items_to_move:
                 ns = copy.deepcopy(self)
