@@ -6,7 +6,7 @@ from adventofcode2016.utils.abstract import FileReaderSolution
 
 
 class Instruction(ABC):
-    instructions = {}
+    instructions: dict[str, Instruction] = {}
 
     # A register(or 2), that this instruction applies to
     register_1: str | None
@@ -16,6 +16,7 @@ class Instruction(ABC):
 
     def __init_subclass__(cls, mnemonic=None, **kwargs):
         super().__init_subclass__(**kwargs)
+        assert isinstance(cls, Instruction)
         cls.instructions[mnemonic] = cls
 
     def __init__(self, register_1=None, register_2=None, value=None):
@@ -194,4 +195,9 @@ class Day12PartA(Day12, FileReaderSolution):
 
 class Day12PartB(Day12, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        instructions = Instruction.parse(input_data)
+        monorail = Computer(instructions=instructions)
+        monorail.set_register("c", 1)
+        monorail.run()
+
+        return monorail.get_register("a")
