@@ -75,9 +75,9 @@ class Copy(Instruction, mnemonic="cpy"):
             value = self.value
         else:
             # Copy value from register 2 into register 1
-            value = instance.get_register(self.register_2)
+            value = instance.registers[self.register_2]
 
-        instance.set_register(self.register_1, value)
+        instance.registers[self.register_1] = value
 
 
 class Increment(Instruction, mnemonic="inc"):
@@ -89,9 +89,7 @@ class Increment(Instruction, mnemonic="inc"):
         return cls(register_1=register_1)
 
     def execute(self, instance: Computer):
-        instance.set_register(
-            self.register_1, instance.get_register(self.register_1) + 1
-        )
+        instance.registers[self.register_1] += 1
 
 
 class Decrement(Instruction, mnemonic="dec"):
@@ -103,9 +101,7 @@ class Decrement(Instruction, mnemonic="dec"):
         return cls(register_1=register_1)
 
     def execute(self, instance: Computer):
-        instance.set_register(
-            self.register_1, instance.get_register(self.register_1) - 1
-        )
+        instance.registers[self.register_1] -= 1
 
 
 class JumpNotZero(Instruction, mnemonic="jnz"):
@@ -129,7 +125,7 @@ class JumpNotZero(Instruction, mnemonic="jnz"):
         if self.register_1 is None:
             value = self.register_2
         else:
-            value = instance.get_register(self.register_1)
+            value = instance.registers[self.register_1]
         if value != 0:
             # Since the computer always increments the program counter,
             # add the value and subtract one
@@ -139,18 +135,16 @@ class JumpNotZero(Instruction, mnemonic="jnz"):
 class Computer:
     # Program Counter
     pc: int
-    # Four registers
-    a: int
-    b: int
-    c: int
-    d: int
+    registers: dict[str, int]
     instructions: list[Instruction]
 
     def __init__(self, instructions):
-        self.a = 0
-        self.b = 0
-        self.c = 0
-        self.d = 0
+        self.registers = {
+            "a": 0,
+            "b": 0,
+            "c": 0,
+            "d": 0,
+        }
         self.pc = 0
         self.instructions = instructions
 
@@ -160,18 +154,6 @@ class Computer:
             f"a: {self.a}, b: {self.b}, "
             f"c: {self.c}, d: {self.d}"
         )
-
-    def get_register(self, name: str) -> int:
-        if name not in ("a", "b", "c", "d"):
-            raise KeyError("Invalid register %s", name)
-
-        return getattr(self, name)
-
-    def set_register(self, name: str, value: int):
-        if name not in ("a", "b", "c", "d"):
-            raise KeyError("Invalid register %s", name)
-
-        setattr(self, name, value)
 
     def run(self):
         steps = 0
@@ -193,14 +175,14 @@ class Day12PartA(Day12, FileReaderSolution):
         monorail = Computer(instructions=instructions)
         monorail.run()
 
-        return monorail.get_register("a")
+        return monorail.registers["a"]
 
 
 class Day12PartB(Day12, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         instructions = Instruction.parse(input_data)
         monorail = Computer(instructions=instructions)
-        monorail.set_register("c", 1)
+        monorail.registers["c"] = 1
         monorail.run()
 
-        return monorail.get_register("a")
+        return monorail.registers["a"]
