@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from abc import ABC, abstractmethod
 
 from adventofcode2016.utils.abstract import FileReaderSolution
@@ -16,7 +17,6 @@ class Instruction(ABC):
 
     def __init_subclass__(cls, mnemonic=None, **kwargs):
         super().__init_subclass__(**kwargs)
-        assert isinstance(cls, Instruction)
         cls.instructions[mnemonic] = cls
 
     def __init__(self, register_1=None, register_2=None, value=None):
@@ -174,10 +174,13 @@ class Computer:
         setattr(self, name, value)
 
     def run(self):
+        steps = 0
         while self.pc < len(self.instructions):
             instr = self.instructions[self.pc]
             instr.execute(self)
             self.pc += 1
+            steps += 1
+        logging.debug(f"Done after {steps} executions")
 
 
 class Day12:
