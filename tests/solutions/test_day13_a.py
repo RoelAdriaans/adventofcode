@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcode2016.solutions.day13 import Day13PartA
+from adventofcode2016.solutions.day13 import Day13PartA, Maze, MazeLocation
 
 
 class TestDay13PartA:
@@ -31,18 +31,27 @@ class TestDay13PartA:
         ],
     )
     def test_is_pixel_wall(self, x, y, expected_result):
-        assert Day13PartA.is_pixel_wall(x, y, 10) == expected_result
+        location = MazeLocation(x, y)
+        assert Maze(favourite_number=10).is_pixel_wall(location) == expected_result
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
-    @pytest.mark.parametrize(("input_data", "expected_result"), [("", ""), ("", "")])
-    def test_day13a_solve(self, input_data, expected_result):
+    def test_successors(self):
+        m = Maze(favourite_number=10)
+        location = MazeLocation(1, 1)
+        sucs = m.successors(location)
+        assert len(sucs) == 2
+        assert sucs == [MazeLocation(x=1, y=2), MazeLocation(x=0, y=1)]
+
+    def test_day13a_solve(self):
         solution = Day13PartA()
-        result = solution.solve(input_data)
-        assert result == expected_result
+        result = solution.run_search(
+            favourite_number=10,
+            start=MazeLocation(1, 1),
+            goal=MazeLocation(7, 4),
+        )
+        assert result == 11
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     def test_day13a_data(self):
         """Result we got when we did the real solution"""
         solution = Day13PartA()
         res = solution("day_13/day13.txt")
-        assert res == 0
+        assert res == 96
