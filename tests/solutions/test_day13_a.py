@@ -39,7 +39,10 @@ class TestDay13PartA:
         location = MazeLocation(1, 1)
         sucs = m.successors(location)
         assert len(sucs) == 2
-        assert sucs == [MazeLocation(x=1, y=2), MazeLocation(x=0, y=1)]
+        assert sucs == [
+            MazeLocation(x=1, y=2, steps=1),
+            MazeLocation(x=0, y=1, steps=1),
+        ]
 
     def test_day13a_solve(self):
         solution = Day13PartA()
