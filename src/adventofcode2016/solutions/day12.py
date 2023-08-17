@@ -151,8 +151,8 @@ class Computer:
     def __repr__(self):
         return (
             f"{self.__class__.__name__} : pc: {self.pc}, "
-            f"a: {self.a}, b: {self.b}, "
-            f"c: {self.c}, d: {self.d}"
+            f"a: {self.registers['a']}, b: {self.registers['b']}, "
+            f"c: {self.registers['c']}, d: {self.registers['d']}"
         )
 
     def run(self):
