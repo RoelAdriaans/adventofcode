@@ -1,17 +1,12 @@
-import pytest
-
 from adventofcode2016.solutions.day14 import Day14PartB
 
 
 class TestDay14PartB:
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
-    @pytest.mark.parametrize(("input_data", "expected_result"), [("", ""), ("", "")])
-    def test_day14b_solve(self, input_data, expected_result):
+    def test_day14b_solve(self):
         solution = Day14PartB()
-        result = solution.solve(input_data)
-        assert result == expected_result
+        result = solution.solve("abc")
+        assert result == 22551
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     def test_day14b_data(self):
         """Result we got when we did the real solution"""
         solution = Day14PartB()

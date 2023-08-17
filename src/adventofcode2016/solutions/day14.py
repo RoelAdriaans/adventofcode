@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import functools
 import hashlib
 import logging
 import re
@@ -11,6 +12,17 @@ three_char = re.compile(r"(\w)\1{2,}")
 
 
 class Day14:
+    stretched: bool
+
+    @functools.cache
+    def find_hash(self, input_string: str) -> str:
+        if self.stretched:
+            for n in range(2017):
+                input_string = hashlib.md5(input_string.encode()).hexdigest()
+        else:
+            input_string = hashlib.md5(input_string.encode()).hexdigest()
+        return input_string
+
     def get_five_match(self, salt: str, start_index: int, letter: str) -> int:
         """Validate the next 1.000 hashes after `start_index` to validate
         if it's a match"""
@@ -18,7 +30,7 @@ class Day14:
 
         for n in range(start_index, start_index + 1001):
             character = f"{salt}{n}"
-            pad_hash = hashlib.md5(character.encode()).hexdigest()
+            pad_hash = self.find_hash(character)
             if five_char.search(pad_hash):
                 # Match found!
                 return n
@@ -27,7 +39,7 @@ class Day14:
 
     def get_md5(self, salt: str, index: int) -> bool:
         character = f"{salt}{index}"
-        pad_hash = hashlib.md5(character.encode()).hexdigest()
+        pad_hash = self.find_hash(character)
 
         if match := three_char.search(pad_hash):
             # Find in the next 1.000 hashes
@@ -43,9 +55,8 @@ class Day14:
             except ValueError:
                 return False
 
-
-class Day14PartA(Day14, FileReaderSolution):
-    def solve(self, input_data: str) -> int:
+    def brute_force(self, input_data: str, stretched: bool = False) -> int:
+        self.stretched = stretched
         current_index = 0
         matches = 0
         while matches < 64:
@@ -59,6 +70,11 @@ class Day14PartA(Day14, FileReaderSolution):
         return current_index - 1
 
 
+class Day14PartA(Day14, FileReaderSolution):
+    def solve(self, input_data: str) -> int:
+        return self.brute_force(input_data, stretched=False)
+
+
 class Day14PartB(Day14, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        return self.brute_force(input_data, stretched=True)
