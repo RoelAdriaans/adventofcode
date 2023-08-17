@@ -11,4 +11,4 @@ class TestDay14PartB:
         """Result we got when we did the real solution"""
         solution = Day14PartB()
         res = solution("day_14/day14.txt")
-        assert res == 0
+        assert res == 20606
