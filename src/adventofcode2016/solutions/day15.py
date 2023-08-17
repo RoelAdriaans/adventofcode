@@ -48,4 +48,9 @@ class Day15PartA(Day15, FileReaderSolution):
 
 class Day15PartB(Day15, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        disks = self.parse(input_data)
+
+        disks.append(
+            Disc(number=len(disks) + 1, positions=11, time=0, start_position=0)
+        )
+        return self.align_zero(disks)
