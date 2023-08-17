@@ -25,7 +25,7 @@ class Maze:
 
     def __init__(
         self,
-        favourite_number: 10,
+        favourite_number: int = 10,
         start: MazeLocation = MazeLocation(1, 1),
         goal: MazeLocation = MazeLocation(31, 39),
         max_steps: int = 0,
