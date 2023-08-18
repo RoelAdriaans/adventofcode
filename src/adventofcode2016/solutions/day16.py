@@ -12,10 +12,8 @@ class Day16:
         # Call the data you have at this point "a".
         # Make a copy of "a"; call this copy "b".
         # Reverse the order of the characters in "b".
-        b = a[::-1]
-
         # In "b", replace all instances of 0 with 1 and all 1s with 0.
-        b = b.replace("1", "q").replace("0", "1").replace("q", "0")
+        b = a[::-1].translate(str.maketrans("01", "10"))
 
         # The resulting data is "a", then a single 0, then "b".
         return f"{a}0{b}"
