@@ -54,5 +54,5 @@ class Day16PartA(Day16, FileReaderSolution):
 
 
 class Day16PartB(Day16, FileReaderSolution):
-    def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+    def solve(self, input_data: str) -> str:
+        return self.fill_disk(start_value=input_data.strip(), length=35651584)
