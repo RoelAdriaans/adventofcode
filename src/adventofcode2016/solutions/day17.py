@@ -1,11 +1,12 @@
 from __future__ import annotations
 
+import abc
 import hashlib
 from collections.abc import Callable
 from functools import cache
 
 import attrs
-from adventofcodeutils.generic_search import Astar
+from adventofcodeutils.generic_search import DFS, Astar
 
 from adventofcode2016.utils.abstract import FileReaderSolution
 
@@ -76,6 +77,15 @@ class Maze:
 
 
 class Day17:
+    @abc.abstractmethod
+    def run_search(self, start_hash: str) -> str | int:
+        raise NotImplementedError
+
+    def solve(self, input_data: str) -> str | int:
+        return self.run_search(input_data.strip())
+
+
+class Day17PartA(Day17, FileReaderSolution):
     def run_search(self, start_hash: str) -> str:
         m = Maze(start_hash=start_hash)
         path = Astar.astar(
@@ -87,11 +97,13 @@ class Day17:
         return path.state.actual_path
 
 
-class Day17PartA(Day17, FileReaderSolution):
-    def solve(self, input_data: str) -> str:
-        return self.run_search(input_data.strip())
-
-
 class Day17PartB(Day17, FileReaderSolution):
-    def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+    def run_search(self, start_hash: str) -> int:
+        m = Maze(start_hash=start_hash)
+        paths = DFS().search(
+            initial=m.start,
+            goal_test=m.goal_test,
+            successors=m.successors,
+            explore_all=True,
+        )
+        return max(len(node.state.actual_path) for node in paths)
