@@ -2,7 +2,7 @@
 
 [[package]]
 name = "adventofcodeutils"
-version = "0.2.1"
+version = "0.2.2"
 description = "This repository contains some utils used by my advent of code projects. "
 optional = false
 python-versions = "^3.11"
@@ -16,7 +16,7 @@ attrs = "^23.1.0"
 type = "git"
 url = "https://github.com/RoelAdriaans/adventofcodeutils.git"
 reference = "HEAD"
-resolved_reference = "f1609d978c58b2fe094e03b385cdc8fe2dfaa28a"
+resolved_reference = "0a4b6b3060d281fa5b515348906736c328a70dfa"
 
 [[package]]
 name = "anytree"
