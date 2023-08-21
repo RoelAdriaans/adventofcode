@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import tqdm
+
 from adventofcode2016.utils.abstract import FileReaderSolution
 
 SAFE = "."
@@ -49,7 +51,7 @@ class Day18:
 
     def calculate(self, line: str, rows: int) -> int:
         safe_spaces = 0
-        for _ in range(rows):
+        for _ in tqdm.trange(rows):
             safe_spaces += line.count(SAFE)
             line = self.evolve(line)
         return safe_spaces
@@ -62,4 +64,4 @@ class Day18PartA(Day18, FileReaderSolution):
 
 class Day18PartB(Day18, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        return self.calculate(input_data.strip(), 400_000)
