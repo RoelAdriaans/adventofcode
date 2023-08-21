@@ -28,8 +28,14 @@ def parse_classname(request) -> int:
 @pytest.fixture
 def testdata(request) -> str:
     """Load data from a testfile."""
+    postfix = request.node.get_closest_marker("postfix")
     day = parse_classname(request)
-    return read_file(day, f"day{day:02}_test.txt")
+    if postfix is None:
+        filename = f"day{day:02}_test.txt"
+    else:
+        filename = f"day{day:02}_{postfix}.txt"
+
+    return read_file(day, filename)
 
 
 @pytest.fixture
