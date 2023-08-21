@@ -420,13 +420,13 @@ testing = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "diff-cover (>=7.5)", "p
 
 [[package]]
 name = "identify"
-version = "2.5.26"
+version = "2.5.27"
 description = "File identification library for Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "identify-2.5.26-py2.py3-none-any.whl", hash = "sha256:c22a8ead0d4ca11f1edd6c9418c3220669b3b7533ada0a0ffa6cc0ef85cf9b54"},
-    {file = "identify-2.5.26.tar.gz", hash = "sha256:7243800bce2f58404ed41b7c002e53d4d22bcf3ae1b7900c2d7aefd95394bf7f"},
+    {file = "identify-2.5.27-py2.py3-none-any.whl", hash = "sha256:fdb527b2dfe24602809b2201e033c2a113d7bdf716db3ca8e3243f735dcecaba"},
+    {file = "identify-2.5.27.tar.gz", hash = "sha256:287b75b04a0e22d727bc9a41f0d4f3c1bcada97490fa6eabb5b28f0e9097e733"},
 ]
 
 [package.extras]
@@ -996,13 +996,13 @@ files = [
 
 [[package]]
 name = "tox"
-version = "4.9.0"
+version = "4.10.0"
 description = "tox is a generic virtualenv management and test command line tool"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "tox-4.9.0-py3-none-any.whl", hash = "sha256:c80de60fe26f9a009b0a763888bf2099ccfbef50a0279a6b9f6de40eb4eb7457"},
-    {file = "tox-4.9.0.tar.gz", hash = "sha256:9b6d38fe422599d084afd89375b4803f4bc1f8f16573c77c8fd8ffcc6938f1ff"},
+    {file = "tox-4.10.0-py3-none-any.whl", hash = "sha256:e4a1b1438955a6da548d69a52350054350cf6a126658c20943261c48ed6d4c92"},
+    {file = "tox-4.10.0.tar.gz", hash = "sha256:e041b2165375be690aca0ec4d96360c6906451380520e4665bf274f66112be35"},
 ]
 
 [package.dependencies]
@@ -1080,4 +1080,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "14e2ecc17490b47afad01dc6711fb6a427cea115d718828180cb4582ba8bc064"
+content-hash = "c17330f0b4249684c0b3c523738ede68aedda522f028b9874bea2ad1173af692"
