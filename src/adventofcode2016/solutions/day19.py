@@ -6,6 +6,10 @@ from adventofcode2016.utils.abstract import FileReaderSolution
 
 
 class Day19:
+    pass
+
+
+class Day19PartA(Day19, FileReaderSolution):
     @staticmethod
     def presents(number_of_elves: int) -> int:
         # Add one since we're dealing with Elfs that are not zero index-based
@@ -16,13 +20,19 @@ class Day19:
             last_elf = circle.popleft()
         return last_elf
 
-
-class Day19PartA(Day19, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         number_of_elves = int(input_data.strip())
         return self.presents(number_of_elves)
 
 
 class Day19PartB(Day19, FileReaderSolution):
+    @staticmethod
+    def presents(number_of_elves: int) -> int:
+        i = 1
+        while i * 3 < number_of_elves:
+            i *= 3
+        return number_of_elves - i
+
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        number_of_elves = int(input_data.strip())
+        return self.presents(number_of_elves)
