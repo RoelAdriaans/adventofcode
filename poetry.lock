@@ -907,6 +907,17 @@ files = [
 ]
 
 [[package]]
+name = "regex-spm"
+version = "1.0.0"
+description = "Enable Structural Pattern Matching for Python regular expressions"
+optional = false
+python-versions = ">=3.10"
+files = [
+    {file = "regex_spm-1.0.0-py3-none-any.whl", hash = "sha256:7a67b73518f49ea361c92a69a447cfbd59e171516726c959ad4c9045613bf902"},
+    {file = "regex_spm-1.0.0.tar.gz", hash = "sha256:e075e5fc04a6f22ebfa2419682d36c1662bba59cb8a1caf2339e74326f98bcef"},
+]
+
+[[package]]
 name = "requests"
 version = "2.31.0"
 description = "Python HTTP for Humans."
@@ -1080,4 +1091,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "c17330f0b4249684c0b3c523738ede68aedda522f028b9874bea2ad1173af692"
+content-hash = "55b2e30a40c78c6fbb5ce945d91ad5258133073ae88bf1c9fa4234466f030e2b"
