@@ -1,10 +1,14 @@
-# Advent of Code 2016
+# Advent of Code 2016, 2019, 2020, 2021 and 2022
 
-Advent of Code 2016 with tests and utils etc.
-Created as part of Python Discords Revival of Code
+Advent of Code for some years with tests and utils etc.
+Code is in src/adventofcode<years>, tests are in tests/
 
 ## Todo
 
+- Create a global adventofcode tool
+- Add --year to adventofcode function
+- Update documentation, currently copied from the latest version (2016)
+- Use adventofcodeutils package instead of utils per year
 - Complete all puzzles (Doh)
 
 ## Create a new day
