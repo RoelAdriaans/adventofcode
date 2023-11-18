@@ -4,7 +4,7 @@ from enum import IntEnum
 from typing import DefaultDict
 
 
-class ProgramFinished(Exception):
+class ProgramFinished(Exception):  # noqa: N818
     """
     This exception is raised when the program is finished.
     This exception is usually not a fatal error, but used for control structure.
