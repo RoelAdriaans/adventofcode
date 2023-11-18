@@ -1,5 +1,3 @@
-from typing import List
-
 from anytree import Node, Walker  # type: ignore
 
 from adventofcode2019.utils.abstract import FileReaderSolution
@@ -11,7 +9,7 @@ class Day06:
         self.root_node = None
 
     @staticmethod
-    def parse_lines(input_lines) -> List:
+    def parse_lines(input_lines) -> list:
         orbits = []
         for line in input_lines:
             a, b = line.split(")")

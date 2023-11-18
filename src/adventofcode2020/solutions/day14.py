@@ -3,7 +3,6 @@ import typing
 from abc import abstractmethod
 from collections import defaultdict
 from dataclasses import dataclass
-from typing import List
 
 from adventofcode2020.utils.abstract import FileReaderSolution
 
@@ -17,14 +16,14 @@ class Instruction:
 @dataclass
 class Program:
     bitmask: str
-    entries: List[Instruction]
+    entries: list[Instruction]
 
 
 class Day14:
     memory = typing.DefaultDict[int, int]
 
     @staticmethod
-    def parse_programs(input_data: str) -> List[Program]:
+    def parse_programs(input_data: str) -> list[Program]:
         parts = input_data.split("mask")
         programs = []
         for part in parts:
@@ -49,7 +48,7 @@ class Day14:
         return sum(self.memory.values())  # type: ignore
 
     @abstractmethod
-    def process_programs(self, programs: List[Program]):
+    def process_programs(self, programs: list[Program]):
         """Process the program based on the version"""
 
     def solve(self, input_data: str) -> int:
@@ -61,7 +60,7 @@ class Day14:
 
 
 class Day14PartA(Day14, FileReaderSolution):
-    def process_programs(self, programs: List[Program]):
+    def process_programs(self, programs: list[Program]):
         """
         Process the instructions in the `programs` list
         mask:
@@ -93,7 +92,7 @@ class Day14PartB(Day14, FileReaderSolution):
         return value & ~(1 << bit)
 
     @staticmethod
-    def mask_to_addresses(address: int, mask: str) -> List[int]:
+    def mask_to_addresses(address: int, mask: str) -> list[int]:
         """
         Convert a mask, for example
         000000000000000000000000000000X1001X
@@ -127,7 +126,7 @@ class Day14PartB(Day14, FileReaderSolution):
             addresses.append(new_adr)
         return addresses
 
-    def process_programs(self, programs: List[Program]):
+    def process_programs(self, programs: list[Program]):
         """
         Process the instructions in the `programs` list
         mask. But this time, the mask is for the address line

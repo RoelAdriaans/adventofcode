@@ -1,5 +1,3 @@
-from typing import List
-
 from adventofcode2020.solutions.handheld import HandHeld
 from adventofcode2020.utils.abstract import FileReaderSolution
 
@@ -7,7 +5,7 @@ from adventofcode2020.utils.abstract import FileReaderSolution
 class Day08:
     hh: HandHeld
 
-    def run_handheld(self, instructions: List[str]) -> int:
+    def run_handheld(self, instructions: list[str]) -> int:
         self.hh = HandHeld()
         self.hh.load_instructions(instructions)
         return self.hh.run(infite_loop_detection=True)
@@ -19,7 +17,7 @@ class Day08PartA(Day08, FileReaderSolution):
 
 
 class Day08PartB(Day08, FileReaderSolution):
-    def run_until_finished_handheld(self, instructions: List[str]) -> int:
+    def run_until_finished_handheld(self, instructions: list[str]) -> int:
         self.hh = HandHeld()
         self.hh.load_instructions(instructions)
         return self.hh.run_until_finished_return_acc(infite_loop_detection=True)

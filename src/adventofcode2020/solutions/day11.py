@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from collections import defaultdict, deque
-from typing import Deque, Dict
+from typing import Deque
 
 from adventofcode2020.utils.abstract import FileReaderSolution
 
@@ -12,18 +12,18 @@ class Day11:
     def count_next_to_it(self, grid, row, col) -> int:
         """Count the number of seats next to it/ Depends on the part"""
 
-    def str_to_map(self, input_data) -> Dict[int, Dict]:
+    def str_to_map(self, input_data) -> dict[int, dict]:
         grid = {}
         for row, line in enumerate(input_data.splitlines()):
             grid[row] = {k: v for k, v in enumerate(line)}
 
         return grid
 
-    def generation(self, grid) -> Dict[int, Dict]:
+    def generation(self, grid) -> dict[int, dict]:
         # First we will compute the numbers, and then assign it to a new dict
         # This works, but it not really performance proof..
 
-        new_grid: Dict[int, Dict] = defaultdict(dict)
+        new_grid: dict[int, dict] = defaultdict(dict)
         for row in range(0, len(grid)):
             for col in range(0, len(grid[row])):
                 if grid[row][col] == ".":

@@ -1,5 +1,3 @@
-from typing import List
-
 from adventofcode2019.utils.abstract import FileReaderSolution
 from adventofcode2019.utils.advent_utils import string_of_single_to_list_of_ints
 
@@ -7,7 +5,7 @@ from adventofcode2019.utils.advent_utils import string_of_single_to_list_of_ints
 class Day16:
     base_pattern = [0, 1, 0, -1]
 
-    def generate_pattern(self, num_digits: int, multiplier: int) -> List[int]:
+    def generate_pattern(self, num_digits: int, multiplier: int) -> list[int]:
         """
         Generate the pattern.
         `num_digits` will be the number of digits in the stream,
@@ -15,7 +13,7 @@ class Day16:
 
         The first digit is skipped
         """
-        result: List[int] = []
+        result: list[int] = []
         while len(result) < num_digits + 1:
             for i in self.base_pattern:
                 result.extend([i] * multiplier)
@@ -23,7 +21,7 @@ class Day16:
         res = result[1 : num_digits + 1]
         return res
 
-    def compute_phase(self, input_signal: List[int]) -> List[int]:
+    def compute_phase(self, input_signal: list[int]) -> list[int]:
         output_signal = []
         for multiplier in range(1, len(input_signal) + 1):
             matrix = self.generate_pattern(len(input_signal), multiplier)
@@ -32,7 +30,7 @@ class Day16:
             output_signal.append(line_sum)
         return output_signal
 
-    def run_phases(self, input_signal: List[int], num_phases) -> List[int]:
+    def run_phases(self, input_signal: list[int], num_phases) -> list[int]:
         for _ in range(num_phases):
             input_signal = self.compute_phase(input_signal)
         return input_signal

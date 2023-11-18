@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Dict, List, Set
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -37,8 +37,8 @@ class HandHeld:
 
     accumulator: int
     program_counter: int
-    instructions: Dict[int, Instruction]
-    pc_seen: Set
+    instructions: dict[int, Instruction]
+    pc_seen: set
 
     def __init__(self):
         self.reset()
@@ -48,7 +48,7 @@ class HandHeld:
         self.program_counter = 0
         self.pc_seen = set()
 
-    def load_instructions(self, instructions: List[str]):
+    def load_instructions(self, instructions: list[str]):
         self.accumulator = 0
         self.instructions = {}
 

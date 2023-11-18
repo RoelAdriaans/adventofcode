@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from typing import Dict, NamedTuple
+from typing import NamedTuple
 
 from adventofcode2020.utils.abstract import FileReaderSolution
 
@@ -73,7 +73,7 @@ class Day05PartA(Day05, FileReaderSolution):
 
 class Day05PartB(Day05, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        tickets: Dict[int, Dict] = defaultdict(dict)
+        tickets: dict[int, dict] = defaultdict(dict)
         for boarding_str in input_data.splitlines():
             boarding_ticket = BoardingTicket.from_str(boarding_str)
             tickets[boarding_ticket.row][boarding_ticket.col] = boarding_ticket

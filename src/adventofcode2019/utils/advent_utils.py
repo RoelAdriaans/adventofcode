@@ -1,7 +1,4 @@
-from typing import List
-
-
-def string_to_list_of_ints(input_string: str, split_string: str = ",") -> List[int]:
+def string_to_list_of_ints(input_string: str, split_string: str = ",") -> list[int]:
     """
     Split a string on `split_string` and return a list of integers
 
@@ -13,7 +10,7 @@ def string_to_list_of_ints(input_string: str, split_string: str = ",") -> List[i
     return list_of_ints
 
 
-def string_of_single_to_list_of_ints(input_string: str) -> List[int]:
+def string_of_single_to_list_of_ints(input_string: str) -> list[int]:
     """
     Split a string on `split_string` and return a list of integers
 

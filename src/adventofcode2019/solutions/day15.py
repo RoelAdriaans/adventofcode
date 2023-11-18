@@ -1,6 +1,6 @@
 from collections import deque
 from enum import IntEnum
-from typing import Dict, NamedTuple, Optional
+from typing import NamedTuple
 
 from adventofcode2019.solutions.intcode import IntCode
 from adventofcode2019.utils.abstract import FileReaderSolution
@@ -66,9 +66,9 @@ class Location:
     """Location / Pixel in the maze"""
 
     point: Point
-    location_type: Optional[Tile]
+    location_type: Tile | None
 
-    def __init__(self, point: Point, location_type: Optional[Tile] = None):
+    def __init__(self, point: Point, location_type: Tile | None = None):
         self.point = point
         self.location_type = location_type
 
@@ -85,7 +85,7 @@ class VisitQueue(NamedTuple):
 
 
 class Day15:
-    grid: Dict[Point, Location]
+    grid: dict[Point, Location]
     oxygen_points: set
 
     def show_screen(self, droid_point: Point):

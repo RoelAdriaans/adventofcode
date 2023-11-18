@@ -1,5 +1,4 @@
 from collections import defaultdict
-from typing import List, Tuple, Dict
 
 from adventofcode2019.solutions.intcode import IntCode, ProgramFinished
 from adventofcode2019.utils.abstract import FileReaderSolution
@@ -12,7 +11,7 @@ class Day17:
         for row in grid.values():
             print("".join([chr(i) for i in row.values()]), end="\n")
 
-    def run_bot(self, input_data: str) -> Dict[int, Dict[int, int]]:
+    def run_bot(self, input_data: str) -> dict[int, dict[int, int]]:
         instructions = string_to_list_of_ints(input_data)
 
         intcode = IntCode()
@@ -60,7 +59,7 @@ class Day17:
         return matches
 
     @staticmethod
-    def compute_scores(matches: List[Tuple[int, int]]) -> int:
+    def compute_scores(matches: list[tuple[int, int]]) -> int:
         return sum([x[0] * x[1] for x in matches])
 
 

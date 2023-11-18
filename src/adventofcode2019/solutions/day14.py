@@ -2,7 +2,7 @@ import math
 import typing
 from collections import Counter, defaultdict
 from dataclasses import dataclass
-from typing import Dict, List, NamedTuple
+from typing import NamedTuple
 
 from adventofcode2019.utils.abstract import FileReaderSolution
 
@@ -13,7 +13,7 @@ class Chemical(NamedTuple):
 
 
 class Recipe(NamedTuple):
-    inputs: List[Chemical]
+    inputs: list[Chemical]
     output: Chemical
 
     @staticmethod
@@ -57,7 +57,7 @@ class Node:
 
 class NanoFactory:
     warehouse: defaultdict
-    recipes: Dict[str, Recipe]
+    recipes: dict[str, Recipe]
 
     def __init__(self):
         self.warehouse = defaultdict(int)
@@ -68,7 +68,7 @@ class NanoFactory:
             recipe = Recipe.parse_recipe_string(line)
             self.recipes[recipe.output.name] = recipe
 
-    def _get_requirement_for_one(self, output: str, n: int) -> Dict[str, int]:
+    def _get_requirement_for_one(self, output: str, n: int) -> dict[str, int]:
         """Compute what we need for `n` units of `output` and return this as a Dict.
         For example, with the recipe `4 C, 1 A => 1 CA`, when we need 4 of `CA`, return
         {"C": 16, "A": 4}
@@ -85,7 +85,7 @@ class NanoFactory:
                 result[input_recipe.name] = input_recipe.consumable * number_needed
         return result
 
-    def dep_resolve(self, node: Node, resolved: List, unresolved: List):
+    def dep_resolve(self, node: Node, resolved: list, unresolved: list):
         """
         Resolve the order in which we need to process out recipe.
         Does checks for circular dependencies ( A->B->C->A )
@@ -132,10 +132,10 @@ class NanoFactory:
 
         return root_node
 
-    def resolve_tree(self) -> List[Node]:
+    def resolve_tree(self) -> list[Node]:
         """Resolve the tree and return a list of nodes in order to process them."""
         root_node = self.create_nodes()
-        resolved: List[Node] = []
+        resolved: list[Node] = []
         self.dep_resolve(root_node, resolved, [])
         return resolved
 

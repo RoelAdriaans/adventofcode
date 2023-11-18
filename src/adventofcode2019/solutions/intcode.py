@@ -1,7 +1,7 @@
 import json
 from collections import defaultdict, deque
 from enum import IntEnum
-from typing import DefaultDict, List, Tuple
+from typing import DefaultDict
 
 
 class ProgramFinished(Exception):
@@ -76,21 +76,21 @@ class IntCode:
         self.instructions = defaultdict(int)
         self.input_values = deque([])
 
-    def load_instructions(self, instructions: List[int]):
+    def load_instructions(self, instructions: list[int]):
         self.program_counter = 0
         for i, instruction in enumerate(instructions):
             self.instructions[i] = instruction
 
-    def load_input_values(self, input_values: List[int]):
+    def load_input_values(self, input_values: list[int]):
         self.input_values.extend(input_values)
 
-    def set_input_value(self, input_values: List[int]):
+    def set_input_value(self, input_values: list[int]):
         self.input_values = deque(input_values)
 
     def set_input_function(self, input_function):
         self.input_function = input_function
 
-    def _parse_current_opcode(self) -> Tuple[int, List[int]]:
+    def _parse_current_opcode(self) -> tuple[int, list[int]]:
         current_opcode = self.instructions[self.program_counter]
         opcode_length = len(str(current_opcode))
         if opcode_length >= 6:
@@ -269,7 +269,7 @@ class IntCode:
             if res is not None:
                 return res
 
-    def run_until_finished(self) -> List[int]:
+    def run_until_finished(self) -> list[int]:
         result = []
         while True:
             try:

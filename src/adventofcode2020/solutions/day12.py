@@ -3,7 +3,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 from enum import Enum
-from typing import List, NamedTuple
+from typing import NamedTuple
 
 from adventofcode2020.utils.abstract import FileReaderSolution
 
@@ -86,7 +86,7 @@ class Day12:
 
 
 class Day12PartA(Day12, FileReaderSolution):
-    def parse_instructions(self, instructions: List[Instruction]):
+    def parse_instructions(self, instructions: list[Instruction]):
         for inst in instructions:
             action = inst.action.value
             if action == "F":
@@ -137,7 +137,7 @@ class Day12PartA(Day12, FileReaderSolution):
 
 
 class Day12PartB(Day12, FileReaderSolution):
-    def parse_instructions(self, instructions: List[Instruction]):
+    def parse_instructions(self, instructions: list[Instruction]):
         for inst in instructions:
             action = inst.action.value
             if action == "F":

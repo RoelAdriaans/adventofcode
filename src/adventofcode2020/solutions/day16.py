@@ -1,6 +1,6 @@
 import math
 import re
-from typing import Dict, List, NamedTuple
+from typing import NamedTuple
 
 from adventofcode2020.utils.abstract import FileReaderSolution
 
@@ -44,9 +44,9 @@ class Ticket(NamedTuple):
 
 
 class Day16:
-    ticket_rules: List[Ticket]
-    my_tickets: List[int]
-    nearby_tickets: List[List[int]]
+    ticket_rules: list[Ticket]
+    my_tickets: list[int]
+    nearby_tickets: list[list[int]]
 
     def parse(self, input_data):
         rules, my_tickets, nearby = input_data.split("\n\n")
@@ -91,7 +91,7 @@ class Day16PartB(Day16, FileReaderSolution):
                 valid_tickets.append(ticket)
         self.nearby_tickets = valid_tickets
 
-    def compute_mapping(self) -> Dict[str, int]:
+    def compute_mapping(self) -> dict[str, int]:
         """Compute the mapping from all the valid tickets
 
         We need to find the rules that we can apply here. Algorirm:
@@ -109,7 +109,7 @@ class Day16PartB(Day16, FileReaderSolution):
         In the end we should end up with only one option per group.
         """
 
-        options: Dict[str, set[int]] = {}
+        options: dict[str, set[int]] = {}
 
         for rule in self.ticket_rules:
             options[rule.rule] = set(range(len(self.my_tickets)))
@@ -137,7 +137,7 @@ class Day16PartB(Day16, FileReaderSolution):
                             options[remove].discard(list(options[ticket_rule])[0])
 
         # Cleanup, remove set
-        cleaned_options: Dict[str, int] = {}
+        cleaned_options: dict[str, int] = {}
         for cleanup_rule in options:
             cleaned_options[cleanup_rule] = list(options[cleanup_rule])[0]
 

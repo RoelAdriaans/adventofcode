@@ -1,10 +1,8 @@
-from typing import List
-
 from adventofcode2019.utils.abstract import FileReaderSolution
 
 
 class Day08:
-    frames: List[str]
+    frames: list[str]
     width = 0
     height = 0
 
@@ -32,7 +30,7 @@ class Day08:
         return min(found, key=found.get)  # type: ignore
 
     @staticmethod
-    def _compute_per_pixel(pixels: List[int]) -> int:
+    def _compute_per_pixel(pixels: list[int]) -> int:
         for pixel in pixels:
             if pixel == 2:
                 continue
@@ -49,7 +47,7 @@ class Day08:
             resulting_image.append(result)
         return resulting_image
 
-    def printable_image(self, image_data: List[int]):
+    def printable_image(self, image_data: list[int]):
         lines = [
             "".join(map(str, image_data[i : i + self.width]))
             for i in range(0, len(image_data), self.width)

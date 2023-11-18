@@ -1,5 +1,3 @@
-from typing import List
-
 from adventofcode2019.utils.abstract import FileReaderSolution
 
 
@@ -34,7 +32,7 @@ class Day03:
         self.lines = []
 
     @staticmethod
-    def create_line(input_str: str) -> List[Point]:
+    def create_line(input_str: str) -> list[Point]:
         """
         Create a line from the instructions in `input_str`.
         This function will return a List of `Point` namedtuples.
@@ -42,7 +40,7 @@ class Day03:
         LetterNumbers, where letter is in RUDN.
         Example "R20,U10,D9,L83"
         """
-        points: List[Point] = []
+        points: list[Point] = []
 
         # start = Point(100, 100)
         # points.append(start)
