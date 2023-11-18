@@ -55,7 +55,6 @@ class TestDay05PartB:
             [3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9],  # Position Mode
             [3, 3, 1105, -1, 9, 1101, 0, 0, 12, 4, 12, 99, 1],  # Immediate mode
         ):
-
             solution.load_instructions(data)
             solution.load_input_values([0])
             res = solution.run()
@@ -95,7 +94,7 @@ class TestDay05PartB:
         assert res == exoected_output_value
 
     def test_day05b_data(self):
-        """ Result we got when we did the real solution """
+        """Result we got when we did the real solution"""
         solution = Day05PartB()
         res = solution("day_05/day05.txt")
         assert res == 1409363

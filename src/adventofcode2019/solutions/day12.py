@@ -40,7 +40,7 @@ class Moon:
         )
 
     def apply_movement(self):
-        """ Move the Moon according to the internal speeds """
+        """Move the Moon according to the internal speeds"""
         self.x += self.dx
         self.y += self.dy
         self.z += self.dz
@@ -99,7 +99,7 @@ class Galaxy:
 
     @staticmethod
     def apply_gravity(moon1: Moon, moon2: Moon):
-        """ Apply gravity to two pairs of moons. """
+        """Apply gravity to two pairs of moons."""
         for attribute in ("x", "y", "z"):
             dxattribute = f"d{attribute}"
             a1 = getattr(moon1, attribute)
@@ -116,7 +116,7 @@ class Galaxy:
                 setattr(moon2, dxattribute, dxa2 + 1)
 
     def step(self):
-        """ Step thru our system, one step at a time """
+        """Step thru our system, one step at a time"""
         # Look over two pairs of moons
         for pair in combinations(self.moons, 2):
             self.apply_gravity(pair[0], pair[1])
@@ -126,12 +126,12 @@ class Galaxy:
             moon.apply_movement()
 
     def step_multi(self, n: int):
-        """ Do `n` steps """
+        """Do `n` steps"""
         for _ in range(n):
             self.step()
 
     def get_total_energy(self) -> int:
-        """ Return the total energy of all the Moons in the system"""
+        """Return the total energy of all the Moons in the system"""
         return sum(moon.get_total_energy() for moon in self.moons)
 
 
@@ -150,7 +150,7 @@ class Day12PartA(Day12, FileReaderSolution):
 class Day12PartB(Day12, FileReaderSolution):
     @staticmethod
     def return_one_var(galaxy: Galaxy, var: str) -> Tuple[int, ...]:
-        """ Create a tuple with the Position and Velocity values for `var` """
+        """Create a tuple with the Position and Velocity values for `var`"""
         vardx = f"d{var}"
         values = tuple([getattr(moon, var) for moon in galaxy.moons]) + tuple(
             [getattr(moon, vardx) for moon in galaxy.moons]

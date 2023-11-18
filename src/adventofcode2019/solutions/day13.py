@@ -56,7 +56,7 @@ class Day13:
         return "\n".join(grid)
 
     def draw_tile(self, x: int, y: int, tile: Tile) -> None:
-        """ Draw a single tile """
+        """Draw a single tile"""
         self.screen[(x, y)] = tile
 
     def get_location_for_tiles(self, type: Tile) -> List:

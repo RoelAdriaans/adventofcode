@@ -21,7 +21,7 @@ class Day10:
     astroids_destroyed: List[Astroid]
 
     def create_map(self, input_data: str):
-        """ Create a map from input_data. """
+        """Create a map from input_data."""
         self.astroids = []
         self.astroids_destroyed = []
         for y, line in enumerate(input_data.splitlines()):
@@ -33,7 +33,7 @@ class Day10:
 
     @staticmethod
     def _get_angle(astroid_1: Astroid, astroid_2: Astroid) -> float:
-        """ Compute the angle between two Astroids in degrees """
+        """Compute the angle between two Astroids in degrees"""
         dx = astroid_1.x - astroid_2.x
         dy = astroid_1.y - astroid_2.y
 
@@ -43,7 +43,7 @@ class Day10:
 
     @staticmethod
     def _get_distance(astroid_1: Astroid, astroid_2: Astroid) -> float:
-        """ Compute the distance between two Astroids """
+        """Compute the distance between two Astroids"""
         a, b = astroid_1.x, astroid_1.y
         x, y = astroid_2.x, astroid_2.y
         euclidean_distance = math.sqrt((a - x) ** 2 + (b - y) ** 2)
@@ -73,7 +73,7 @@ class Day10:
         return self.get_best_astroid()[1]
 
     def get_best_astroid(self) -> Tuple[Astroid, int]:
-        """ Return the best astroid location and the number of visable astroids"""
+        """Return the best astroid location and the number of visable astroids"""
         locations = {
             astroid: self.count_asteroids_for_location(astroid.x, astroid.y)
             for astroid in self.astroids
@@ -82,7 +82,7 @@ class Day10:
         return best_astroid, locations[best_astroid]
 
     def calculate_angles(self, location: Astroid):
-        """ Create a dict with all the angles for the asteroids and the distance"""
+        """Create a dict with all the angles for the asteroids and the distance"""
         angles: Dict[float, List] = defaultdict(list)
         for astroid in self.astroids:
             angle = self._get_angle(location, astroid)
@@ -92,7 +92,7 @@ class Day10:
         return angles
 
     def remove_astroid(self, location: Astroid, n=200):
-        """ Shoot until we have reached `n` targets"""
+        """Shoot until we have reached `n` targets"""
         angle_information = self.calculate_angles(location)
         sorted_angles = sorted(angle_information)
 

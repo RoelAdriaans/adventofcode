@@ -22,7 +22,7 @@ class TestDay11PartA:
         assert direction == Direction.LEFT
 
     def test_day11a_data(self):
-        """ Result we got when we did the real solution """
+        """Result we got when we did the real solution"""
         solution = Day11PartA()
         res = solution("day_11/day11.txt")
         assert res != 10601

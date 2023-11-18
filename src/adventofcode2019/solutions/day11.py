@@ -128,7 +128,7 @@ class Day11PartA(Day11, FileReaderSolution):
 
 class Day11PartB(Day11, FileReaderSolution):
     def plot_grid(self):
-        """ Plot the grid using matplotlib"""
+        """Plot the grid using matplotlib"""
         x_points = [point.x for point, color in self.hull.items()]
         y_points = [point.y for point, color in self.hull.items()]
         min_x = min(x_points)
@@ -143,7 +143,7 @@ class Day11PartB(Day11, FileReaderSolution):
         plt.show()
 
     def show(self):
-        """ Plot the grid using Ascii"""
+        """Plot the grid using Ascii"""
         positions = [
             (point.x, point.y) for point, color in self.hull.items() if color == 1
         ]

@@ -67,18 +67,18 @@ class Day03:
         return points
 
     def create_lines(self, input_lines: str):
-        """ Create the lines and add them to the internal lines list """
+        """Create the lines and add them to the internal lines list"""
         self.lines = []
         for line in input_lines.splitlines():
             self.lines.append(self.create_line(line))
 
     def find_duplicates(self):
-        """ Find duplicates points in the internal lines list.  """
+        """Find duplicates points in the internal lines list."""
         common = list(set(self.lines[0]).intersection(self.lines[1]))
         return common
 
     def find_closest_point(self):
-        """ Return the discance to the closest points in steps to reach it """
+        """Return the discance to the closest points in steps to reach it"""
         duplicates = self.find_duplicates()
         # Get all the points, that are in
         total_distance = []

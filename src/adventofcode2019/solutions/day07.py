@@ -44,7 +44,7 @@ class Day07:
     def get_best_looped_sequence(
         self, start, stop, instructions: List[int]
     ) -> Tuple[str, int]:
-        """ Get the sequence with the best output """
+        """Get the sequence with the best output"""
         # Generate all the options
         # We loop because we have 10 computers,
         max_result = -1

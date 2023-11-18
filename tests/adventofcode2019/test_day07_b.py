@@ -30,7 +30,7 @@ class TestDay07PartB:
         assert thrust == expected_thrust
 
     def test_day07b_data(self):
-        """ Result we got when we did the real solution """
+        """Result we got when we did the real solution"""
         solution = Day07PartB()
         res = solution("day_07/day07.txt")
         assert res == 15432220

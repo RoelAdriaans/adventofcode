@@ -33,7 +33,7 @@ class Infi:
         self._load_data()
 
     def _load_data(self):
-        """ Open the file and parse the json data inside the file """
+        """Open the file and parse the json data inside the file"""
         root_dir = Path(__file__).parent.parent
         # with open(root_dir / "solutions" / "data" / input_file) as f:
 

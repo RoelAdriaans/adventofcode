@@ -22,7 +22,7 @@ class Day04:
 
     @staticmethod
     def is_consecutive_no_larger_group(number_str: str) -> bool:
-        """ Check for values, if there is any there is any double digit, success """
+        """Check for values, if there is any there is any double digit, success"""
         for x in str(number_str):
             if str(number_str).count(x) == 2:
                 return True

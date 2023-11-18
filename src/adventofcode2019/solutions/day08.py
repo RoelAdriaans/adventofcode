@@ -9,7 +9,7 @@ class Day08:
     height = 0
 
     def load_image(self, image_data: str, width: int, height: int):
-        """ Load an image from `image_data`, with `width` and `height` dimensions"""
+        """Load an image from `image_data`, with `width` and `height` dimensions"""
         frame_size = width * height
         self.frames = [
             image_data[i : i + frame_size]
@@ -20,12 +20,12 @@ class Day08:
         self.height = height
 
     def count_number_per_frame(self, number: int, frame: int) -> int:
-        """ Count the number of times `number` is in frame `frame """
+        """Count the number of times `number` is in frame `frame"""
         needle = str(number)
         return self.frames[frame].count(needle)
 
     def layer_with_fewest_digit(self, number_to_find: int):
-        """ Find the layer with the fewest corrences of `number_to_find` """
+        """Find the layer with the fewest corrences of `number_to_find`"""
         found = {}
         for x in range(0, len(self.frames)):
             found[x] = self.count_number_per_frame(number=number_to_find, frame=x)
@@ -41,7 +41,7 @@ class Day08:
         return 0
 
     def get_computed_image(self):
-        """ Compute the image"""
+        """Compute the image"""
         resulting_image = []
         for x in range(0, len(self.frames[0])):
             pixels = [int(frame[x]) for frame in self.frames]

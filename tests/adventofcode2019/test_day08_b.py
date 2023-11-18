@@ -13,7 +13,7 @@ class TestDay08PartB:
         assert result == expected_result
 
     def test_compose_image(self):
-        """ Get the number of digits per layer"""
+        """Get the number of digits per layer"""
         solution = Day08PartB()
         solution.load_image(image_data="0222112222120000", width=2, height=2)
         assert len(solution.frames) == 4
@@ -24,7 +24,7 @@ class TestDay08PartB:
         assert solution.printable_image(result) == "01\n10"
 
     def test_day08a_data(self):
-        """ Result we got when we did the real solution """
+        """Result we got when we did the real solution"""
         solution = Day08PartB()
         res = solution("day_08/day08.txt")
         expected = (

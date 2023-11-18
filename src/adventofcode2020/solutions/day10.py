@@ -26,7 +26,6 @@ class Day10:
         return differences
 
     def find_combinations(self, joltages: List[int]) -> int:
-
         connections = {joltages[-1]: 1}
 
         for adapter in reversed(joltages[:-1]):

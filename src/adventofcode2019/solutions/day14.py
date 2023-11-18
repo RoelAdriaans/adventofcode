@@ -133,14 +133,14 @@ class NanoFactory:
         return root_node
 
     def resolve_tree(self) -> List[Node]:
-        """ Resolve the tree and return a list of nodes in order to process them."""
+        """Resolve the tree and return a list of nodes in order to process them."""
         root_node = self.create_nodes()
         resolved: List[Node] = []
         self.dep_resolve(root_node, resolved, [])
         return resolved
 
     def ore_needed_for_n_fuel(self, n=1) -> int:
-        """ Compute how many ORE we need for `n` fuel object"""
+        """Compute how many ORE we need for `n` fuel object"""
         # Do a recursive from FUEL to ORE
         resolved = self.resolve_tree()
 

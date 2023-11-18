@@ -63,7 +63,7 @@ class Tile(IntEnum):
 
 
 class Location:
-    """ Location / Pixel in the maze """
+    """Location / Pixel in the maze"""
 
     point: Point
     location_type: Optional[Tile]
