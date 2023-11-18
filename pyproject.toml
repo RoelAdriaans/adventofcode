@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "adventofcode2016"
+name = "adventofcode"
 version = "0.1.0"
-description = "Advent of Code - 2016"
+description = "Advent of Code - Roel Adriaans"
 authors = ["Roel Adriaans <roel@adriaans.org>"]
 license = "MIT"
 
@@ -30,7 +30,11 @@ pre-commit = "^3.3.3"
 isort = "^5.12.0"
 
 [tool.poetry.scripts]
-adventofcode = "adventofcode2016.main:main"
+adventofcode2016 = "adventofcode2016.main:main"
+adventofcode2019 = "adventofcode2019.main:main"
+adventofcode2020 = "adventofcode2020.main:main"
+adventofcode2021 = "adventofcode2021.main:main"
+adventofcode2022 = "adventofcode2022.main:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
