@@ -19,7 +19,7 @@ more-itertools = "^10.1.0"
 regex-spm = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
-black = "^23.7.0"
+black = "^23.11.0"
 cookiecutter = "^2.3.0"
 pytest = "^7.4.0"
 pytest-cov = "^4.1.0"
