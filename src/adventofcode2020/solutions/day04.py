@@ -5,7 +5,6 @@ from adventofcode2020.utils.abstract import FileReaderSolution
 
 
 class RequiredFields(Enum):
-
     byr = "Birth Year"
     iyr = "Issue Year"
     eyr = "Expiration Year"

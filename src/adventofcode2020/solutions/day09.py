@@ -36,7 +36,6 @@ class Day09PartB(Day09, FileReaderSolution):
             for bottom in range(top, len(integers)):
                 total = sum(integers[top:bottom])
                 if total == num_to_find:
-
                     # Add the largest and smallest number
                     cont_range = integers[top:bottom]
                     return max(cont_range) + min(cont_range)

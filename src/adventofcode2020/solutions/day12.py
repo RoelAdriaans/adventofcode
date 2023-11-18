@@ -124,7 +124,6 @@ class Day12PartA(Day12, FileReaderSolution):
                 raise ValueError(f"Unknown action {action}")
 
     def solve(self, input_data: str) -> int:
-
         instructions = [
             Instruction.from_str(input_str.strip())
             for input_str in input_data.splitlines()

@@ -74,7 +74,7 @@ class TestDay10PartB:
         assert solution.astroids_destroyed[199] == Astroid(8, 2)  # 200th
 
     def test_day10b_data(self):
-        """ Result we got when we did the real solution """
+        """Result we got when we did the real solution"""
         solution = Day10PartB()
         res = solution("day_10/day10.txt")
         assert res == 517

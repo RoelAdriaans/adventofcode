@@ -40,7 +40,7 @@ class Day06:
             raise ValueError("Too much roots! Found: {len(self.root_node)}")
 
     def find_distance_between_nodes(self, node_from: str, node_to: str) -> int:
-        """ Find the distance between nodes """
+        """Find the distance between nodes"""
         # We are on the node we want to compute from, so we start with our parent
         from_node = self.nodes[node_from].parent
         to_node = self.nodes[node_to].parent

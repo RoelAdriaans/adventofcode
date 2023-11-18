@@ -53,7 +53,7 @@ class TestDay12PartA:
         assert galaxy.get_total_energy() == 179
 
     def test_day12a_data(self):
-        """ Result we got when we did the real solution """
+        """Result we got when we did the real solution"""
         solution = Day12PartA()
         res = solution("day_12/day12.txt")
         assert res == 5350

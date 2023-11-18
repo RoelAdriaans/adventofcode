@@ -51,7 +51,6 @@ class Day02PartA(Day02, FileReaderSolution):
         return True
 
     def solve(self, input_data: str) -> int:
-
         password_list = [
             self.split(x.strip()) for x in input_data.split("\n") if len(x.strip()) >= 1
         ]

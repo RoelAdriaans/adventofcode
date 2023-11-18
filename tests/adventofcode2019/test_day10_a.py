@@ -78,7 +78,7 @@ class TestDay10PartA:
         assert best_astroid == Astroid(x=best_location[0], y=best_location[1])
 
     def test_day10a_data(self):
-        """ Result we got when we did the real solution """
+        """Result we got when we did the real solution"""
         solution = Day10PartA()
         res = solution("day_10/day10.txt")
         assert res == 319

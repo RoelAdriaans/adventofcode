@@ -35,7 +35,7 @@ class Day17:
 
     @staticmethod
     def compute_points(grid_lines):
-        """ Compute the points in the grid"""
+        """Compute the points in the grid"""
         # First we will make a 2d array
         match = ord("#")
         matches = []

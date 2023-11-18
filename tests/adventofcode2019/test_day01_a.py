@@ -14,7 +14,7 @@ class TestDay01PartA:
         assert result == expected_result
 
     def test_day01a_data(self):
-        """ Result we got when we did the real solution """
+        """Result we got when we did the real solution"""
         solution = Day01PartA()
         res = solution("day_01/day01.txt")
         assert res == 3465245
