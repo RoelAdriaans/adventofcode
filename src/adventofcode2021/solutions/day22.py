@@ -155,7 +155,7 @@ class Day22PartA(Day22, FileReaderSolution):
         return list(filterfalse(filter_condition, steps))
 
     def solve(self, input_data: str) -> int:
-        self.grid = defaultdict(lambda: False)
+        self.grid = defaultdict(bool)
         steps = self.parse(input_data)
         # Apply the limit
         steps = self.apply_limit(steps)

@@ -18,7 +18,7 @@ class Day20:
         # This causes all the unset pixels to flip everytime.
         self.special_case = self.enhancement[0] == "#" and self.enhancement[-1] == "."
 
-        self.image = defaultdict(lambda: False)
+        self.image = defaultdict(bool)
         for x, line in enumerate(image.splitlines()):
             for y, point in enumerate(line):
                 self.image[Point(x, y)] = True if point == "#" else False
