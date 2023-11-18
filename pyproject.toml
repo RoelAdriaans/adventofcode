@@ -20,7 +20,7 @@ regex-spm = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
 black = "^23.7.0"
-cookiecutter = "^2.3.0"
+cookiecutter = "^2.4.0"
 pytest = "^7.4.0"
 pytest-cov = "^4.1.0"
 pytest-xdist = "^3.3.1"
