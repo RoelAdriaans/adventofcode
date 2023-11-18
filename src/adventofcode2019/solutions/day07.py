@@ -1,5 +1,4 @@
 import itertools
-from typing import List, Tuple
 
 from adventofcode2019.solutions.intcode import IntCode, ProgramFinished
 from adventofcode2019.utils.abstract import FileReaderSolution
@@ -9,7 +8,7 @@ from adventofcode2019.utils.advent_utils import string_to_list_of_ints
 class Day07:
     @staticmethod
     def compute_results_for_looped_sequence(
-        instructions: List[int], sequence: Tuple
+        instructions: list[int], sequence: tuple
     ) -> int:
         """
         For program `instructions`, compute the result for the sequence in the string
@@ -42,13 +41,13 @@ class Day07:
                     last_value = result
 
     def get_best_looped_sequence(
-        self, start, stop, instructions: List[int]
-    ) -> Tuple[str, int]:
+        self, start, stop, instructions: list[int]
+    ) -> tuple[str, int]:
         """Get the sequence with the best output"""
         # Generate all the options
         # We loop because we have 10 computers,
         max_result = -1
-        max_sequence: Tuple[int, ...] = (0, 0, 0, 0, 0)
+        max_sequence: tuple[int, ...] = (0, 0, 0, 0, 0)
         for sequence in itertools.permutations(range(start, stop)):
             result = self.compute_results_for_looped_sequence(instructions, sequence)
             if result > max_result:

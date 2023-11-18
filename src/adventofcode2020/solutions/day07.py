@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import re
 from dataclasses import dataclass
-from typing import Any, Dict, Optional
+from typing import Any
 
 from adventofcode2020.utils.abstract import FileReaderSolution
 
@@ -18,7 +18,7 @@ class Bag:
 
     color: str
     num_bags: int
-    contains: Dict[Bag, int]  # Edge
+    contains: dict[Bag, int]  # Edge
 
     def __init__(self, color, num_bags):
         self.color = color
@@ -45,8 +45,8 @@ class Bag:
 
 class Day07:
     def __init__(self):
-        self.bags: Dict[str, Bag] = {}
-        self.root_bag: Optional[Bag] = None
+        self.bags: dict[str, Bag] = {}
+        self.root_bag: Bag | None = None
 
     def from_string(self, input_str: str) -> Bag:
         """

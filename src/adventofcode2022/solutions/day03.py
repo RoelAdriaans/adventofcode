@@ -32,9 +32,9 @@ class Day03PartB(Day03, FileReaderSolution):
         total_value = 0
 
         for n in range(0, len(lines), 3):
-            first = set(self.char_to_value(char) for char in lines[n])
-            second = set(self.char_to_value(char) for char in lines[n + 1])
-            third = set(self.char_to_value(char) for char in lines[n + 2])
+            first = {self.char_to_value(char) for char in lines[n]}
+            second = {self.char_to_value(char) for char in lines[n + 1]}
+            third = {self.char_to_value(char) for char in lines[n + 2]}
             difference = first.intersection(second).intersection(third)
             total_value += difference.pop()
 

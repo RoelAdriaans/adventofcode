@@ -1,6 +1,6 @@
 import math
 from collections import defaultdict
-from typing import Dict, List, NamedTuple, Set, Tuple
+from typing import NamedTuple
 
 from adventofcode2019.utils.abstract import FileReaderSolution
 
@@ -17,8 +17,8 @@ class GridInfo(NamedTuple):
 
 
 class Day10:
-    astroids: List[Astroid]
-    astroids_destroyed: List[Astroid]
+    astroids: list[Astroid]
+    astroids_destroyed: list[Astroid]
 
     def create_map(self, input_data: str):
         """Create a map from input_data."""
@@ -55,7 +55,7 @@ class Day10:
         We do this by calculator the different angles we can see from this point.
         Duplicate angles are ignored.
         """
-        found_angles: Set[float] = set()
+        found_angles: set[float] = set()
         point_in_space = Astroid(x=x, y=y)
 
         for astroid in self.astroids:
@@ -72,7 +72,7 @@ class Day10:
         """Find the best spot to be in, and return how many astroids we can spot"""
         return self.get_best_astroid()[1]
 
-    def get_best_astroid(self) -> Tuple[Astroid, int]:
+    def get_best_astroid(self) -> tuple[Astroid, int]:
         """Return the best astroid location and the number of visable astroids"""
         locations = {
             astroid: self.count_asteroids_for_location(astroid.x, astroid.y)
@@ -83,7 +83,7 @@ class Day10:
 
     def calculate_angles(self, location: Astroid):
         """Create a dict with all the angles for the asteroids and the distance"""
-        angles: Dict[float, List] = defaultdict(list)
+        angles: dict[float, list] = defaultdict(list)
         for astroid in self.astroids:
             angle = self._get_angle(location, astroid)
             distance = self._get_distance(location, astroid)

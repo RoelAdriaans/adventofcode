@@ -1,6 +1,5 @@
 from collections import defaultdict
 from enum import IntEnum
-from typing import List
 
 from adventofcode2019.solutions.intcode import IntCode, ProgramFinished
 from adventofcode2019.utils.abstract import FileReaderSolution
@@ -59,7 +58,7 @@ class Day13:
         """Draw a single tile"""
         self.screen[(x, y)] = tile
 
-    def get_location_for_tiles(self, type: Tile) -> List:
+    def get_location_for_tiles(self, type: Tile) -> list:
         tiles = [location for location, value in self.screen.items() if value == type]
         return tiles
 

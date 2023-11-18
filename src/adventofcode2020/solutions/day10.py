@@ -1,6 +1,5 @@
 import typing
 from collections import Counter, deque
-from typing import List
 
 from adventofcode2020.utils.abstract import FileReaderSolution
 
@@ -25,7 +24,7 @@ class Day10:
 
         return differences
 
-    def find_combinations(self, joltages: List[int]) -> int:
+    def find_combinations(self, joltages: list[int]) -> int:
         connections = {joltages[-1]: 1}
 
         for adapter in reversed(joltages[:-1]):

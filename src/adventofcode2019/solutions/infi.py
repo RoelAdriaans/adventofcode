@@ -5,7 +5,7 @@ import json
 from collections import deque
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, NamedTuple
+from typing import NamedTuple
 
 
 class Point(NamedTuple):
@@ -20,7 +20,7 @@ class Santa:
 
 class Infi:
     filename: str
-    flats: Dict[int, Point]
+    flats: dict[int, Point]
     jumps: deque
     santa: Santa
 
@@ -37,7 +37,7 @@ class Infi:
         root_dir = Path(__file__).parent.parent
         # with open(root_dir / "solutions" / "data" / input_file) as f:
 
-        with open(root_dir / "solutions" / "data" / "infi" / self.filename, "r") as f:
+        with open(root_dir / "solutions" / "data" / "infi" / self.filename) as f:
             data = json.load(f)
 
         self.flats = {}

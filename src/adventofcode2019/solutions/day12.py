@@ -1,5 +1,4 @@
 from itertools import combinations
-from typing import List, Set, Tuple
 
 import numpy as np  # type: ignore
 
@@ -85,7 +84,7 @@ class Moon:
 
 
 class Galaxy:
-    moons: List[Moon]
+    moons: list[Moon]
 
     def __eq__(self, other) -> bool:
         return self.moons == other.moons
@@ -149,7 +148,7 @@ class Day12PartA(Day12, FileReaderSolution):
 
 class Day12PartB(Day12, FileReaderSolution):
     @staticmethod
-    def return_one_var(galaxy: Galaxy, var: str) -> Tuple[int, ...]:
+    def return_one_var(galaxy: Galaxy, var: str) -> tuple[int, ...]:
         """Create a tuple with the Position and Velocity values for `var`"""
         vardx = f"d{var}"
         values = tuple([getattr(moon, var) for moon in galaxy.moons]) + tuple(
@@ -165,7 +164,7 @@ class Day12PartB(Day12, FileReaderSolution):
         """
 
         i = 0
-        visited: Set[Tuple] = set()
+        visited: set[tuple] = set()
         while True:
             values = self.return_one_var(galaxy, var)
             if values in visited:
