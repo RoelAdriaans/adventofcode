@@ -7,26 +7,26 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-anytree = "^2.9.0"
+anytree = "^2.12.1"
 click = "^8.1.7"
 requests = "^2.31.0"
 beautifulsoup4 = "^4.12.2"
 tqdm = "^4.66.1"
 attrs = "^23.1.0"
-numpy = "^1.25.2"
+numpy = "^1.26.2"
 adventofcodeutils = {git = "https://github.com/RoelAdriaans/adventofcodeutils.git"}
 more-itertools = "^10.1.0"
 regex-spm = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
-black = "^23.7.0"
-cookiecutter = "^2.3.0"
-pytest = "^7.4.0"
+black = "^23.11.0"
+cookiecutter = "^2.4.0"
+pytest = "^7.4.3"
 pytest-cov = "^4.1.0"
-pytest-xdist = "^3.3.1"
+pytest-xdist = "^3.4.0"
 python-dotenv = "^1.0.0"
-tox = "^4.10.0"
-pre-commit = "^3.3.3"
+tox = "^4.11.3"
+pre-commit = "^3.5.0"
 isort = "^5.12.0"
 
 [tool.poetry.scripts]
