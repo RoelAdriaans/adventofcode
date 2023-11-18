@@ -11,7 +11,7 @@ class Day13:
     size: int
 
     def create_grid(self, lines: list[str]):
-        self.grid = defaultdict(lambda: False)
+        self.grid = defaultdict(bool)
         for line in lines:
             j, i = line.split(",")
             self.grid[int(i), int(j)] = True
