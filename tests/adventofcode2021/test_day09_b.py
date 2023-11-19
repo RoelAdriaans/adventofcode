@@ -1,6 +1,5 @@
-from test_day09_a import test_input
-
 from adventofcode2021.solutions.day09 import Day09PartB
+from tests.adventofcode2021.test_day09_a import test_input
 
 
 class TestDay09PartB:

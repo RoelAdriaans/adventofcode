@@ -1,7 +1,7 @@
 import pytest
-from test_day15_a import test_data
 
 from adventofcode2021.solutions.day15 import Day15PartB
+from tests.adventofcode2021.test_day15_a import test_data
 
 
 class TestDay15PartB:

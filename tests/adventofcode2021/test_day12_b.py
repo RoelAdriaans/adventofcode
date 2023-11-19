@@ -1,7 +1,11 @@
 import pytest
-from test_day12_a import test_data, test_data_longer, test_data_short
 
 from adventofcode2021.solutions.day12 import Day12PartB
+from tests.adventofcode2021.test_day12_a import (
+    test_data,
+    test_data_longer,
+    test_data_short,
+)
 
 
 class TestDay12PartB:
