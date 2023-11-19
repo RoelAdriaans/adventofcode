@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+from adventofcodeutils.graph import Graph
+from adventofcodeutils.node import Node
+from adventofcodeutils.stack import Stack
+
 from adventofcode2021.utils.abstract import FileReaderSolution
-from adventofcode2021.utils.graph import Graph
-from adventofcode2021.utils.node import Node
-from adventofcode2021.utils.stack import Stack
 
 
 class Day12:

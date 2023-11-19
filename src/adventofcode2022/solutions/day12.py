@@ -1,7 +1,8 @@
+from adventofcodeutils.generic_search import BFS
+from adventofcodeutils.node import Node
+from adventofcodeutils.point import XYPoint as Point
+
 from adventofcode2022.utils.abstract import FileReaderSolution
-from adventofcode2022.utils.generic_search import BFS
-from adventofcode2022.utils.node import Node
-from adventofcode2022.utils.point import XYPoint as Point
 
 
 class Day12:

@@ -1,7 +1,8 @@
 from collections import defaultdict
 
+from adventofcodeutils.point import XYPoint as Point
+
 from adventofcode2021.utils.abstract import FileReaderSolution
-from adventofcode2021.utils.point import XYPoint as Point
 
 
 class Day20:

@@ -1,7 +1,7 @@
 import more_itertools
+from adventofcodeutils.point import XYPoint as Point
 
 from adventofcode2022.utils.abstract import FileReaderSolution
-from adventofcode2022.utils.point import XYPoint as Point
 
 
 class Day09:

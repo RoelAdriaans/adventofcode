@@ -1,8 +1,9 @@
 import re
 from collections import defaultdict
 
+from adventofcodeutils.queue import Queue
+
 from adventofcode2021.utils.abstract import FileReaderSolution
-from adventofcode2021.utils.queue import Queue
 
 
 class Day13:
