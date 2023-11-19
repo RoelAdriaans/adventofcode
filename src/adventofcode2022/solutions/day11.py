@@ -4,9 +4,9 @@ import math
 from typing import NamedTuple
 
 import parse
+from adventofcodeutils.queue import Queue
 
 from adventofcode2022.utils.abstract import FileReaderSolution
-from adventofcode2022.utils.queue import Queue
 
 
 class Throw(NamedTuple):

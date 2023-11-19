@@ -1,7 +1,8 @@
 import pathlib
 
+from adventofcodeutils.point import XYPoint as Point
+
 from adventofcode2021.solutions.day20 import Day20PartA
-from adventofcode2021.utils.point import XYPoint as Point
 
 
 class TestDay20PartA:

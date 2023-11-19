@@ -1,9 +1,9 @@
 from typing import NamedTuple
 
+from adventofcodeutils.point import XYPoint as Point
 from parse import parse
 
 from adventofcode2022.utils.abstract import FileReaderSolution
-from adventofcode2022.utils.point import XYPoint as Point
 
 
 class Line(NamedTuple):
