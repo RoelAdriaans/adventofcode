@@ -93,7 +93,7 @@ class Day14PartA(Day14, FileReaderSolution):
         _, _, max_y, _ = self.min_max_values()
         bottom = max_y + 1
         while True:
-            sand = Point(*start)
+            sand = Point(start.x, start.y)
             while True:
                 new_location = self.move_sand(sand)
                 if not new_location:
@@ -121,7 +121,7 @@ class Day14PartB(Day14, FileReaderSolution):
         bottom = max_y + 2
 
         while True:
-            sand = Point(*start)
+            sand = Point(start.x, start.y)
             first = True
             while True:
                 new_location = self.move_sand(sand)
