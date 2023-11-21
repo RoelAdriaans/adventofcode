@@ -31,7 +31,6 @@ class TestDay17PartA:
         result = Day17PartA().run_search(input_data)
         assert result == expected_result
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     def test_day17a_data(self):
         """Result we got when we did the real solution"""
         solution = Day17PartA()

@@ -61,11 +61,6 @@ class TestDay11PartA:
         assert facility1 == facility2
         assert hash(facility1) == hash(facility2)
 
-    @pytest.mark.skip
-    def test_facility_without_elevator(self):
-        with pytest.raises(ValueError, match="Elevator not found"):
-            FacilityState(floors=[])
-
     f1 = "The first floor contains a "
 
     @pytest.mark.parametrize(

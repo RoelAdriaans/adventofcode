@@ -45,12 +45,12 @@ class Day19:
     ) -> dict[int, AxisInfo]:
         x_edges = {}
         for other in scanners_by_id.values():
-            for axis in (0, 1, 2):
+            for axis in ("x", "y", "z"):
                 for sign in (-1, 1):
                     d_x: collections.Counter[int] = collections.Counter()
-                    for x, _, _ in src.beacons:
+                    for point in src.beacons:
                         for other_pt in other.beacons:
-                            d_x[x - other_pt[axis] * sign] += 1
+                            d_x[point.x - other_pt[axis] * sign] += 1
 
                     ((x_diff, n),) = d_x.most_common(1)
                     if n >= 12:
@@ -72,14 +72,14 @@ class Day19:
 
         for dst_id in x_edges:
             other = scanners_by_id[dst_id]
-            for axis in (0, 1, 2):
+            for axis in ("x", "y", "z"):
                 for sign in (-1, 1):
                     d_y: collections.Counter[int] = collections.Counter()
                     d_z: collections.Counter[int] = collections.Counter()
-                    for _, y, z in src.beacons:
+                    for point in src.beacons:
                         for other_pt in other.beacons:
-                            d_y[y - other_pt[axis] * sign] += 1
-                            d_z[z - other_pt[axis] * sign] += 1
+                            d_y[point.y - other_pt[axis] * sign] += 1
+                            d_z[point.z - other_pt[axis] * sign] += 1
 
                     ((y_diff, y_n),) = d_y.most_common(1)
                     if y_n >= 12:
