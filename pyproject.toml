@@ -49,3 +49,9 @@ adventofcode2022 = "adventofcode2022.main:main"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.bandit]
+exclude_dirs = ["template"]
+
+[tool.bandit.assert_used]
+skips = ["*/*_test.py", "*/test_*.py"]

@@ -36,7 +36,9 @@ class Day14:
             entries = []
             for line in lines[1:]:
                 matches = re.match(r"mem\[(\d*)] = (\d*)", line)
-                assert matches
+                if not matches:
+                    raise ValueError(f"Match not found in {line}")
+
                 group = matches.groups()
                 entries.append(Instruction(address=int(group[0]), value=int(group[1])))
 
