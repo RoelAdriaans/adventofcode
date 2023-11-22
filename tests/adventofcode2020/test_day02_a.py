@@ -8,8 +8,12 @@ class TestDay02PartA:
         input_str = "7-9 r: rrrkrrrrrnrrmj"
 
         result = Day02PartA.split(input_str)
+
         assert result == PassPol(
-            at_least=7, at_most=9, letter="r", password="rrrkrrrrrnrrmj"
+            at_least=7,
+            at_most=9,
+            letter="r",
+            password="rrrkrrrrrnrrmj",  # nosec B106
         )
 
     @pytest.mark.parametrize(

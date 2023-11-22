@@ -22,7 +22,9 @@ class Day05:
         non-zero number, and the current position"""
         position = starting
         while True:
-            pos_hash = hashlib.md5(f"{prefix}{position}".encode()).hexdigest()
+            pos_hash = hashlib.md5(
+                f"{prefix}{position}".encode(), usedforsecurity=False
+            ).hexdigest()
             if pos_hash[:5] == "00000":
                 return MatchResult(
                     hash=pos_hash, first_code=pos_hash[5], current_position=position
