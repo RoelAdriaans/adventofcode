@@ -59,7 +59,8 @@ class Day07:
 
         color_regex = r"^([\w\s]+) bags contain ([\w\s,]+)"
         color_match = re.match(color_regex, input_str)
-        assert color_match
+        if not color_match:
+            raise ValueError(f"Match not found in {input_str}")
 
         color = color_match[1]
 

@@ -18,9 +18,13 @@ class Day14:
     def find_hash(self, input_string: str) -> str:
         if self.stretched:
             for n in range(2017):
-                input_string = hashlib.md5(input_string.encode()).hexdigest()
+                input_string = hashlib.md5(
+                    input_string.encode(), usedforsecurity=False
+                ).hexdigest()
         else:
-            input_string = hashlib.md5(input_string.encode()).hexdigest()
+            input_string = hashlib.md5(
+                input_string.encode(), usedforsecurity=False
+            ).hexdigest()
         return input_string
 
     def get_five_match(self, salt: str, start_index: int, letter: str) -> int:

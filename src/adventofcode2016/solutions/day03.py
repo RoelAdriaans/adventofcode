@@ -18,7 +18,9 @@ class Day03:
         res = []
         for line in lines:
             m = re.match(find_digits_re, line)
-            assert m is not None
+            if not m:
+                raise ValueError(f"Match not found in {line}")
+
             sides = [int(m.group(1)), int(m.group(2)), int(m.group(3))]
             res.append(sides)
         return res

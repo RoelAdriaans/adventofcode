@@ -14,7 +14,7 @@ from adventofcode2016.utils.abstract import FileReaderSolution
 @cache
 def md5(input_string: str) -> str:
     """Calculate md5"""
-    return hashlib.md5(input_string.encode()).hexdigest()
+    return hashlib.md5(input_string.encode(), usedforsecurity=False).hexdigest()
 
 
 @attrs.define(frozen=True)

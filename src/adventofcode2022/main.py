@@ -147,6 +147,7 @@ def download_input_data(year: str, day: str):
     r = requests.get(
         f"https://adventofcode.com/{year}/day/{day.lstrip('0')}/input",
         cookies={"session": _get_session()},
+        timeout=30,
     )
     if r.status_code != 200:
         print(f"Unable to download the input data. Response code {r.status_code}")
@@ -256,6 +257,7 @@ def submit_result(year, day, part, result):
         url=post_url,
         data=data,
         cookies={"session": _get_session()},
+        timeout=30,
     )
 
     result = parse_result(r.text)

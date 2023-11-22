@@ -20,7 +20,8 @@ class Day02:
         results = re.match(r"(\d*)-(\d*) (.): (\w*)", input_password)
 
         # Make mypy happy
-        assert results
+        if not results:
+            raise ValueError(f"Match not found in {input_password}")
 
         passpol = PassPol(
             at_least=int(results[1]),
