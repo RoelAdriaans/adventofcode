@@ -3,12 +3,19 @@ updates:
   # Maintain dependencies for GitHub Actions
 - package-ecosystem: "github-actions"
   directory: "/"
+  labels:
+    - "dependencies"
+    - "github_actions"
+    - "automerge"
   schedule:
     interval: "daily"
 
 - package-ecosystem: pip
   directory: "/"
+  labels:
+    - "dependencies"
+    - "python"
+    - "automerge"
   schedule:
     interval: daily
     time: "04:00"
-  open-pull-requests-limit: 10
