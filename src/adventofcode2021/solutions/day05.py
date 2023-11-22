@@ -23,7 +23,9 @@ class Day05:
         """
         regex = r"^(?P<x1>\d*),(?P<y1>\d*) -> (?P<x2>\d*),(?P<y2>\d*)$"
         matches = re.search(regex, line)
-        assert matches
+        if not matches:
+            raise ValueError(f"Match not found in {line}")
+
         p1 = Point(x=int(matches["x1"]), y=int(matches["y1"]))
         p2 = Point(x=int(matches["x2"]), y=int(matches["y2"]))
         return p1, p2

@@ -19,7 +19,9 @@ class Room:
     @classmethod
     def from_string(cls, input_string: str) -> Room:
         group = re.match(r"^([\w-]*)-(\d*)\[(\w*)\]$", input_string)
-        assert group
+        if not group:
+            raise ValueError(f"Match not found in {input_string}")
+
         return cls(encrypted_name=group[1], sector_id=int(group[2]), checksum=group[3])
 
     def is_valid(self) -> bool:
