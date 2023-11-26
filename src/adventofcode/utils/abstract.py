@@ -33,7 +33,7 @@ class FileReaderSolution(AbstractSolution, ABC):
         """
         # Find the year from the class. Convert self to string, and extract the year
         # after <adventofcode1234>
-        year = re.findall("adventofcode([\d]{4})", str(self))
+        year = re.findall(r"adventofcode(\d{4})", str(self))
         if not year:
             raise ValueError("Path not found")
         else:
