@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from collections import Counter
 from typing import Generic, TypeVar
 
-from adventofcode2021.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 T = TypeVar("T")
 

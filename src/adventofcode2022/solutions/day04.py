@@ -1,6 +1,6 @@
 from parse import parse
 
-from adventofcode2022.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day04(FileReaderSolution):

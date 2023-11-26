@@ -7,7 +7,7 @@ from collections import defaultdict
 import attrs
 from adventofcodeutils.parsing import extract_digits_from_string
 
-from adventofcode2016.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 @attrs.define

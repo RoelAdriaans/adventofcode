@@ -7,7 +7,7 @@ from functools import cache
 import attrs
 from adventofcodeutils.generic_search import Astar
 
-from adventofcode2016.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 @attrs.define(frozen=True)

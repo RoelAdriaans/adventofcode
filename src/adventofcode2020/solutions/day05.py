@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections import defaultdict
 from typing import NamedTuple
 
-from adventofcode2020.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class BoardingTicket(NamedTuple):

@@ -2,7 +2,7 @@ from collections import defaultdict
 
 from adventofcodeutils.point import XYPoint
 
-from adventofcode2016.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day02:

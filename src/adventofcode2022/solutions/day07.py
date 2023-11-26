@@ -4,7 +4,7 @@ import logging
 from collections import Counter
 from enum import Enum
 
-from adventofcode2022.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 logger = logging.getLogger(__name__)
 

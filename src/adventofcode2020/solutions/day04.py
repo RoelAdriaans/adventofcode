@@ -1,7 +1,7 @@
 import re
 from enum import Enum
 
-from adventofcode2020.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class RequiredFields(Enum):

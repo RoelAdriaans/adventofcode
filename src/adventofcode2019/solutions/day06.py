@@ -1,6 +1,6 @@
 from anytree import Node, Walker  # type: ignore
 
-from adventofcode2019.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day06:

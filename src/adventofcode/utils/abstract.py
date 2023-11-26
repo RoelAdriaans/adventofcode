@@ -1,3 +1,4 @@
+import re
 from abc import ABC, abstractmethod
 from pathlib import Path
 
@@ -30,8 +31,17 @@ class FileReaderSolution(AbstractSolution, ABC):
         """
         Give the input_text as parameter, process this and return the result
         """
-        root_dir = Path(__file__).parent.parent
-        with open(root_dir / "solutions" / "data" / input_file) as f:
+        # Find the year from the class. Convert self to string, and extract the year
+        # after <adventofcode1234>
+        year = re.findall("adventofcode([\d]{4})", str(self))
+        if not year:
+            raise ValueError("Path not found")
+        else:
+            year = int(year[0])
+        root_dir = Path(__file__).parent.parent.parent
+        with open(
+            root_dir / f"adventofcode{year}" / "solutions" / "data" / input_file
+        ) as f:
             input_data = f.read()
             res = self.solve(input_data=input_data)
             return res
