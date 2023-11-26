@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from adventofcode2022.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class RPC:

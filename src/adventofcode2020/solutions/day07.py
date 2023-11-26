@@ -5,7 +5,7 @@ import re
 from dataclasses import dataclass
 from typing import Any
 
-from adventofcode2020.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 logger = logging.getLogger(__name__)
 

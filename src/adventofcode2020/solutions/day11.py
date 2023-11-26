@@ -2,7 +2,7 @@ from abc import abstractmethod
 from collections import defaultdict, deque
 from typing import Deque
 
-from adventofcode2020.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day11:

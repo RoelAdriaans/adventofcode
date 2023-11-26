@@ -4,7 +4,7 @@ from typing import NamedTuple
 
 from adventofcodeutils.point import XYZPoint as Point
 
-from adventofcode2021.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Scanner(NamedTuple):

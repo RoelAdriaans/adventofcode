@@ -2,7 +2,7 @@ import re
 from dataclasses import dataclass
 from typing import NamedTuple
 
-from adventofcode2021.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Point(NamedTuple):

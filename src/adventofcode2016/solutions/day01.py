@@ -3,7 +3,7 @@ from __future__ import annotations
 import attrs
 from adventofcodeutils.point import XYPoint
 
-from adventofcode2016.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 @attrs.define(kw_only=True)

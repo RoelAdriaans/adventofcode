@@ -4,7 +4,7 @@ import math
 from collections import deque
 from enum import IntEnum
 
-from adventofcode2021.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class TypeID(IntEnum):

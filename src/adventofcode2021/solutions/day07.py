@@ -1,6 +1,6 @@
 import logging
 
-from adventofcode2021.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 logger = logging.getLogger(__name__)
 

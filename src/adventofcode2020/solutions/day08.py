@@ -1,5 +1,5 @@
 from adventofcode2020.solutions.handheld import HandHeld
-from adventofcode2020.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day08:

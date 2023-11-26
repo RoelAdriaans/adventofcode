@@ -4,7 +4,7 @@ from adventofcodeutils.graph import Graph
 from adventofcodeutils.node import Node
 from adventofcodeutils.stack import Stack
 
-from adventofcode2021.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day12:
