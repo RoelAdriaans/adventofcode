@@ -4,7 +4,7 @@ from abc import abstractmethod
 from collections import defaultdict
 from dataclasses import dataclass
 
-from adventofcode2020.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 @dataclass

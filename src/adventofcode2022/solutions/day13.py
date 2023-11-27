@@ -3,7 +3,7 @@ from __future__ import annotations
 from ast import literal_eval
 from functools import cmp_to_key
 
-from adventofcode2022.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 Packet = list[int | list]
 

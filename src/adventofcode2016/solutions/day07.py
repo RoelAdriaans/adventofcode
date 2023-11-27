@@ -5,7 +5,7 @@ import re
 
 import attrs
 
-from adventofcode2016.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 @attrs.define

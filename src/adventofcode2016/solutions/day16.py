@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from more_itertools import grouper
 
-from adventofcode2016.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day16:

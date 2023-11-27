@@ -1,6 +1,6 @@
 from collections import Counter
 
-from adventofcode2021.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day03:

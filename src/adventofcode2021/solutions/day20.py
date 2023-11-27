@@ -2,7 +2,7 @@ from collections import defaultdict
 
 from adventofcodeutils.point import XYPoint as Point
 
-from adventofcode2021.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day20:
@@ -62,7 +62,7 @@ class Day20:
         min_y = min(pnt.y for pnt in true_values)
         return max_x, min_x, max_y, min_y
 
-    def __repr__(self):  # pragma: nocover
+    def __str__(self):  # pragma: nocover
         return self.print_image(self.image)
 
     def print_image(self, image):  # pragma: nocover

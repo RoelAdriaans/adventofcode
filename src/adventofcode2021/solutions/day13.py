@@ -3,7 +3,7 @@ from collections import defaultdict
 
 from adventofcodeutils.queue import Queue
 
-from adventofcode2021.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day13:

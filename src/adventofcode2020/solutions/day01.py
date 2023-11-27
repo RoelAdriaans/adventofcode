@@ -2,7 +2,7 @@ import logging
 import math
 from itertools import combinations
 
-from adventofcode2020.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 logger = logging.getLogger(__name__)
 

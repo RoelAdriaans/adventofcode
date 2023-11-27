@@ -2,7 +2,7 @@ from itertools import combinations
 
 import numpy as np  # type: ignore
 
-from adventofcode2019.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Moon:

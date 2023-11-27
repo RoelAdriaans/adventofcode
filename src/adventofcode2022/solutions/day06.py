@@ -1,6 +1,6 @@
 from more_itertools import sliding_window
 
-from adventofcode2022.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day06:

@@ -1,7 +1,7 @@
 from adventofcodeutils.parsing import string_to_list_of_ints
 
 from adventofcode2019.solutions.intcode import IntCode
-from adventofcode2019.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day09:

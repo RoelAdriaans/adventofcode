@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import tqdm
 
-from adventofcode2016.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 SAFE = "."
 TRAP = "^"

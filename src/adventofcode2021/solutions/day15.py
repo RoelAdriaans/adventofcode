@@ -7,7 +7,7 @@ from functools import cache
 from adventofcodeutils.node import Node
 from adventofcodeutils.priority_queue import PriorityQueue
 
-from adventofcode2021.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 Point = tuple[int, int]
 

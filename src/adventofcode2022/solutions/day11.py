@@ -6,7 +6,7 @@ from typing import NamedTuple
 import parse
 from adventofcodeutils.queue import Queue
 
-from adventofcode2022.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Throw(NamedTuple):

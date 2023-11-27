@@ -3,7 +3,7 @@ from collections import Counter
 from collections.abc import Iterator
 from functools import cache
 
-from adventofcode2021.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day21:

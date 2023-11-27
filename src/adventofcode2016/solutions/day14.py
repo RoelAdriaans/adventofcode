@@ -5,7 +5,7 @@ import hashlib
 import logging
 import re
 
-from adventofcode2016.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 # Following regex will match 3 OR more matches
 three_char = re.compile(r"(\w)\1{2,}")
