@@ -62,7 +62,7 @@ class Day20:
         min_y = min(pnt.y for pnt in true_values)
         return max_x, min_x, max_y, min_y
 
-    def __repr__(self):  # pragma: nocover
+    def __str__(self):  # pragma: nocover
         return self.print_image(self.image)
 
     def print_image(self, image):  # pragma: nocover
