@@ -4,6 +4,7 @@ on: [pull_request]
 
 jobs:
   build:
+    name: Python Tests
     runs-on: ubuntu-22.04
     strategy:
       max-parallel: 4
