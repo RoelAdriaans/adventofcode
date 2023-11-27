@@ -3,7 +3,7 @@ from enum import StrEnum
 
 from adventofcodeutils.point import XYPoint as Point
 
-from adventofcode2022.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Pixel(StrEnum):

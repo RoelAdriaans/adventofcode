@@ -6,7 +6,7 @@ from collections import deque
 
 from adventofcodeutils.priority_queue import PriorityQueue
 
-from adventofcode2021.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Snail:

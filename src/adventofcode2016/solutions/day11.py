@@ -4,7 +4,7 @@ import itertools
 
 from adventofcodeutils.generic_search import BFS
 
-from adventofcode2016.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class FacilityState:

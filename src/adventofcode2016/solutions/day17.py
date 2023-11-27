@@ -8,7 +8,7 @@ from functools import cache
 import attrs
 from adventofcodeutils.generic_search import DFS, Astar
 
-from adventofcode2016.utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 @cache
