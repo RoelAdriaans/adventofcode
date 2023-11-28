@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcode2021.solutions.day10 import Day10PartA
+from adventofcode2021.day10 import Day10PartA
 
 test_data = """[({(<(())[]>[[{[]{<()<>>
 [(()[<>])]({[<{<<[]>>(

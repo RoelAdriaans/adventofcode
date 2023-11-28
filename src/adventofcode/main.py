@@ -121,7 +121,7 @@ def create_solution(force, year, day):
     print(f"Creating solution for {year}-{day} --")
 
     # Check before we overwrite
-    import_path = f"adventofcode{year}.solutions.day{day}"
+    import_path = f"adventofcode{year}.day{day}"
     logger.debug(f"Importing {import_path}")
     try:
         importlib.import_module(import_path)
@@ -175,7 +175,7 @@ def download_input_data(year: str, day: str):
 
     data_path = f"day_{day}/day{day}.txt"
     root_dir = Path(__file__).parent.parent
-    filename = root_dir / f"adventofcode{year}" / "solutions" / "data" / data_path
+    filename = root_dir / f"adventofcode{year}" / "data" / data_path
     with open(filename, "wb") as f:
         f.write(r.content)
 
@@ -184,7 +184,7 @@ def download_input_data(year: str, day: str):
 
 def run_solution(year, day, timeit_, part, submit):
     # Try to import the solution
-    import_path = f"adventofcode{year}.solutions.day{day}"
+    import_path = f"adventofcode{year}.day{day}"
     data_path = f"day_{day}/day{day}.txt"
 
     logger.debug(f"Importing {import_path}")

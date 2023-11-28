@@ -2,7 +2,7 @@ from textwrap import dedent
 
 import pytest
 
-from adventofcode2021.solutions.day18 import Day18PartA, Snail
+from adventofcode2021.day18 import Day18PartA, Snail
 
 
 class TestDay18PartA:

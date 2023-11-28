@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcode2016.solutions.day17 import Day17PartA, MazeLocation
+from adventofcode2016.day17 import Day17PartA, MazeLocation
 
 
 class TestDay17PartA:

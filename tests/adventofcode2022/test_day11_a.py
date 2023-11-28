@@ -1,6 +1,6 @@
 from textwrap import dedent
 
-from adventofcode2022.solutions.day11 import Day11PartA, Monkey
+from adventofcode2022.day11 import Day11PartA, Monkey
 
 
 class TestDay11PartA:

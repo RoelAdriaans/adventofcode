@@ -1,4 +1,4 @@
-from adventofcode2021.solutions.day11 import Day11PartA, Octopus
+from adventofcode2021.day11 import Day11PartA, Octopus
 
 
 class TestDay11PartA:

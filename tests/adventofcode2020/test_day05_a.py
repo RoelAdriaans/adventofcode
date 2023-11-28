@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcode2020.solutions.day05 import Day05PartA
+from adventofcode2020.day05 import Day05PartA
 
 
 class TestDay05PartA:

@@ -2,7 +2,7 @@ from textwrap import dedent
 
 import pytest
 
-from adventofcode2022.solutions.day03 import Day03PartA
+from adventofcode2022.day03 import Day03PartA
 
 
 class TestDay03PartA:

@@ -1,4 +1,4 @@
-from adventofcode2022.solutions.day15 import Day15PartA
+from adventofcode2022.day15 import Day15PartA
 
 
 class TestDay15PartA:
