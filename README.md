@@ -5,20 +5,22 @@ Code is in src/adventofcode<years>, tests are in tests/
 
 ## Todo
 
-- Create a global adventofcode tool
-- Add --year to adventofcode function
+✅ Create a global adventofcode tool
+✅ Add --year to adventofcode function
+✅ Use adventofcodeutils package instead of utils per year
+- Update coockiecutter templates
 - Update documentation, currently copied from the latest version (2016)
-- Use adventofcodeutils package instead of utils per year
 - Complete all puzzles (Doh)
 
 ## Create a new day
 
 You can use the adventofcode script to create the scaffolding and download the
-input file for that day.
+input file for that day. If no year is given, the current year is set as a default.
+A default year can also be stored in `.env`.
 
 An example:
 
-    adventofcode --create 20
+    adventofcode --year 2023 --create 20
 
 ### Env variables
 
@@ -27,6 +29,8 @@ Create a file `.env` with the content:
 ```ini
 # Store the session key here
 AOC_SESSION = ""
+# Select the year. If None, the current year is used.
+AOC_YEAR = None
 ```
 
 The variable `AOC_SESSION` is the cookie from <https://adventofcode.com/>. This is available
