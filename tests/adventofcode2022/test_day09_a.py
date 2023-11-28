@@ -1,6 +1,6 @@
 from textwrap import dedent
 
-from adventofcode2022.solutions.day09 import Day09PartA
+from adventofcode2022.day09 import Day09PartA
 
 
 class TestDay09PartA:

@@ -39,9 +39,7 @@ class FileReaderSolution(AbstractSolution, ABC):
         else:
             year = int(year[0])
         root_dir = Path(__file__).parent.parent.parent
-        with open(
-            root_dir / f"adventofcode{year}" / "solutions" / "data" / input_file
-        ) as f:
+        with open(root_dir / f"adventofcode{year}" / "data" / input_file) as f:
             input_data = f.read()
             res = self.solve(input_data=input_data)
             return res

@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcode2016.solutions.day04 import Day04PartA, Room
+from adventofcode2016.day04 import Day04PartA, Room
 
 
 class TestDay04PartA:

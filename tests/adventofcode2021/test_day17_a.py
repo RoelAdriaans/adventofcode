@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcode2021.solutions.day17 import Day17PartA, Point, TargetArea
+from adventofcode2021.day17 import Day17PartA, Point, TargetArea
 
 
 class TestDay17PartA:

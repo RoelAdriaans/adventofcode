@@ -1,4 +1,4 @@
-from adventofcode2021.solutions.day05 import Day05PartB, Point
+from adventofcode2021.day05 import Day05PartB, Point
 
 
 class TestDay05PartB:

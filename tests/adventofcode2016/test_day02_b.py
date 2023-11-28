@@ -1,4 +1,4 @@
-from adventofcode2016.solutions.day02 import Day02PartB, XYPoint
+from adventofcode2016.day02 import Day02PartB, XYPoint
 
 
 class TestDay02PartB:

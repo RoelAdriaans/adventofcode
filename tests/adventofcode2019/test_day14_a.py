@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcode2019.solutions.day14 import Day14PartA, NanoFactory, Recipe
+from adventofcode2019.day14 import Day14PartA, NanoFactory, Recipe
 
 
 class TestDay14PartA:
