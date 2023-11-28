@@ -3,6 +3,7 @@ import logging
 import os
 import sys
 import timeit
+from datetime import datetime
 from pathlib import Path
 
 import click
@@ -14,11 +15,20 @@ from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
 
+# Load env values from .env file, or from environment variables if set
+load_dotenv()
+
 
 @click.command()
 @click.argument(
     "day",
     type=click.IntRange(1, 25),
+)
+@click.option(
+    "--year",
+    default=lambda: os.environ.get("AOC_YEAR", datetime.now().year),
+    type=click.IntRange(2016, 2025),
+    help="The year to run. Defaults to current year. Can be overriden in .env by using value AOC_YEAR",
 )
 @click.option(
     "--create",
@@ -50,7 +60,7 @@ logger = logging.getLogger(__name__)
     help="Test the solution using timeit with timeit iterations",
 )
 @click.option("-v", "--verbose", is_flag=True)
-def main(day, create, force, submit, download, part, timeit_, verbose):
+def main(day, year, create, force, submit, download, part, timeit_, verbose):
     """
     Simple program that runs a module from the advent of code.
     DAY is an integer representing the day (1 - 25) that runs that day.
@@ -76,31 +86,28 @@ def main(day, create, force, submit, download, part, timeit_, verbose):
         datefmt="%H:%M:%S",
     )
 
-    # Load env values from .env file, or from environment variables if set
-    load_dotenv()
-
     day = f"{int(day):02}"
 
     print(
-        f"Welcome to Advent of Code 2021 - {day=} - {part=} - {timeit_=} - "
+        f"Welcome to Advent of Code - {year=} - {day=} - {part=} - {timeit_=} - "
         f"{verbose=} - {create=}"
     )
 
     if create:
         # Create a new solution
         ensure_correct_directory()
-        create_solution(force=force, day=day)
-        download_input_data(year="2021", day=day)
+        create_solution(force=force, year=year, day=day)
+        download_input_data(year=year, day=day)
     else:
         # Run a specific day
         if download:
-            download_input_data(year="2021", day=day)
-        run_solution(day=day, timeit_=timeit_, part=part, submit=submit)
+            download_input_data(year=year, day=day)
+        run_solution(year=year, day=day, timeit_=timeit_, part=part, submit=submit)
 
 
 def ensure_correct_directory():
     """Make sure that we are in the correct directory: Main sources root"""
-    main_file = Path("src/adventofcode2021/main.py")
+    main_file = Path("src/adventofcode/main.py")
     if main_file.exists():
         return True
     else:
@@ -109,11 +116,11 @@ def ensure_correct_directory():
         sys.exit(-65)
 
 
-def create_solution(force, day):
-    print(f"Creating solution for {day} --")
+def create_solution(force, year, day):
+    print(f"Creating solution for {year}-{day} --")
 
     # Check before we overwrite
-    import_path = f"adventofcode2021.solutions.day{day}"
+    import_path = f"adventofcode{year}.solutions.day{day}"
     logger.debug(f"Importing {import_path}")
     try:
         importlib.import_module(import_path)
@@ -152,7 +159,7 @@ def download_input_data(year: str, day: str):
     if r.status_code != 200:
         print(f"Unable to download the input data. Response code {r.status_code}")
         if r.status_code == 500:
-            print("An internal server error accured. Is your session valid?")
+            print("An internal server error occurred. Is your session valid?")
         elif r.status_code == 404:
             print(
                 "Solution not found: You are too early, or this day does not"
@@ -174,9 +181,9 @@ def download_input_data(year: str, day: str):
     logger.info(f"Input data writen to {filename}")
 
 
-def run_solution(day, timeit_, part, submit):
+def run_solution(year, day, timeit_, part, submit):
     # Try to import the solution
-    import_path = f"adventofcode2021.solutions.day{day}"
+    import_path = f"adventofcode{year}.solutions.day{day}"
     data_path = f"day_{day}/day{day}.txt"
 
     logger.debug(f"Importing {import_path}")
@@ -193,7 +200,7 @@ def run_solution(day, timeit_, part, submit):
         for _ in tqdm.trange(timeit_):
             time_prior = timeit.default_timer()
 
-            results = run_day(data_path, day, day_module, part, submit=False)
+            results = run_day(data_path, year, day, day_module, part, submit=False)
 
             time_after = timeit.default_timer()
             execution_times.append(time_after - time_prior)
@@ -207,20 +214,20 @@ def run_solution(day, timeit_, part, submit):
         )
     else:
         print("Results:")
-        print(run_day(data_path, day, day_module, part, submit))
+        print(run_day(data_path, year, day, day_module, part, submit))
 
 
-def run_day(data_path, day, day_module, part, submit):
+def run_day(data_path, year, day, day_module, part, submit):
     if part == "parta":
         result = run_parta(data_path, day, day_module)
         if submit:
-            submit_result(year=2021, day=day, part=part, result=result)
+            submit_result(year=year, day=day, part=part, result=result)
         return result
 
     elif part == "partb":
         result = run_partb(data_path, day, day_module)
         if submit:
-            submit_result(year=2021, day=day, part=part, result=result)
+            submit_result(year=year, day=day, part=part, result=result)
         return result
 
     else:
