@@ -1,6 +1,7 @@
 {
-    "advendofcode2016": ".",
+    "adventofcode": ".",
     "day": "32",
+    "year": "2030",
     "directory_name": "day_{{cookiecutter.day}}",
     "file_name": "day{{cookiecutter.day}}",
     "class_name": "Day{{cookiecutter.day}}"
