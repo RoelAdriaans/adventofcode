@@ -1,30 +1,12 @@
-import pathlib
-
 from adventofcodeutils.point import XYPoint as Point
 
 from adventofcode2021.solutions.day20 import Day20PartA
 
 
 class TestDay20PartA:
-    @staticmethod
-    def load_testdata():
-        test_path = (
-            pathlib.Path(__file__).parent.parent.parent
-            / "src"
-            / "adventofcode2021"
-            / "solutions"
-            / "data"
-            / "day_20"
-            / "test_data.txt"
-        )
-        with open(test_path) as f:
-            test_data = f.read()
-        return test_data
-
-    def test_parsing(self):
-        data = self.load_testdata()
+    def test_parsing(self, testdata):
         solution = Day20PartA()
-        solution.parse(data)
+        solution.parse(testdata)
 
         assert len(solution.enhancement) == 512
 
@@ -32,9 +14,9 @@ class TestDay20PartA:
         assert solution.image[Point(1, 0)] is True
         assert solution.image[Point(0, 1)] is False
 
-    def test_points(self):
+    def test_points(self, testdata):
         solution = Day20PartA()
-        solution.parse(self.load_testdata())
+        solution.parse(testdata)
         assert not solution.special_case
         points = solution.get_pixels(Point(5, 10))
         assert len(points) == 9
@@ -56,9 +38,9 @@ class TestDay20PartA:
         assert idx == 34
         assert solution.points_to_pixel(points) is True
 
-    def test_day20a_solve(self):
+    def test_day20a_solve(self, testdata):
         solution = Day20PartA()
-        result = solution.solve(self.load_testdata())
+        result = solution.solve(testdata)
         assert result == 35
 
     def test_day20a_data(self):
