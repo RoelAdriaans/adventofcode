@@ -144,7 +144,7 @@ def create_solution(force, year, day):
 def _get_session():
     session = os.environ.get("AOC_SESSION")
     if not session:
-        print("AOC_SESSION key is not set in envonrment or .env file")
+        print("AOC_SESSION key is not set in environment or .env file")
         sys.exit(-65)
     return session
 
@@ -174,8 +174,8 @@ def download_input_data(year: str, day: str):
     logger.debug(f"Received data, length {len(r.content)}")
 
     data_path = f"day_{day}/day{day}.txt"
-    root_dir = Path(__file__).parent
-    filename = root_dir / "solutions" / "data" / data_path
+    root_dir = Path(__file__).parent.parent
+    filename = root_dir / f"adventofcode{year}" / "solutions" / "data" / data_path
     with open(filename, "wb") as f:
         f.write(r.content)
 
