@@ -57,7 +57,7 @@ class Day08:
 
 class Day08PartA(Day08, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        self.load_image(input_data, width=25, height=6)
+        self.load_image(input_data.strip(), width=25, height=6)
         # Find layer with the fewest 0 digits:
         layer = self.layer_with_fewest_digit(0)
         number_ones = self.count_number_per_frame(1, layer)
@@ -67,7 +67,7 @@ class Day08PartA(Day08, FileReaderSolution):
 
 class Day08PartB(Day08, FileReaderSolution):
     def solve(self, input_data: str) -> str:
-        self.load_image(input_data, width=25, height=6)
+        self.load_image(input_data.strip(), width=25, height=6)
         image = self.get_computed_image()
         printable = self.printable_image(image)
         result = printable.replace("0", " ").replace("1", "■")

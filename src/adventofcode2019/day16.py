@@ -39,7 +39,7 @@ class Day16:
 
 class Day16PartA(Day16, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        input_signal = string_of_single_to_list_of_ints(input_data)
+        input_signal = string_of_single_to_list_of_ints(input_data.strip())
         result = self.run_phases(input_signal, 100)
 
         # Convert list of ints to single integer and take only the first 8
@@ -48,7 +48,7 @@ class Day16PartA(Day16, FileReaderSolution):
 
 class Day16PartB(Day16, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        signal_str = input_data * 10_000
+        signal_str = input_data.strip() * 10_000
         offset = int(signal_str[0:7])
 
         signal_str = signal_str[offset:]
