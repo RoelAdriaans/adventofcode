@@ -1,5 +1,5 @@
 {
-    "advendofcode": ".",
+    "adventofcode": ".",
     "day": "32",
     "year": "2030",
     "directory_name": "day_{{cookiecutter.day}}",
