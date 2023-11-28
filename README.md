@@ -8,7 +8,7 @@ Code is in src/adventofcode<years>, tests are in tests/
 ✅ Create a global adventofcode tool
 ✅ Add --year to adventofcode function
 ✅ Use adventofcodeutils package instead of utils per year
-- Update coockiecutter templates
+✅- Update coockiecutter templates
 - Update documentation, currently copied from the latest version (2016)
 - Complete all puzzles (Doh)
 
