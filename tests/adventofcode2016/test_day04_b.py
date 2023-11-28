@@ -1,4 +1,4 @@
-from adventofcode2016.solutions.day04 import Day04PartB, Room
+from adventofcode2016.day04 import Day04PartB, Room
 
 
 class TestDay04PartB:

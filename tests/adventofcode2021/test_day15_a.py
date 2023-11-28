@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcode2021.solutions.day15 import Day15PartA
+from adventofcode2021.day15 import Day15PartA
 
 test_data = """\
 1163751742

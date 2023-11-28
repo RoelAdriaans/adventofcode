@@ -1,4 +1,4 @@
-from adventofcode2021.solutions.day09 import Day09PartA
+from adventofcode2021.day09 import Day09PartA
 
 test_input = """\
 2199943210

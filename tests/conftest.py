@@ -10,7 +10,6 @@ def read_file(year: int, day: int, filename: str) -> str:
         pathlib.Path(__file__).parent.parent
         / "src"
         / f"adventofcode{year}"
-        / "solutions"
         / "data"
         / f"day_{day:02}"
         / filename

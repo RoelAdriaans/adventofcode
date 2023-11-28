@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcode2021.solutions.day13 import Day13PartA
+from adventofcode2021.day13 import Day13PartA
 
 test_small_data = """0,0
 1,1

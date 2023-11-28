@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcode2016.solutions.day07 import Day07PartA, IPv7
+from adventofcode2016.day07 import Day07PartA, IPv7
 
 
 class TestDay07PartA:

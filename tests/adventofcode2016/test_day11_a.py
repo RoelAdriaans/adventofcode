@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcode2016.solutions.day11 import Day11PartA, FacilityState
+from adventofcode2016.day11 import Day11PartA, FacilityState
 
 
 class TestDay11PartA:

@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcode2021.solutions.day12 import Day12PartA
+from adventofcode2021.day12 import Day12PartA
 
 test_data_short = """start-A
 start-b

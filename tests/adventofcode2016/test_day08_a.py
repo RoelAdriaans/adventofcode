@@ -1,12 +1,7 @@
 import numpy as np
 import pytest
 
-from adventofcode2016.solutions.day08 import (
-    Day08PartA,
-    Direction,
-    Instruction,
-    Operation,
-)
+from adventofcode2016.day08 import Day08PartA, Direction, Instruction, Operation
 
 
 class TestDay08PartA:

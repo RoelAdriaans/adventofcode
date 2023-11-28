@@ -1,6 +1,6 @@
 from adventofcodeutils.point import XYPoint as Point
 
-from adventofcode2021.solutions.day20 import Day20PartA
+from adventofcode2021.day20 import Day20PartA
 
 
 class TestDay20PartA:
