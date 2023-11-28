@@ -1,26 +1,10 @@
-import pathlib
-
 from adventofcode2021.solutions.day14 import Day14PartA
 
 
 class TestDay14PartA:
-    def load_testdata(self):
-        test_path = (
-            pathlib.Path(__file__).parent.parent.parent
-            / "src"
-            / "adventofcode2021"
-            / "solutions"
-            / "data"
-            / "day_14"
-            / "test_data.txt"
-        )
-        with open(test_path) as f:
-            test_data = f.read()
-        return test_data
-
-    def test_day14a_steps(self):
+    def test_day14a_steps(self, testdata):
         solution = Day14PartA()
-        solution.initialize(self.load_testdata())
+        solution.initialize(testdata)
 
         assert "".join(solution.polimers_to_list()) == "NNCB"
 
@@ -37,9 +21,9 @@ class TestDay14PartA:
             == "NBBNBNBBCCNBCNCCNBBNBBNBBBNBBNBBCBHCBHHNHCBBCBHCB"
         )
 
-    def test_day14a_solve(self):
+    def test_day14a_solve(self, testdata):
         solution = Day14PartA()
-        result = solution.solve(self.load_testdata())
+        result = solution.solve(testdata)
         assert result == 1588
 
     def test_day14a_data(self):

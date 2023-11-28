@@ -1,26 +1,10 @@
-import pathlib
-
 from adventofcode2021.solutions.day14 import Day14PartB
 
 
 class TestDay14PartB:
-    def load_testdata(self):
-        test_path = (
-            pathlib.Path(__file__).parent.parent.parent
-            / "src"
-            / "adventofcode2021"
-            / "solutions"
-            / "data"
-            / "day_14"
-            / "test_data.txt"
-        )
-        with open(test_path) as f:
-            test_data = f.read()
-        return test_data
-
-    def test_day14a_steps(self):
+    def test_day14a_steps(self, testdata):
         solution = Day14PartB()
-        solution.initialize(self.load_testdata())
+        solution.initialize(testdata)
 
         assert list(solution.cnt.keys()) == ["NN", "NC", "CB"]
 
@@ -39,9 +23,9 @@ class TestDay14PartB:
             "HC",
         ]
 
-    def test_day14b_solve(self):
+    def test_day14b_solve(self, testdata):
         solution = Day14PartB()
-        result = solution.solve(self.load_testdata())
+        result = solution.solve(testdata)
         assert result == 2188189693529
 
     def test_day14b_data(self):
