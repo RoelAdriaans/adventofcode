@@ -1,4 +1,6 @@
-from adventofcode2022.utils.abstract import FileReaderSolution
+from __future__ import annotations
+
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class {{cookiecutter.class_name}}:
