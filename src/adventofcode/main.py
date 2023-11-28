@@ -28,7 +28,8 @@ load_dotenv()
     "--year",
     default=lambda: os.environ.get("AOC_YEAR", datetime.now().year),
     type=click.IntRange(2016, 2025),
-    help="The year to run. Defaults to current year. Can be overriden in .env by using value AOC_YEAR",
+    help="The year to run. Defaults to current year. Can be overriden in .env "
+    "by using value AOC_YEAR",
 )
 @click.option(
     "--create",
