@@ -136,7 +136,7 @@ def create_solution(force, year, day):
     cookiecutter(
         "template/",
         no_input=True,
-        extra_context={"day": day},
+        extra_context={"day": day, "year": year},
         overwrite_if_exists=True,
     )
 
