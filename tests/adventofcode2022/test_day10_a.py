@@ -1,4 +1,4 @@
-from adventofcode2022.solutions.day10 import CPU, Day10PartA
+from adventofcode2022.day10 import CPU, Day10PartA
 
 
 class TestDay10PartA:

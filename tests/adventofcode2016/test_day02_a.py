@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcode2016.solutions.day02 import Day02PartA, XYPoint
+from adventofcode2016.day02 import Day02PartA, XYPoint
 
 
 class TestDay02PartA:

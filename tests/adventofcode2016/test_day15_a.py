@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcode2016.solutions.day15 import Day15PartA, Disc
+from adventofcode2016.day15 import Day15PartA, Disc
 
 
 class TestDay15PartA:

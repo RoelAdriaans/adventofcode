@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcode2020.solutions.day12 import Day12PartA, Direction
+from adventofcode2020.day12 import Day12PartA, Direction
 
 
 class TestDay12PartA:

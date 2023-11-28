@@ -2,7 +2,7 @@ from collections import deque
 
 import pytest
 
-from adventofcode2016.solutions.day18 import Day18PartA
+from adventofcode2016.day18 import Day18PartA
 
 
 class TestDay18PartA:

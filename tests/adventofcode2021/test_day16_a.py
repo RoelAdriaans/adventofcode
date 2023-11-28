@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcode2021.solutions.day16 import Day16PartA, Packet
+from adventofcode2021.day16 import Day16PartA, Packet
 
 
 class TestDay16PartA:
