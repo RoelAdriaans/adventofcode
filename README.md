@@ -1,15 +1,10 @@
-# Advent of Code 2016, 2019, 2020, 2021 and 2022
+# Advent of Code 2016, 2019, 2020, 2021, 2022 and ...
 
 Advent of Code for some years with tests and utils etc.
 Code is in src/adventofcode<years>, tests are in tests/
 
 ## Todo
 
-✅ Create a global adventofcode tool
-✅ Add --year to adventofcode function
-✅ Use adventofcodeutils package instead of utils per year
-✅- Update coockiecutter templates
-- Update documentation, currently copied from the latest version (2016)
 - Complete all puzzles (Doh)
 
 ## Create a new day
@@ -39,26 +34,25 @@ in your browser after you've logged in.
 ## Cookiecutter
 
 To create a new day with the CookieCutter version run the command from the
-`advent2016` directory.
+`adventofcode` directory.
+
+Preferred option is to use the `adventofcode` util, since this util also downloads the solution data.
+
+To use cookiecutter:
 
 ```shell script
 cookiecutter template -f
 ```
 
 Answer the questions:
-* `advendofcode2016` : Accept default answer. This installs the result in the current directory
-* `day` : Answer with day you're working on, with leading zero. Eg: 07, 10, 31.
-* `directory_name`, `file_name`, `class_name` : Accept default answer
+* `adventofcode` : Accept default answer. This installs the result in the current directory.
+* `day` : Answer with the day you're working on, with leading zero. Eg: 07, 10, 31.
+* `year` : Answer with the year you're working on, eg 2023.
+* `directory_name`, `file_name`, `class_name` : Accept default answer.
 
 This will create the correct files in the `src` and `tests` directories.
 The `-f` option is required to make the files in the current subdirectory.
 When the project supports modules this is probably no longer needed.
-
-The new solution still have to be added to the `main.py` file.
-
-### Cookiecutter Todo
-
-* Nothing at the moment
 
 ## Install
 
