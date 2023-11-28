@@ -1,26 +1,10 @@
-import pathlib
-
 from adventofcode2021.solutions.day19 import Day19PartA
 
 
 class TestDay19PartA:
-    def load_testdata(self):
-        test_path = (
-            pathlib.Path(__file__).parent.parent.parent
-            / "src"
-            / "adventofcode2021"
-            / "solutions"
-            / "data"
-            / "day_19"
-            / "test_data.txt"
-        )
-        with open(test_path) as f:
-            test_data = f.read()
-        return test_data
-
-    def test_day19a_solve(self):
+    def test_day19a_solve(self, testdata):
         solution = Day19PartA()
-        result = solution.solve(self.load_testdata())
+        result = solution.solve(testdata)
         assert result == 79
 
     def test_day19a_data(self):

@@ -187,6 +187,11 @@ class Day12PartB(Day12, FileReaderSolution):
         repeating_z = self.find_returning(galaxy, "z")
 
         # Find the lowest common multiple for all the axis
-        repeating = np.lcm.reduce([repeating_x, repeating_y, repeating_z])
+        # Create a numpy array with int64. On windows the array is only 32 bits,
+        # leading to an overflow. On Linux, by default, it's 64 bits. See
+        # https://stackoverflow.com/a/72483130/550104
+
+        found_steps = np.array([repeating_x, repeating_y, repeating_z], dtype=np.int64)
+        repeating = np.lcm.reduce(found_steps)
 
         return repeating
