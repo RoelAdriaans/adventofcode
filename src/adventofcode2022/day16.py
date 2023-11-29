@@ -66,7 +66,9 @@ class Day16PartA(Day16, FileReaderSolution):
             and current_valve not in open_valves
         ):
             # Add current valve to the open valves
-            open_valves = open_valves + (current_valve,)
+            # Sort the vales
+            open_valves = tuple(sorted([*open_valves, current_valve]))
+
             # Calculate what our flow will be when it's opened
             # eg 24 minute left * flowrate
             current_flow = (time - 1) * self.valves[current_valve].flow_rate
