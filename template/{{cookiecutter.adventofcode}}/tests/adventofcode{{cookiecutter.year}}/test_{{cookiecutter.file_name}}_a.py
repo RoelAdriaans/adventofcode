@@ -1,9 +1,15 @@
 import pytest
 
-from adventofcode{{cookiecutter.year}}.solutions.{{cookiecutter.file_name}} import {{cookiecutter.class_name}}PartA
+from adventofcode{{cookiecutter.year}}.{{cookiecutter.file_name}} import {{cookiecutter.class_name}}PartA
 
 
 class Test{{cookiecutter.class_name}}PartA:
+    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
+    def test_{{cookiecutter.file_name}}a_solve(self, testdata):
+        solution = {{cookiecutter.class_name}}PartA()
+        result = solution.solve(testdata)
+        assert result == 0
+
     @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     @pytest.mark.parametrize(("input_data", "expected_result"), [("", ""), ("", "")])
     def test_{{cookiecutter.file_name}}a_solve(self, input_data, expected_result):
