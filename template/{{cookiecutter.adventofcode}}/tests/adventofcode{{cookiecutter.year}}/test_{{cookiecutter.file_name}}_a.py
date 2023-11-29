@@ -5,7 +5,7 @@ from adventofcode{{cookiecutter.year}}.{{cookiecutter.file_name}} import {{cooki
 
 class Test{{cookiecutter.class_name}}PartA:
     @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
-    def test_{{cookiecutter.file_name}}a_solve(self, testdata):
+    def test_{{cookiecutter.file_name}}a_testdata(self, testdata):
         solution = {{cookiecutter.class_name}}PartA()
         result = solution.solve(testdata)
         assert result == 0
