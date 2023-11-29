@@ -43,12 +43,19 @@ class Day16:
             else:
                 raise ValueError("Invalid Line", line)
 
-
-class Day16PartA(Day16, FileReaderSolution):
     @cache
-    def find_path(self, current_valve: str, time: int, open_valves: tuple[str] | None):
+    def find_path(
+        self,
+        current_valve: str,
+        time: int,
+        open_valves: tuple[str] | None,
+        elephant=False,
+    ):
         if time == 0:
             # Outatime, Base state, nothing else to compute
+            if elephant:
+                # Now have the elephant traverse another route
+                return self.find_path("AA", 26, open_valves)
             return 0
         # We have 2 options:
         # - Walk to another valve
@@ -56,7 +63,7 @@ class Day16PartA(Day16, FileReaderSolution):
 
         # Walk to all the connected valved, this takes one minute.
         max_walking_score = max(
-            self.find_path(valve, time - 1, open_valves)
+            self.find_path(valve, time - 1, open_valves, elephant)
             for valve in self.valves[current_valve].connections
         )
 
@@ -70,22 +77,24 @@ class Day16PartA(Day16, FileReaderSolution):
             open_valves = tuple(sorted([*open_valves, current_valve]))
 
             # Calculate what our flow will be when it's opened
-            # eg 24 minute left * flowrate
+            # e.g. 24 minute left * flow-rate
             current_flow = (time - 1) * self.valves[current_valve].flow_rate
             # Recurse and find a cheaper path
             open_score = current_flow + self.find_path(
-                current_valve, time - 1, open_valves
+                current_valve, time - 1, open_valves, elephant
             )
             return max(open_score, max_walking_score)
         else:
             return max_walking_score
 
+
+class Day16PartA(Day16, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         self.parse(input_data)
-
-        return self.find_path("AA", 30, ())
+        return self.find_path("AA", 30, (), False)
 
 
 class Day16PartB(Day16, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        self.parse(input_data)
+        return self.find_path("AA", 26, (), True)
