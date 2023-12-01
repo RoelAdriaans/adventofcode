@@ -27,7 +27,7 @@ numpy = "^1.26.2"
 adventofcodeutils = {git = "https://github.com/RoelAdriaans/adventofcodeutils.git"}
 more-itertools = "^10.1.0"
 regex-spm = "^1.0.0"
-parse = "^1.19.1"
+parse = "^1.20.0"
 matplotlib = "^3.8.2"
 
 [tool.poetry.dev-dependencies]
@@ -37,7 +37,7 @@ pytest = "^7.4.3"
 pytest-cov = "^4.1.0"
 pytest-xdist = "^3.5.0"
 python-dotenv = "^1.0.0"
-tox = "^4.11.3"
+tox = "^4.11.4"
 pre-commit = "^3.5.0"
 isort = "^5.12.0"
 
