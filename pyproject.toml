@@ -11,7 +11,8 @@ packages = [
     { include = "adventofcode2019", from="src" },
     { include = "adventofcode2020", from="src" },
     { include = "adventofcode2021", from="src" },
-    { include = "adventofcode2022", from="src" }
+    { include = "adventofcode2022", from="src" },
+    { include = "adventofcode2023", from="src" }
 ]
 
 [tool.poetry.dependencies]
