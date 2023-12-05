@@ -5,8 +5,9 @@ from functools import cache
 
 import attrs
 from adventofcodeutils.parsing import extract_digits_from_string
-
+from functools import cache
 from adventofcode.utils.abstract import FileReaderSolution
+import itertools
 
 
 @attrs.define(frozen=True)
