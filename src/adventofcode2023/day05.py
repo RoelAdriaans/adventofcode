@@ -1,15 +1,9 @@
 from __future__ import annotations
 
 import attrs
-import tqdm
 from adventofcodeutils.parsing import extract_digits_from_string
 
 from adventofcode.utils.abstract import FileReaderSolution
-
-
-class Seed:
-    # Do need?
-    ...
 
 
 @attrs.define(frozen=True)
@@ -23,8 +17,8 @@ class Range:
 
 
 class Day05:
-    seeds:list[int]
-    maps:list[Range]
+    seeds: list[int]
+    maps: list[list[Range]]
 
     def parse(self, input_data: str):
         """Parse the whole input list"""
@@ -53,22 +47,8 @@ class Day05:
         """Map value, could be seed, or anything else, via mapping"""
         for mapping in mappings:
             if mapping.source_range <= value <= (mapping.source_range + mapping.length):
-                # For example,
-                # value = 79
-                # source_range = 52, length = 48
-                # dest_range = 50
-                # Expected result: 81
-                # eg, difference between dest
-                source_list = list(
-                    range(
-                        mapping.source_range, mapping.source_range + mapping.length + 1
-                    )
-                )
-                dest_list = list(
-                    range(mapping.dest_range, mapping.dest_range + mapping.length + 1)
-                )
-                idx = source_list.index(value)
-                value = dest_list[idx]
+                delta = mapping.dest_range - mapping.source_range
+                value = value + delta
                 return value
         # No mapping found, return as-is
         return value
@@ -88,8 +68,7 @@ class Day05PartA(Day05, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         self.parse(input_data)
         results = []
-        for seed in tqdm.tqdm(self.seeds):
-            print(f"{seed=}")
+        for seed in self.seeds:
             value = self.compute_seed(seed)
             results.append(value)
 
