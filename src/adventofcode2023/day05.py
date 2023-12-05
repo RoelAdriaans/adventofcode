@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import attrs
 from adventofcodeutils.parsing import extract_digits_from_string
-
+from functools import cache
 from adventofcode.utils.abstract import FileReaderSolution
+import itertools
 
 
 @attrs.define(frozen=True)
@@ -18,7 +19,7 @@ class Range:
 
 class Day05:
     seeds: list[int]
-    maps: list[list[Range]]
+    maps: list[tuple[Range]]
 
     def parse(self, input_data: str):
         """Parse the whole input list"""
@@ -41,9 +42,10 @@ class Day05:
                     length=length,
                 )
                 maps.append(r)
-            self.maps.append(maps)
+            self.maps.append(tuple(maps))
 
-    def map(self, value: int, mappings: list[Range]) -> int:
+    @cache
+    def map(self, value: int, mappings: tuple[Range]) -> int:
         """Map value, could be seed, or anything else, via mapping"""
         for mapping in mappings:
             if mapping.source_range <= value <= (mapping.source_range + mapping.length):
@@ -53,6 +55,7 @@ class Day05:
         # No mapping found, return as-is
         return value
 
+    @cache
     def compute_seed(self, seed: int) -> int:
         """Compute the result for seed"""
         # Probably not smart to do it per seed, but cache might help us...
@@ -76,5 +79,33 @@ class Day05PartA(Day05, FileReaderSolution):
 
 
 class Day05PartB(Day05, FileReaderSolution):
+    def reverse_map(self, location: int, mapping) -> int:
+        return location - 2
+
+    def reverse_location_valid(self, location) -> bool:
+        """Test if the seed is valid"""
+        current_location = location
+        for mapping in reversed(self.maps):
+            current_location = self.reverse_map(current_location, mapping)
+
+        return False
+
+    def seed_in_seeds(self, seed: int) -> bool:
+        """Is seed in seed pairs"""
+        return False
+
+    def reverse_search(self) -> int:
+        # First, get the seeds
+        seed_pairs = sorted(itertools.batched(self.seeds, n=2))
+        # Find out the maximum seed, probably? I hope we find a location before this
+        max_seed = seed_pairs[-1][0] + seed_pairs[-1][1]
+        for location in range(max_seed):
+            if seed := self.reverse_location_valid(location):
+                if self.seed_in_seeds(seed):
+                    return location
+        raise ValueError("No valid locations found")
+
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        self.parse(input_data)
+        # Reverse Search!
+        return self.reverse_search()
