@@ -144,13 +144,9 @@ class Day07PartA(Day07, FileReaderSolution):
             ]
         )
         total = 0
-        ranks = []
         for idx, bid in enumerate(hands, start=1):
             score = bid.bid * idx
             total += score
-            ranks.append([bid.cards, idx])
-
-        print(ranks)
         return total
 
 
