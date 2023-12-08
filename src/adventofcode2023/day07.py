@@ -1,18 +1,10 @@
 from __future__ import annotations
 
+import functools
 from collections import Counter
 from enum import Enum
 
-import attr
-import attrs
-
 from adventofcode.utils.abstract import FileReaderSolution
-
-
-@attr.define(frozen=True, order=True)
-class Bid:
-    hand: Hand
-    bid: int
 
 
 class Score(Enum):
@@ -25,12 +17,16 @@ class Score(Enum):
     HIGH_CARD = 1
 
 
-@attrs.frozen
+@functools.total_ordering
 class Hand:
-    # Comparing documentation:
-    # https://www.attrs.org/en/stable/comparison.html#custom-comparison
     cards: str
+    bid: int
 
+    def __init__(self, cards: str, bid: int):
+        self.cards = cards
+        self.bid = bid
+
+    @property
     def score(self) -> Score:
         """Compute the sore for this hand.
         This score can then be used for comparing cards against each other.
@@ -98,6 +94,42 @@ class Hand:
 
         raise ValueError(f"Unknown Score for cards: {self.cards}")
 
+    @staticmethod
+    def letter_to_score(letter: str) -> int:
+        scores = {
+            "A": 14,
+            "K": 13,
+            "Q": 12,
+            "J": 11,
+            "T": 10,
+        }
+        try:
+            return scores[letter]
+        except KeyError:
+            return int(letter)
+
+    def __repr__(self):
+        return f"<Hand {self.cards} (Score: {self.score}, bid: {self.bid})>"
+
+    def __eq__(self, other):
+        if not isinstance(other, Hand):
+            raise ValueError("Can't compare, must be a Hand")
+        if self.cards == other.cards and self.score == other.score:
+            return True
+        else:
+            return False
+
+    def __lt__(self, other) -> bool:
+        if self.score != other.score:
+            return self.score.value < other.score.value
+        else:
+            for c, r in zip(self.cards, other.cards):
+                if c == r:
+                    continue
+                else:
+                    return self.letter_to_score(c) < self.letter_to_score(r)
+            return False
+
 
 class Day07:
     pass
@@ -105,16 +137,21 @@ class Day07:
 
 class Day07PartA(Day07, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        bids = [
-            Bid(Hand(line.split()[0]), int(line.split()[1]))
-            for line in input_data.splitlines()
-        ]
+        hands = sorted(
+            [
+                Hand(line.split()[0], int(line.split()[1]))
+                for line in input_data.splitlines()
+            ]
+        )
         total = 0
-        for idx, bid in enumerate(sorted(bids), start=1):
+        ranks = []
+        for idx, bid in enumerate(hands, start=1):
             score = bid.bid * idx
             total += score
+            ranks.append([bid.cards, idx])
 
-        return score
+        print(ranks)
+        return total
 
 
 class Day07PartB(Day07, FileReaderSolution):
