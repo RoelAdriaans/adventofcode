@@ -1,8 +1,7 @@
 import re
 from collections import namedtuple
-from typing import Dict, List
 
-from utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day3:

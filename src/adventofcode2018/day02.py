@@ -2,9 +2,8 @@ from collections import Counter
 from collections.abc import Iterable
 from functools import lru_cache
 from itertools import combinations
-from typing import List, Tuple
 
-from utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day2:

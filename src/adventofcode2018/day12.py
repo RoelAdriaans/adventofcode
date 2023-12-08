@@ -1,6 +1,6 @@
 import itertools
 
-from utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 """
 Game of live. Do we model the plants, or do we model the list?

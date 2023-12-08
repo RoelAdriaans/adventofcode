@@ -1,5 +1,4 @@
-import pytest
-from solutions.day16 import Addi, Banr, Bori, Day16PartA, Device, Seti
+from adventofcode2018.day16 import Addi, Banr, Bori, Day16PartA, Device, Seti
 
 
 class TestDay16PartA:

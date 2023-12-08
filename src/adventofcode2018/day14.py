@@ -1,8 +1,6 @@
-from typing import List
-
 import tqdm
 
-from utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Elve:

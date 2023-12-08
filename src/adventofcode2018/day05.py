@@ -3,7 +3,7 @@ import sys
 from collections import Counter
 from string import ascii_lowercase
 
-from utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day5:

@@ -1,6 +1,6 @@
 import re
 
-from utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class TimedNode:
