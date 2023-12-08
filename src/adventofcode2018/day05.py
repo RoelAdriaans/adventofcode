@@ -35,7 +35,7 @@ class Day5:
 
 class Day5PartA(Day5, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        reduced_string = Day5.recude_input(input_data)
+        reduced_string = Day5.recude_input(input_data.strip())
         return len(reduced_string)
 
 
@@ -59,7 +59,7 @@ class Day5PartB(Day5, FileReaderSolution):
         # Count the numbers
         number_counts = Counter()
         for letter in ascii_lowercase:
-            reduced_string = Day5PartB.remove_and_react(input_data, letter)
+            reduced_string = Day5PartB.remove_and_react(input_data.strip(), letter)
             string_length = len(reduced_string)
             number_counts[letter] = string_length
         lowest = number_counts.most_common()[-1]

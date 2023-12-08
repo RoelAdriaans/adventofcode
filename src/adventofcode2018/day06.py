@@ -137,7 +137,7 @@ class Day06:
 
 class Day06PartA(Day06, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        input_lines = input_data.split("\n")
+        input_lines = input_data.splitlines()
         self.generate_points(input_lines)
         self.generate_grid()
         self.generate_distance()
@@ -171,7 +171,7 @@ class Day06PartB(Day06, FileReaderSolution):
         return points
 
     def solve(self, input_data: str, max_score: int = 10_000) -> int:
-        input_lines = input_data.split("\n")
+        input_lines = input_data.splitlines()
         self.generate_points(input_lines)
         self.generate_grid()
         result = self.compute_area(max_score)
