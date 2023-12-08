@@ -8,6 +8,7 @@ license = "MIT"
 packages = [
     { include = "adventofcode", from="src" },
     { include = "adventofcode2016", from="src" },
+    { include = "adventofcode2018", from="src" },
     { include = "adventofcode2019", from="src" },
     { include = "adventofcode2020", from="src" },
     { include = "adventofcode2021", from="src" },
