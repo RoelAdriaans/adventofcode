@@ -164,5 +164,5 @@ class Day14PartB(Day14, FileReaderSolution):
         # We hardcode the puzzle input, since it's not in the input we're given
         self.initalise(input_data="37", num_elves=2)
 
-        result = self.search_for_recipe(input_data)
+        result = self.search_for_recipe(input_data.strip())
         return result

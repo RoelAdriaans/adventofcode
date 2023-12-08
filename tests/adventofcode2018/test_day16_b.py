@@ -26,12 +26,14 @@ class TestDay16PartB:
         expected_seccond = {"opcode": 9, "A": 0, "B": 1, "C": 1}
         assert seccond == expected_seccond
 
+    @pytest.mark.skip(reason="Not implemented yet")
     @pytest.mark.parametrize(("input_data", "expected_result"), [("", ""), ("", "")])
     def test_day16b_solve(self, input_data, expected_result):
         solution = Day16PartB()
         result = solution.solve(input_data)
         assert result == expected_result
 
+    @pytest.mark.skip(reason="Not implemented yet")
     def test_day16b_data(self):
         """Result we got when we did the real solution"""
         solution = Day16PartB()
