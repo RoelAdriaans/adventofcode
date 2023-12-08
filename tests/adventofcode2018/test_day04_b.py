@@ -1,6 +1,6 @@
 import random
 
-from solutions.day04 import Day4PartB
+from adventofcode2018.day04 import Day4PartB
 
 
 class TestDay04PartA:

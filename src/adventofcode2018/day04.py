@@ -1,7 +1,7 @@
 import re
 from collections import Counter
 
-from utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day4:

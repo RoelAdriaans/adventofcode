@@ -1,6 +1,6 @@
 from collections import Counter
 
-from utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day1PartA(FileReaderSolution):
@@ -8,7 +8,7 @@ class Day1PartA(FileReaderSolution):
         parts = input_data.split()
         total = 0
         for part in parts:
-            total += eval(part)
+            total += eval(part)  # nosec B307
         return total
 
 
@@ -23,7 +23,7 @@ class Day1PartB(FileReaderSolution):
         total = 0
         while True:
             for part in parts:
-                total += eval(part)
+                total += eval(part)  # nosec B307
                 visited_frequencies[total] += 1
                 if visited_frequencies[total] == frequency_to_reach:
                     return total

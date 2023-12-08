@@ -1,4 +1,4 @@
-from solutions.day12 import Day12PartA, Garden
+from adventofcode2018.day12 import Day12PartA, Garden
 
 
 class TestDay12PartA:

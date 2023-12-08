@@ -1,7 +1,8 @@
 import random
 
 import pytest
-from solutions.day04 import Day4PartA
+
+from adventofcode2018.day04 import Day4PartA
 
 
 class TestDay04PartA:

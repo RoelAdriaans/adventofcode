@@ -1,10 +1,8 @@
 import copy
 import re
 from abc import ABC, abstractmethod
-from collections import Counter
-from typing import Dict, List
 
-from utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Device:
@@ -344,9 +342,13 @@ class Day16PartA(Day16, FileReaderSolution):
 
 
 class Day16PartB(Day16, FileReaderSolution):
-    def resolve_opcode_no_to_instruction(self, input_data: str) -> list[str]:
+    def resolve_opcode_no_to_instruction(  # noqa: C901
+        self, input_data: str
+    ) -> list[str]:
         """
         Resolve the opcode with the instruction
+
+        @TODO Refactor! Way to complex...
 
         :param input_data: Sample input data
         :return: List with opcode number as values and instruction as key.
@@ -409,8 +411,7 @@ class Day16PartB(Day16, FileReaderSolution):
                 return result
 
     def solve(self, input_data: str) -> int:
-        opcode_list = self.resolve_opcode_no_to_instruction(input_data)
+        # opcode_list = self.resolve_opcode_no_to_instruction(input_data)
         # Run the computer
         # @TODO.
-
         raise NotImplementedError

@@ -1,5 +1,6 @@
 import pytest
-from solutions.day10 import Day10PartA, Point
+
+from adventofcode2018.day10 import Day10PartA, Point
 
 
 class TestDay10PartA:

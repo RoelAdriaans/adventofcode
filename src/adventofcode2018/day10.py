@@ -3,7 +3,7 @@ from itertools import count
 
 import matplotlib.pyplot as plt
 
-from utils.abstract import FileReaderSolution
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Point:

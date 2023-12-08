@@ -1,5 +1,6 @@
 import pytest
-from solutions.day07 import Day07PartB, TimedNode
+
+from adventofcode2018.day07 import Day07PartB, TimedNode
 
 
 class TestDay07PartB:
