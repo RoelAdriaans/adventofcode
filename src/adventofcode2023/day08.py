@@ -31,6 +31,24 @@ class Day08:
             self.nodes[parts[0]] = parts[1:]
 
 
+class Day08PartA(Day08, FileReaderSolution):
+    def solve(self, input_data: str) -> int:
+        self.parse(input_data)
+        steps = 0
+        current_node = "AAA"
+        instructions = cycle(self.instructions)
+
+        while current_node != "ZZZ":
+            instruction = next(instructions)
+            if instruction == "L":
+                current_node = self.nodes[current_node][0]
+            else:
+                current_node = self.nodes[current_node][1]
+            steps += 1
+
+        return steps
+
+
 class Day08PartB(Day08, FileReaderSolution):
     def find_cycle(self, start_node: str) -> int:
         steps = 0
