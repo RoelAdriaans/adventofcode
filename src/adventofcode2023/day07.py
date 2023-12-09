@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 import functools
+import logging
 from collections import Counter
+from collections.abc import Callable
 from enum import Enum
 
 from adventofcode.utils.abstract import FileReaderSolution
+
+logger = logging.getLogger(__name__)
 
 
 class Score(Enum):
@@ -28,6 +32,10 @@ class Hand:
 
     @property
     def score(self) -> Score:
+        return self._calculate_score(self.cards)
+
+    @staticmethod
+    def _calculate_score(cards: str) -> Score:
         """Compute the sore for this hand.
         This score can then be used for comparing cards against each other.
 
@@ -40,7 +48,7 @@ class Hand:
         - One pair -> 2
         - High card -> 1
         """
-        counter = Counter(self.cards)
+        counter = Counter(cards)
         most_common = counter.most_common()
         unique_cards = len(counter)
 
@@ -92,7 +100,7 @@ class Hand:
         if len(counter) == 5:
             return Score.HIGH_CARD
 
-        raise ValueError(f"Unknown Score for cards: {self.cards}")
+        raise ValueError(f"Unknown Score for cards: {cards}")
 
     @staticmethod
     def letter_to_score(letter: str) -> int:
@@ -131,15 +139,51 @@ class Hand:
             return False
 
 
+class JokerHand(Hand):
+    """New rule with Jokers!"""
+
+    @staticmethod
+    def letter_to_score(letter: str) -> int:
+        if letter == "J":
+            return 1
+        else:
+            return Hand.letter_to_score(letter)
+
+    @staticmethod
+    def find_indexes(string, search):
+        return [i for i, ltr in enumerate(string) if ltr == search]
+
+    def _calculate_score(self, cards: str) -> Score:
+        """Calculate the score, but then with a joker in it!"""
+        # What to to:
+        # I want to replace the Jokers to create the strongest card
+        # What if: I just replace the jokers with A, K Q, T, ... 2
+        # and calculate the highest score?
+        jokers = self.find_indexes(self.cards, "J")
+
+        if len(jokers) == 0:
+            # If there are no jokers, don't replace
+            return Hand._calculate_score(cards)
+
+        if len(jokers) == 5:
+            # JJJJJ Lucky hand!
+            return Score(7)
+
+        max_score = 0
+        for replacement in ("A", "K", "Q", "T", "9", "8", "7", "6", "5", "4", "3", "2"):
+            test_card = cards.replace("J", replacement)
+            score = Hand._calculate_score(test_card)
+            if score.value > max_score:
+                max_score = score.value
+        logger.debug("For cards %s, score %s", cards, max_score)
+        return Score(max_score)
+
+
 class Day07:
-    pass
-
-
-class Day07PartA(Day07, FileReaderSolution):
-    def solve(self, input_data: str) -> int:
+    def generic_solve(self, input_data: str, hand: Callable) -> int:
         hands = sorted(
             [
-                Hand(line.split()[0], int(line.split()[1]))
+                hand(line.split()[0], int(line.split()[1]))
                 for line in input_data.splitlines()
             ]
         )
@@ -150,6 +194,11 @@ class Day07PartA(Day07, FileReaderSolution):
         return total
 
 
+class Day07PartA(Day07, FileReaderSolution):
+    def solve(self, input_data: str) -> int:
+        return self.generic_solve(input_data, Hand)
+
+
 class Day07PartB(Day07, FileReaderSolution):
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        return self.generic_solve(input_data, JokerHand)
