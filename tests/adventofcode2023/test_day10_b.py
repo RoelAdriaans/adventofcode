@@ -4,11 +4,17 @@ from adventofcode2023.day10 import Day10PartB
 
 
 class TestDay10PartB:
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
-    def test_day10b_testdata(self, testdata):
+    @pytest.mark.parametrize(
+        ("postfix", "expected_result"),
+        [
+            ("loop_4", 4),
+            # ("loop_8", 8),
+        ],
+    )
+    def test_day10b_testdata(self, testdata_by_postfix, expected_result):
         solution = Day10PartB()
-        result = solution.solve(testdata)
-        assert result == 0
+        result = solution.solve(testdata_by_postfix)
+        assert result == expected_result
 
     @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     @pytest.mark.parametrize(("input_data", "expected_result"), [("", ""), ("", "")])
