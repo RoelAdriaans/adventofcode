@@ -23,16 +23,16 @@ class TestDay10PartA:
         ("postfix", "expected_result"),
         [
             ("test_4", 4),
-            # ("test_8", 8),
+            ("test_8", 8),
         ],
     )
     def test_day10a_testdata(self, testdata_by_postfix, expected_result):
         solution = Day10PartA()
         result = solution.solve(testdata_by_postfix)
-        assert result == 0
+        assert result == expected_result
 
     def test_day10a_data(self):
         """Result we got when we did the real solution"""
         solution = Day10PartA()
         res = solution("day_10/day10.txt")
-        assert res == 0
+        assert res == 6806
