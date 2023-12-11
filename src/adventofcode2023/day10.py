@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import logging
 from enum import Enum
 
 from adventofcode.utils.abstract import FileReaderSolution
+
+logger = logging.getLogger(__name__)
 
 
 class Tile(Enum):
@@ -46,29 +49,10 @@ class Tile(Enum):
         return options
 
 
-class Node:
-    tile: Tile
-    north: Node | None
-    south: Node | None
-    east: Node | None
-    west: Node | None
-
-    def __init__(self, tile: Tile):
-        self.tile = tile
-        self.north = None
-        self.south = None
-        self.east = None
-        self.west = None
-
-    def __str__(self) -> str:
-        return (
-            f"<Node {self.tile} (^ {self.north}, > {self.east}, "
-            f"V {self.south}, < {self.west})>"
-        )
-
-
 class Day10:
     grid: dict[tuple[int, int], str]
+    max_row: int
+    max_col: int
     start_point = tuple[int, int]
 
     def parse(self, input_data: str):
@@ -78,6 +62,8 @@ class Day10:
                 self.grid[(row_idx, col_idx)] = char
                 if char == "S":
                     self.start_point = (row_idx, col_idx)
+                self.max_row = row_idx
+                self.max_col = col_idx
 
     def find_path(self) -> list[tuple[int, int]]:
         # We know our startpoint, which nodes connect?
@@ -137,5 +123,95 @@ class Day10PartA(Day10, FileReaderSolution):
 
 
 class Day10PartB(Day10, FileReaderSolution):
+    def raytracing(self, path: list[tuple[int, int]], row: int, col: int) -> bool:
+        # If it's at the edge, it's never enclosed:
+        right = {self.grid[(row, n)] for n in range(col, self.max_col + 1)}
+        if right == {"."}:
+            return False
+
+        down = {self.grid[(n, col)] for n in range(row, self.max_row + 1)}
+        if down == {"."}:
+            return False
+
+        enclosed = False
+        for n in range(col):
+            if (row, n) in path:
+                enclosed = not enclosed
+        return enclosed
+
+    def convert_to_box_chars(self, path, inside, outside):
+        thin_box_chars = {
+            "F": "┌",
+            "7": "┐",
+            "L": "└",
+            "J": "┘",
+            "-": "─",
+            "|": "│",
+            "S": "@",
+            ".": " ",
+            "I": "│",
+        }
+        thick_box_chars = {
+            "F": "╔",
+            "7": "╗",
+            "L": "╚",
+            "J": "╝",
+            "-": "═",
+            "|": "║",
+            "S": "@",
+            ".": " ",
+            "I": "║",
+        }
+        grid = {}
+        for row_idx in range(self.max_row + 1):
+            for col_idx in range(self.max_col + 1):
+                loc = (row_idx, col_idx)
+                if loc in inside:
+                    grid[loc] = "I"
+                elif loc in outside:
+                    grid[loc] = "O"
+                elif loc in path:
+                    grid[loc] = thick_box_chars[self.grid[loc]]
+                else:
+                    grid[loc] = thin_box_chars[self.grid[loc]]
+
+        return grid
+
+    def print_grid(self, grid):
+        print()
+        lines = []
+        for row in range(self.max_row + 1):
+            lines.append("".join([grid[(row, col)] for col in range(self.max_col + 1)]))
+        print("\n".join(lines))
+        print()
+
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        self.parse(input_data)
+        path = self.find_path()
+        valid_points = 0
+
+        # self.print_grid(self.convert_to_box_chars(path))
+        # self.print_grid(self.grid)
+        inside = []
+        outside = []
+        for row in range(0, self.max_row + 1):
+            for col in range(0, self.max_col + 1):
+                if self.grid[(row, col)] == ".":
+                    if self.raytracing(path, row, col):
+                        logger.info(
+                            f"Valid location: {row}, {col}, {self.grid[(row, col)]}"
+                        )
+                        valid_points += 1
+                        inside.append((row, col))
+                    else:
+                        outside.append((row, col))
+
+        # for erin in inside:
+        #     self.grid[erin] = "I"
+        # for eruit in outside:
+        #     self.grid[eruit] = "O"
+        # for p in path:
+        #     self.grid[p] = "*"
+        print(self.print_grid(self.convert_to_box_chars(path, inside, outside)))
+
+        return valid_points
