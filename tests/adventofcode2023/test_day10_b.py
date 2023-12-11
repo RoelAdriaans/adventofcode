@@ -7,8 +7,9 @@ class TestDay10PartB:
     @pytest.mark.parametrize(
         ("postfix", "expected_result"),
         [
-            ("loop_4", 4),
-            # ("loop_8", 8),
+            # ("loop_4", 4),
+            ("loop_8", 8),
+            # ("loop_10", 10),
         ],
     )
     def test_day10b_testdata(self, testdata_by_postfix, expected_result):
@@ -28,4 +29,5 @@ class TestDay10PartB:
         """Result we got when we did the real solution"""
         solution = Day10PartB()
         res = solution("day_10/day10.txt")
+        assert res > 132
         assert res == 0
