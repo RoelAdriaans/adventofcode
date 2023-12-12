@@ -28,7 +28,8 @@ class Tile(Enum):
 
     @property
     def has_south(self) -> bool:
-        return "S" in self.name
+        # If the name is "SS", it is the starting position, and might now have south.
+        return "S" in self.name and self.name != "SS"
 
     @property
     def has_west(self) -> bool:
@@ -86,7 +87,6 @@ class Day10:
             )
 
         # Let's follow the path
-
         cur_point = connections[0]
         path = [cur_point]
         visited = {cur_point}
@@ -102,11 +102,11 @@ class Day10:
                 for connection in connections
                 if connection not in visited and connection != self.start_point
             ]
-            try:
-                next_step = next_step[0]
-            except IndexError:
+            if len(next_step) == 0:
+                # We have found the loop, nowhere to go
                 return path
 
+            next_step = next_step[0]
             path.append(next_step)
             visited.add(next_step)
             cur_point = next_step
