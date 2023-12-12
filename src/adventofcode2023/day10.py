@@ -188,6 +188,12 @@ class Day10PartB(Day10, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         self.parse(input_data)
         path = self.find_path()
+
+        # First cleanup the grid. Everything that is not in path, will become a "."
+        for location, tile in self.grid.items():
+            if tile != "." and location not in path:
+                self.grid[location] = "."
+
         valid_points = 0
 
         # self.print_grid(self.convert_to_box_chars(path))
