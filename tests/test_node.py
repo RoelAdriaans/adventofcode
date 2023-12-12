@@ -1,4 +1,4 @@
-from adventofcodeutils.node import Node
+from adventofcode.utils.node import Node
 
 
 def test_node():

@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcodeutils.queue import Queue
+from adventofcode.utils.queue import Queue
 
 
 def test_queue():

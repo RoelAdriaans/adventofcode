@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcodeutils.stack import Stack
+from adventofcode.utils.stack import Stack
 
 
 def test_stack():

@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcodeutils import point
+from adventofcode.utils import point
 
 
 def test_xyzpoint():

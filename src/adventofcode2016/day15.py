@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import attrs
-from adventofcodeutils.parsing import extract_digits_from_string
 
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode.utils.parsing import extract_digits_from_string
 
 
 @attrs.define

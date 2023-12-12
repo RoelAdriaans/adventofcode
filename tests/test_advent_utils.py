@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcodeutils import parsing
+from adventofcode.utils import parsing
 
 
 def test_string_to_list_of_ints():

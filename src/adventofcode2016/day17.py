@@ -6,9 +6,9 @@ from collections.abc import Callable
 from functools import cache
 
 import attrs
-from adventofcodeutils.generic_search import DFS, Astar
 
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode.utils.generic_search import DFS, Astar
 
 
 @cache

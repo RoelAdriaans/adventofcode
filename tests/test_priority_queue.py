@@ -1,6 +1,6 @@
 import pytest
 
-from adventofcodeutils.priority_queue import PriorityQueue
+from adventofcode.utils.priority_queue import PriorityQueue
 
 
 def test_priorityqueue():

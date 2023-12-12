@@ -1,6 +1,5 @@
-from adventofcodeutils.stack import Stack
-
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode.utils.stack import Stack
 
 
 class Day10:

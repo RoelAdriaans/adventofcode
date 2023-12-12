@@ -4,10 +4,10 @@ from abc import ABC, abstractmethod
 from collections.abc import Callable
 from typing import TypeVar
 
-from adventofcodeutils.node import Node
-from adventofcodeutils.priority_queue import PriorityQueue
-from adventofcodeutils.queue import Queue
-from adventofcodeutils.stack import Stack
+from adventofcode.utils.node import Node
+from adventofcode.utils.priority_queue import PriorityQueue
+from adventofcode.utils.queue import Queue
+from adventofcode.utils.stack import Stack
 
 T = TypeVar("T")
 

@@ -1,4 +1,4 @@
-from adventofcodeutils.graph import Edge, Graph
+from adventofcode.utils.graph import Edge, Graph
 
 
 def test_graph():
