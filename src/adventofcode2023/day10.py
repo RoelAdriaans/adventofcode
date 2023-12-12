@@ -1,11 +1,8 @@
 from __future__ import annotations
 
-import logging
 from enum import Enum
 
 from adventofcode.utils.abstract import FileReaderSolution
-
-logger = logging.getLogger(__name__)
 
 
 class Tile(Enum):
@@ -85,10 +82,26 @@ class Day10:
             raise ValueError(
                 f"Starting point does not have 2 connections, but : {connections}"
             )
+        # Also, get the start type and update it in the grid
+        valid_directions = []
+        for direction in [(1, 0, "S"), (0, 1, "E"), (-1, 0, "N"), (0, -1, "W")]:
+            if (
+                self.start_point[0] + direction[0],
+                self.start_point[1] + direction[1],
+            ) in connections:
+                valid_directions.append(direction[2])
+        direction = "".join(valid_directions)
+
+        try:
+            replacement = Tile[direction]
+        except KeyError:
+            replacement = Tile[direction[::-1]]
+
+        self.grid[self.start_point] = replacement.value
 
         # Let's follow the path
         cur_point = connections[0]
-        path = [cur_point]
+        path = [self.start_point, cur_point]
         visited = {cur_point}
 
         while cur_point != self.start_point:
@@ -123,23 +136,54 @@ class Day10PartA(Day10, FileReaderSolution):
 
 
 class Day10PartB(Day10, FileReaderSolution):
-    def raytracing(self, path: list[tuple[int, int]], row: int, col: int) -> bool:
-        # If it's at the edge, it's never enclosed:
-        right = {self.grid[(row, n)] for n in range(col, self.max_col + 1)}
-        if right == {"."}:
-            return False
+    def raytracing(
+        self, path: list[tuple[int, int]], row: int
+    ) -> list[tuple[int, int]]:
+        """Return a list if points that are inside the path"""
+        outside_points = []
+        outside = True
+        start_f = None
+        for col in range(self.max_col + 1):
+            char = self.grid[(row, col)]
+            if char == "." and not outside:
+                # We are outside, and hit an empty spot!
+                outside_points.append((row, col))
 
-        down = {self.grid[(n, col)] for n in range(row, self.max_row + 1)}
-        if down == {"."}:
-            return False
+            elif char == "|":
+                outside = not outside
 
-        enclosed = False
-        for n in range(col):
-            if (row, n) in path:
-                enclosed = not enclosed
-        return enclosed
+            elif char == "F":
+                start_f = True
 
-    def convert_to_box_chars(self, path, inside, outside):
+            elif char == "L":
+                start_f = False
+
+            elif char == "-":
+                # Alongside a wall, can only happen if not with bend
+                if start_f is None:
+                    raise ValueError("Horizontal line but outside?!")
+
+            elif char == "7":
+                # End of a pipe
+                if start_f is None:
+                    raise ValueError("Horizontal end `7`, but not started!?")
+                if not start_f:
+                    outside = not outside
+                start_f = None
+
+            elif char == "J":
+                if start_f is None:
+                    raise ValueError("Horizontal end `J`, but not started!?")
+                if start_f:
+                    outside = not outside
+                start_f = None
+        return outside_points
+
+    def convert_to_box_chars(self, path=None, inside=None):
+        if path is None:
+            path = []
+        if inside is None:
+            inside = []
         thin_box_chars = {
             "F": "┌",
             "7": "┐",
@@ -168,8 +212,6 @@ class Day10PartB(Day10, FileReaderSolution):
                 loc = (row_idx, col_idx)
                 if loc in inside:
                     grid[loc] = "I"
-                elif loc in outside:
-                    grid[loc] = "O"
                 elif loc in path:
                     grid[loc] = thick_box_chars[self.grid[loc]]
                 else:
@@ -189,35 +231,19 @@ class Day10PartB(Day10, FileReaderSolution):
         self.parse(input_data)
         path = self.find_path()
 
-        # First cleanup the grid. Everything that is not in path, will become a "."
+        # First cleanup the grid. Everything that is not in path, or Start!
+        # will become a "."
         for location, tile in self.grid.items():
-            if tile != "." and location not in path:
+            if tile != "." and tile != "S" and location not in path:
                 self.grid[location] = "."
 
         valid_points = 0
-
-        # self.print_grid(self.convert_to_box_chars(path))
-        # self.print_grid(self.grid)
         inside = []
-        outside = []
         for row in range(0, self.max_row + 1):
-            for col in range(0, self.max_col + 1):
-                if self.grid[(row, col)] == ".":
-                    if self.raytracing(path, row, col):
-                        logger.info(
-                            f"Valid location: {row}, {col}, {self.grid[(row, col)]}"
-                        )
-                        valid_points += 1
-                        inside.append((row, col))
-                    else:
-                        outside.append((row, col))
+            inside_points = self.raytracing(path, row)
+            valid_points += len(inside_points)
+            inside.extend(inside_points)
 
-        # for erin in inside:
-        #     self.grid[erin] = "I"
-        # for eruit in outside:
-        #     self.grid[eruit] = "O"
-        # for p in path:
-        #     self.grid[p] = "*"
-        print(self.print_grid(self.convert_to_box_chars(path, inside, outside)))
+        print(self.print_grid(self.convert_to_box_chars(path, inside)))
 
         return valid_points
