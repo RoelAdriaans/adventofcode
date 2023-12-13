@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from adventofcodeutils.point import XYPoint as Point
+import itertools
+
+from adventofcodeutils.point import XYNRPoint as Point
 
 from adventofcode.utils.abstract import FileReaderSolution
 
@@ -68,11 +70,12 @@ class Day11:
         self.max_x = max(point.x for point in self.galaxy_points) + 1
         self.max_y = max(point.y for point in self.galaxy_points) + 1
 
-    def compute_shortest_paths(self) -> list[list[int]]:
+    def compute_shortest_paths(self) -> int:
         """Compute the shortest paths between pairs"""
-        # Return a list of distances, or a dict between galaxy points with the
-        # distance? I don't know...
-        return []
+        return sum(
+            pair1.distance(pair2)
+            for pair1, pair2 in itertools.combinations(self.galaxy_points, 2)
+        )
 
     def print_solution(self):
         print()
@@ -93,12 +96,11 @@ class Day11:
 class Day11PartA(Day11, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         self.parse(input_data)
-        self.print_solution()
+        # self.print_solution()
 
         self.expand_universe()
-        self.print_solution()
-        shortest_paths = self.compute_shortest_paths()
-        return sum(len(path) for path in shortest_paths)
+        # self.print_solution()
+        return self.compute_shortest_paths()
 
 
 class Day11PartB(Day11, FileReaderSolution):

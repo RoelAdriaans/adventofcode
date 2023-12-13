@@ -1,5 +1,5 @@
 import pytest
-from adventofcodeutils.point import XYPoint as Point
+from adventofcodeutils.point import XYNRPoint as Point
 
 from adventofcode2023.day11 import Day11PartA
 
@@ -34,21 +34,29 @@ class TestDay11PartA:
         assert point_9.x == 11
         assert point_9.y == 5
 
+        # After the expansion, the distance between 1 and 7 must be 15
+        point_1 = [p for p in solution.galaxy_points if p.nr == 1][0]
+        point_7 = [p for p in solution.galaxy_points if p.nr == 7][0]
+        assert point_7.distance(point_1) == 15
+
+        # After the expansion, the distance between 3 and 6 must be 17
+        point_3 = [p for p in solution.galaxy_points if p.nr == 3][0]
+        point_6 = [p for p in solution.galaxy_points if p.nr == 6][0]
+        assert point_3.distance(point_6) == 17
+
+        # After the expansion, the distance between 8 and 9 must be 5
+        point_8 = [p for p in solution.galaxy_points if p.nr == 8][0]
+        point_9 = [p for p in solution.galaxy_points if p.nr == 9][0]
+        assert point_8.distance(point_9) == 5
+
     def test_day11a_testdata(self, testdata):
         solution = Day11PartA()
         result = solution.solve(testdata)
         assert result == 374
 
     @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
-    @pytest.mark.parametrize(("input_data", "expected_result"), [("", ""), ("", "")])
-    def test_day11a_solve(self, input_data, expected_result):
-        solution = Day11PartA()
-        result = solution.solve(input_data)
-        assert result == expected_result
-
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     def test_day11a_data(self):
         """Result we got when we did the real solution"""
         solution = Day11PartA()
         res = solution("day_11/day11.txt")
-        assert res == 0
+        assert res == 9805264
