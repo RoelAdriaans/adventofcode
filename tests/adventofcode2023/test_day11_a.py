@@ -1,4 +1,3 @@
-import pytest
 from adventofcodeutils.point import XYNRPoint as Point
 
 from adventofcode2023.day11 import Day11PartA
@@ -9,8 +8,8 @@ class TestDay11PartA:
         solution = Day11PartA()
         solution.parse(testdata)
         assert len(solution.galaxy_points) == 9
-        assert solution.galaxy_points[0] == Point(0, 3)
-        assert solution.galaxy_points[-1] == Point(9, 4)
+        assert solution.galaxy_points[0] == Point(0, 3, 0)
+        assert solution.galaxy_points[-1] == Point(9, 4, 0)
 
     def test_day11a_expand(self, testdata):
         solution = Day11PartA()
@@ -54,7 +53,6 @@ class TestDay11PartA:
         result = solution.solve(testdata)
         assert result == 374
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     def test_day11a_data(self):
         """Result we got when we did the real solution"""
         solution = Day11PartA()
