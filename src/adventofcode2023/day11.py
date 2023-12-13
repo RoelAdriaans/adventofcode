@@ -16,16 +16,18 @@ class Day11:
         self.galaxy_points = []
         self.used_x = set()
         self.used_y = set()
+        number = 1
 
         for x, line in enumerate(input_data.splitlines()):
             for y, char in enumerate(line):
                 if char == "#":
-                    self.galaxy_points.append(Point(x, y))
+                    self.galaxy_points.append(Point(x, y, number))
                     self.used_x.add(x)
                     self.used_y.add(y)
+                    number += 1
 
-                self.max_y = y
-            self.max_x = x
+                self.max_y = y + 1
+            self.max_x = x + 1
 
     @staticmethod
     def missing_elements(elements):
@@ -45,7 +47,7 @@ class Day11:
             points_to_add = []
             for point in self.galaxy_points:
                 if point.x > x + offset_x:
-                    points_to_add.append(Point(point.x + offset_x + 1, point.y))
+                    points_to_add.append(Point(point.x + 1, point.y, point.nr))
                     points_do_delete.append(point)
             for point in points_do_delete:
                 del self.galaxy_points[self.galaxy_points.index(point)]
@@ -56,12 +58,15 @@ class Day11:
             points_to_add = []
             for point in self.galaxy_points:
                 if point.y > y + offset_y:
-                    points_to_add.append(Point(point.x, point.y + offset_y + 1))
+                    points_to_add.append(Point(point.x, point.y + 1, point.nr))
                     points_do_delete.append(point)
+
             for point in points_do_delete:
                 del self.galaxy_points[self.galaxy_points.index(point)]
             self.galaxy_points.extend(points_to_add)
             offset_y += 1
+        self.max_x = max(point.x for point in self.galaxy_points) + 1
+        self.max_y = max(point.y for point in self.galaxy_points) + 1
 
     def compute_shortest_paths(self) -> list[list[int]]:
         """Compute the shortest paths between pairs"""
@@ -69,11 +74,29 @@ class Day11:
         # distance? I don't know...
         return []
 
+    def print_solution(self):
+        print()
+        for x in range(self.max_x):
+            line = []
+            for y in range(self.max_y):
+                point = next(
+                    (pp for pp in self.galaxy_points if pp == Point(x, y, 0)), None
+                )
+                if point:
+                    line.append(str(point.nr))
+                else:
+                    line.append(".")
+            print("".join(line))
+        print()
+
 
 class Day11PartA(Day11, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         self.parse(input_data)
+        self.print_solution()
+
         self.expand_universe()
+        self.print_solution()
         shortest_paths = self.compute_shortest_paths()
         return sum(len(path) for path in shortest_paths)
 
