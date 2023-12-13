@@ -2,7 +2,7 @@
 
 repos:
   - repo: https://github.com/ambv/black
-    rev: 23.11.0
+    rev: 23.12.0
     hooks:
     - id: black
       language_version: 'python3.12'
@@ -14,7 +14,7 @@ repos:
       args: ["--ignore", "E203,W503"]
 
   - repo: https://github.com/PyCQA/isort
-    rev: 5.12.0
+    rev: 5.13.2
     hooks:
     - id: isort
 
