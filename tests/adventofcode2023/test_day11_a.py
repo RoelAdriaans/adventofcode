@@ -20,8 +20,19 @@ class TestDay11PartA:
         assert len(solution.galaxy_points) == 9
         # First one moved on to the right
         # Check if they are int the list, ordering may have been shuffled
-        assert Point(0, 4) in solution.galaxy_points
-        assert Point(12, 5) in solution.galaxy_points
+        point_1 = [p for p in solution.galaxy_points if p.nr == 1][0]
+        assert point_1.x == 0
+        assert point_1.y == 4
+
+        # Find point should be on location (1, 9)
+        point_2 = [p for p in solution.galaxy_points if p.nr == 2][0]
+        assert point_2.x == 1
+        assert point_2.y == 9
+
+        # Find point 9
+        point_9 = [p for p in solution.galaxy_points if p.nr == 9][0]
+        assert point_9.x == 11
+        assert point_9.y == 5
 
     def test_day11a_testdata(self, testdata):
         solution = Day11PartA()
