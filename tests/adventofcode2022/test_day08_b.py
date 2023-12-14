@@ -1,8 +1,7 @@
 from textwrap import dedent
 
-from adventofcodeutils.point import XYPoint as Point
-
 from adventofcode2022.day08 import Day08PartB
+from adventofcode.utils.point import XYPoint as Point
 
 
 class TestDay08PartB:

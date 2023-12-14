@@ -4,9 +4,8 @@ import functools
 import math
 from collections import deque
 
-from adventofcodeutils.priority_queue import PriorityQueue
-
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode.utils.priority_queue import PriorityQueue
 
 
 class Snail:

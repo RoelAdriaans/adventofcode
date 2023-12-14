@@ -1,6 +1,5 @@
-from adventofcodeutils.parsing import string_of_single_to_list_of_ints
-
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode.utils.parsing import string_of_single_to_list_of_ints
 
 
 class Day16:

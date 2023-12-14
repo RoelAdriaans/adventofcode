@@ -4,10 +4,9 @@ from abc import ABC, abstractmethod
 from collections.abc import Iterator
 from functools import cache
 
-from adventofcodeutils.node import Node
-from adventofcodeutils.priority_queue import PriorityQueue
-
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode.utils.node import Node
+from adventofcode.utils.priority_queue import PriorityQueue
 
 Point = tuple[int, int]
 

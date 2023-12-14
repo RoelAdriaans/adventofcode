@@ -1,10 +1,9 @@
 from collections import defaultdict
 from enum import IntEnum
 
-from adventofcodeutils.parsing import string_to_list_of_ints
-
 from adventofcode2019.intcode import IntCode, ProgramFinished
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode.utils.parsing import string_to_list_of_ints
 
 
 class Tile(IntEnum):

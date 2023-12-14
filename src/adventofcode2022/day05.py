@@ -1,10 +1,10 @@
 from abc import abstractmethod
 from typing import NamedTuple
 
-from adventofcodeutils.stack import Stack
 from parse import parse
 
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode.utils.stack import Stack
 
 
 class Instruction(NamedTuple):
