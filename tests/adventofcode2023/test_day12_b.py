@@ -1,23 +1,19 @@
-import pytest
-
 from adventofcode2023.day12 import Day12PartB
 
 
 class TestDay12PartB:
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
+    def test_unfold(self):
+        assert Day12PartB.unfold(".# 1") == ".#?.#?.#?.#?.# 1,1,1,1,1"
+        assert (
+            Day12PartB.unfold("???.### 1,1,3")
+            == "???.###????.###????.###????.###????.### 1,1,3,1,1,3,1,1,3,1,1,3,1,1,3"
+        )
+
     def test_day12b_testdata(self, testdata):
         solution = Day12PartB()
         result = solution.solve(testdata)
         assert result == 0
 
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
-    @pytest.mark.parametrize(("input_data", "expected_result"), [("", ""), ("", "")])
-    def test_day12b_solve(self, input_data, expected_result):
-        solution = Day12PartB()
-        result = solution.solve(input_data)
-        assert result == expected_result
-
-    @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
     def test_day12b_data(self):
         """Result we got when we did the real solution"""
         solution = Day12PartB()

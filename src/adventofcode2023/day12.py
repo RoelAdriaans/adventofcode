@@ -51,5 +51,13 @@ class Day12PartA(Day12, FileReaderSolution):
 
 
 class Day12PartB(Day12, FileReaderSolution):
+    @staticmethod
+    def unfold(line: str) -> str:
+        conditions, groups = line.split()
+        return f"{'?'.join([conditions] * 5)} {','.join([groups] * 5)}"
+
     def solve(self, input_data: str) -> int:
-        raise NotImplementedError
+        total = 0
+        for line in input_data.splitlines():
+            total += self.count_arrangements(self.unfold(line))
+        return total
