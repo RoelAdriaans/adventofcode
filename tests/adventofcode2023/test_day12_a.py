@@ -13,7 +13,6 @@ class TestDay12PartA:
         ("arrangement", "groups", "expected_result"),
         [
             ("#.#.###", [1, 1, 3], True),
-            ("##..###", [1, 1, 3], False),
             (".###..##.#..", [3, 2, 1], True),
             ("#.#.###", [1, 1, 3], True),
             (".#...#....###.", [1, 1, 3], True),
@@ -24,12 +23,30 @@ class TestDay12PartA:
         ],
     )
     def test_day12a_is_valid_arrangement(self, arrangement, groups, expected_result):
-        result = Day12PartA.is_valid_arrangement(arrangement, groups)
+        for n in range(1, len(arrangement)):
+            result = Day12PartA.is_valid_upto(list(arrangement), groups, n)
+            assert result == expected_result
+
+    @pytest.mark.parametrize(
+        ("arrangement", "groups", "upto", "expected_result"),
+        [
+            ("#.#.###", [1, 1, 3], 2, True),
+            ("##..###", [1, 1, 3], 3, False),
+            ("#.#.#####", [1, 1, 3], 6, False),
+            ("#.##.#####", [1, 1, 3], 6, False),
+            ("#.#.?????", [1, 1, 3], 6, True),
+            ("#.##.?????", [1, 1, 3], 5, False),  # Not valid, two ##
+        ],
+    )
+    def test_day12a_is_valid_upto(self, arrangement, groups, upto, expected_result):
+        result = Day12PartA.is_valid_upto(list(arrangement), groups, upto)
         assert result == expected_result
 
     @pytest.mark.parametrize(
         ("input_data", "expected_result"),
         [
+            ("###.### 1,1,3", 0),
+            ("#.#.### 1,1,3", 1),
             ("???.### 1,1,3", 1),
             (".??..??...?##. 1,1,3", 4),
             ("?#?#?#?#?#?#?#? 1,3,1,6", 1),
@@ -40,7 +57,7 @@ class TestDay12PartA:
     )
     def test_day12a_solve(self, input_data, expected_result):
         solution = Day12PartA()
-        result = solution.count_arrangements(input_data)
+        result = solution.count(input_data)
         assert result == expected_result
 
     def test_day12a_data(self):
