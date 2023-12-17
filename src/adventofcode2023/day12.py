@@ -2,9 +2,13 @@ from __future__ import annotations
 
 import logging
 
+from tqdm import tqdm
+
 from adventofcode.utils.abstract import FileReaderSolution
 
 logger = logging.getLogger(__name__)
+
+cache = {}
 
 
 class Day12:
@@ -21,6 +25,10 @@ class Day12:
 
 
         """
+        try:
+            return cache[str(conditions)]
+        except KeyError:
+            pass
         # Base cases: We are at the end of the indexing, or if there are no more ?
         # in the conditions
         if cond_idx == len(conditions) or "?" not in conditions[cond_idx:]:
@@ -49,14 +57,15 @@ class Day12:
             if Day12.is_valid_upto(copy, groups, cond_idx):
                 # We are still in a valid state, continue this path
                 # total += 1
-                total += Day12.count_arrangements(copy, groups, cond_idx + 1, group_idx)
+                res = Day12.count_arrangements(copy, groups, cond_idx + 1, group_idx)
+                cache[str(copy)] = res
+                total += res
+
         return total
 
     @staticmethod
     def is_valid_upto(conditions: list[str], groups, cond_idx):
         """Check if the current arrangement is valid upto now"""
-        # @TODO Add a check that if there are no ? in the conditions, the full string
-        #   must match?
         if "?" not in conditions:
             return Day12.is_valid_arrangement("".join(conditions), groups)
         # In which of the groups are we?
@@ -67,7 +76,10 @@ class Day12:
         current_token = False
         for n in range(cond_idx):
             if group_idx >= len(groups):
-                return False
+                # There are no more groups to check against.
+                # if we have a # in the next conditions, there are still
+                # tokens left, and the expression is not valid.
+                return "#" not in conditions[n:]
 
             # Skip the first empty dots
             if not current_token and conditions[n] == ".":
@@ -116,7 +128,7 @@ class Day12:
 
     def count(self, input_data, folded: bool = False) -> int:
         total = 0
-        for line in input_data.splitlines():
+        for line in tqdm(input_data.splitlines()):
             if folded:
                 line = self.unfold(line)
             conditions, groups = line.split()

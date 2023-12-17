@@ -36,6 +36,11 @@ class TestDay12PartA:
             ("#.##.#####", [1, 1, 3], 6, False),
             ("#.#.?????", [1, 1, 3], 6, True),
             ("#.##.?????", [1, 1, 3], 5, False),  # Not valid, two ##
+            ("....#####...##....", [5, 2], 0, True),
+            (".....#####..##....", [5, 2], 0, True),
+            ("......#####.##....", [5, 2], 0, True),
+            ("...#####....##....", [5, 2], 0, True),
+            ("...#####....##....?", [5, 2], 16, True),
         ],
     )
     def test_day12a_is_valid_upto(self, arrangement, groups, upto, expected_result):
@@ -53,6 +58,7 @@ class TestDay12PartA:
             ("????.#...#... 4,1,1", 1),
             ("????.######..#####. 1,6,5", 4),
             ("?###???????? 3,2,1", 10),
+            ("???????#?????#..?? 5,2", 4),
         ],
     )
     def test_day12a_solve(self, input_data, expected_result):
