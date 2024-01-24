@@ -5,9 +5,8 @@ from collections import defaultdict
 from itertools import filterfalse
 from typing import NamedTuple
 
-from adventofcodeutils.point import XYZPoint as Point
-
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode.utils.point import XYZPoint as Point
 
 
 class Step(NamedTuple):

@@ -5,9 +5,9 @@ from collections.abc import Callable
 from functools import cache
 
 import attrs
-from adventofcodeutils.generic_search import Astar
 
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode.utils.generic_search import Astar
 
 
 @attrs.define(frozen=True)

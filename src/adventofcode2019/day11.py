@@ -3,10 +3,10 @@ from enum import IntEnum
 from typing import NamedTuple
 
 import matplotlib.pyplot as plt  # type: ignore
-from adventofcodeutils.parsing import string_to_list_of_ints
 
 from adventofcode2019.intcode import IntCode, ProgramFinished
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode.utils.parsing import string_to_list_of_ints
 
 
 class Location(NamedTuple):

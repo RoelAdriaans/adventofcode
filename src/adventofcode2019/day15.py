@@ -2,10 +2,9 @@ from collections import deque
 from enum import IntEnum
 from typing import NamedTuple
 
-from adventofcodeutils.parsing import string_to_list_of_ints
-
 from adventofcode2019.intcode import IntCode
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode.utils.parsing import string_to_list_of_ints
 
 
 class Point(NamedTuple):

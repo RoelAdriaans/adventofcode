@@ -2,9 +2,8 @@ from __future__ import annotations
 
 import itertools
 
-from adventofcodeutils.generic_search import BFS
-
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode.utils.generic_search import BFS
 
 
 class FacilityState:
