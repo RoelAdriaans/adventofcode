@@ -28,4 +28,4 @@ jobs:
           MERGE_LABELS: automerge
           MERGE_REMOVE_LABELS: automerge
           MERGE_RETRIES: "60"
-          MERGE_RETRY_SLEEP: "15000"
+          MERGE_RETRY_SLEEP: "600000"
