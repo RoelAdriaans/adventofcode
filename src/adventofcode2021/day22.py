@@ -126,8 +126,7 @@ class Cube(NamedTuple):
         )
 
 
-class Day22:
-    ...
+class Day22: ...
 
 
 class Day22PartA(Day22, FileReaderSolution):
