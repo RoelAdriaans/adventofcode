@@ -5,8 +5,7 @@ from adventofcode.utils.abstract import FileReaderSolution
 logger = logging.getLogger(__name__)
 
 
-class Day07:
-    ...
+class Day07: ...
 
 
 class Day07PartA(Day07, FileReaderSolution):
