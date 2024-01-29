@@ -1,6 +1,7 @@
 """
 Advent of Code puzzle of infi: https://aoc.infi.nl/
 """
+
 import json
 from collections import deque
 from dataclasses import dataclass
