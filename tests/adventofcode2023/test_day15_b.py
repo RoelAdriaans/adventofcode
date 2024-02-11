@@ -34,11 +34,6 @@ class TestDay15PartB:
         result = solution.solve(testdata)
         assert result == 145
 
-    def test_day15b_solve(self, input_data, expected_result):
-        solution = Day15PartB()
-        result = solution.solve(input_data)
-        assert result == expected_result
-
     def test_day15b_data(self):
         """Result we got when we did the real solution"""
         solution = Day15PartB()

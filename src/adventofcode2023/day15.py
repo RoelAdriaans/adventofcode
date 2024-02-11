@@ -20,9 +20,6 @@ class HashMap:
     operation: Operation
     focal_length: int | None
 
-    def __hash__(self):
-        return self.hash
-
     @cached_property
     def hash(self) -> int:
         return Day15.calculate_hash(self.label)
