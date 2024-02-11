@@ -22,7 +22,7 @@ anytree = "^2.12.1"
 click = "^8.1.7"
 requests = "^2.31.0"
 beautifulsoup4 = "^4.12.3"
-tqdm = "^4.66.1"
+tqdm = "^4.66.2"
 attrs = "^23.2.0"
 numpy = "^1.26.4"
 adventofcodeutils = {git = "https://github.com/RoelAdriaans/adventofcodeutils.git"}
@@ -39,7 +39,7 @@ pytest-cov = "^4.1.0"
 pytest-xdist = "^3.5.0"
 python-dotenv = "^1.0.1"
 tox = "^4.12.1"
-pre-commit = "^3.6.0"
+pre-commit = "^3.6.1"
 isort = "^5.13.2"
 
 [tool.poetry.scripts]
