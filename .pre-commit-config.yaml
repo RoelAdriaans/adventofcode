@@ -1,4 +1,5 @@
 # See README for installation instructions.
+exclude: ^template/
 
 repos:
   - repo: https://github.com/ambv/black
