@@ -1,6 +1,7 @@
 import pytest
-
-from adventofcode{{cookiecutter.year}}.{{cookiecutter.file_name}} import {{cookiecutter.class_name}}PartA
+from adventofcode{{cookiecutter.year}}.{{cookiecutter.file_name}} import (
+    {{cookiecutter.class_name}}PartA,
+)
 
 
 class Test{{cookiecutter.class_name}}PartA:
