@@ -29,7 +29,7 @@ adventofcodeutils = {git = "https://github.com/RoelAdriaans/adventofcodeutils.gi
 more-itertools = "^10.2.0"
 regex-spm = "^1.0.0"
 parse = "^1.20.1"
-matplotlib = "^3.8.2"
+matplotlib = "^3.8.3"
 
 [tool.poetry.dev-dependencies]
 black = "^24.1.1"
