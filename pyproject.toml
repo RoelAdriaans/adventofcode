@@ -34,7 +34,7 @@ matplotlib = "^3.8.3"
 [tool.poetry.dev-dependencies]
 black = "^24.2.0"
 cookiecutter = "^2.5.0"
-pytest = "^8.0.0"
+pytest = "^8.0.1"
 pytest-cov = "^4.1.0"
 pytest-xdist = "^3.5.0"
 python-dotenv = "^1.0.1"
