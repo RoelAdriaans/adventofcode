@@ -32,7 +32,7 @@ parse = "^1.20.2"
 matplotlib = "^3.9.1"
 
 [tool.poetry.dev-dependencies]
-black = "^24.4.2"
+black = "^24.8.0"
 cookiecutter = "^2.6.0"
 pytest = "^8.3.2"
 pytest-cov = "^5.0.0"
