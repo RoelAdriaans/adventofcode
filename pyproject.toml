@@ -26,7 +26,7 @@ tqdm = "^4.66.5"
 attrs = "^23.2.0"
 numpy = "^2.0.1"
 adventofcodeutils = {git = "https://github.com/RoelAdriaans/adventofcodeutils.git"}
-more-itertools = "^10.3.0"
+more-itertools = "^10.4.0"
 regex-spm = "^1.0.0"
 parse = "^1.20.2"
 matplotlib = "^3.9.1"
