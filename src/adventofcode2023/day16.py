@@ -1,9 +1,11 @@
 from __future__ import annotations
 
-from adventofcode.utils.abstract import FileReaderSolution
-from adventofcodeutils.point import XYPoint
 from enum import StrEnum
 from typing import NamedTuple
+
+from adventofcodeutils.point import XYPoint
+
+from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Arrow(StrEnum):
@@ -12,6 +14,43 @@ class Arrow(StrEnum):
     MIRROR_UP = "\\"
     MIRROR_DOWN = "/"
     EMPTY = "."
+
+    def next_locations(self, beam: Beam):
+        """Yields the directions from the location in Beam"""
+        if self == Arrow.SPLIT_HORIZONTAL and (
+            beam.direction == Direction.UP or beam.direction == Direction.DOWN
+        ):
+            # Split into two beams
+            yield beam.next_beam_location(Direction.RIGHT)
+            yield beam.next_beam_location(Direction.LEFT)
+        elif self == Arrow.SPLIT_VERTICAL and (
+            beam.direction == Direction.LEFT or beam.direction == Direction.RIGHT
+        ):
+            # Split into two beams
+            yield beam.next_beam_location(Direction.UP)
+            yield beam.next_beam_location(Direction.DOWN)
+        # Deal with \ mirror
+        elif self == Arrow.MIRROR_UP and beam.direction == Direction.UP:
+            yield beam.next_beam_location(Direction.LEFT)
+        elif self == Arrow.MIRROR_UP and beam.direction == Direction.DOWN:
+            yield beam.next_beam_location(Direction.RIGHT)
+        elif self == Arrow.MIRROR_UP and beam.direction == Direction.RIGHT:
+            yield beam.next_beam_location(Direction.DOWN)
+        elif self == Arrow.MIRROR_UP and beam.direction == Direction.LEFT:
+            yield beam.next_beam_location(Direction.UP)
+        # Deal with / mirror
+        elif self == Arrow.MIRROR_DOWN and beam.direction == Direction.UP:
+            yield beam.next_beam_location(Direction.RIGHT)
+        elif self == Arrow.MIRROR_DOWN and beam.direction == Direction.DOWN:
+            yield beam.next_beam_location(Direction.LEFT)
+        elif self == Arrow.MIRROR_DOWN and beam.direction == Direction.RIGHT:
+            yield beam.next_beam_location(Direction.UP)
+        elif self == Arrow.MIRROR_DOWN and beam.direction == Direction.LEFT:
+            yield beam.next_beam_location(Direction.DOWN)
+        else:
+            # Beam continues on, append to the beams.
+            # Could be an empty splot, or a splitter we are hitting from the wrong end
+            yield beam.next_beam_location(beam.direction)
 
 
 class Direction(StrEnum):
@@ -25,28 +64,19 @@ class Beam(NamedTuple):
     location: XYPoint
     direction: Direction
 
-    def __hash__(self):
-        # return hash(self.location)
-        if self.direction in (Direction.LEFT, Direction.RIGHT):
-            return hash((self.location, "HORIZONTAL"))
-        return hash((self.location, "VERTICAL"))
-
-    def __eq__(self, other):
-        if not isinstance(other, Beam):
-            return NotImplemented
-        if self.location != other.location:
-            return False
-        if self.direction in (Direction.LEFT, Direction.RIGHT) and other.direction in (
-            Direction.RIGHT,
-            Direction.LEFT,
-        ):
-            return True
-        if self.direction in (Direction.UP, Direction.DOWN) and other.direction in (
-            Direction.UP,
-            Direction.DOWN,
-        ):
-            return True
-        return False
+    def next_beam_location(self, direction: Direction) -> Beam:
+        # What is the next location?
+        match direction:
+            case Direction.UP:
+                return Beam(self.location + XYPoint(-1, 0), direction)
+            case Direction.DOWN:
+                return Beam(self.location + XYPoint(1, 0), direction)
+            case Direction.RIGHT:
+                return Beam(self.location + XYPoint(0, 1), direction)
+            case Direction.LEFT:
+                return Beam(self.location + XYPoint(0, -1), direction)
+            case _:
+                raise ValueError("Invalid direction")
 
 
 class Day16:
@@ -86,12 +116,6 @@ class Day16PartA(Day16, FileReaderSolution):
                 print(token, end="")
             print()
 
-    def _add_to_beams_ifnt_energized(self, beam: Beam):
-        if beam not in self.energized:
-            self.beams.append(beam)
-        else:
-            print("Not added")
-
     def find_energized(self) -> int:
         self.energized = set()
         self.energized.add(Beam(XYPoint(0, 0), Direction.RIGHT))
@@ -100,73 +124,26 @@ class Day16PartA(Day16, FileReaderSolution):
 
         while self.beams:
             beam = self.beams.pop()
-            self.print_grid(self.energized, beam)
-
-            # What is the next location?
-            match beam.direction:
-                case Direction.UP:
-                    next_location = beam.location + XYPoint(-1, 0)
-                case Direction.DOWN:
-                    next_location = beam.location + XYPoint(1, 0)
-                case Direction.RIGHT:
-                    next_location = beam.location + XYPoint(0, 1)
-                case Direction.LEFT:
-                    next_location = beam.location + XYPoint(0, -1)
-                case _:
-                    raise ValueError("Invalid direction")
-
-            if next_location in self.energized:
-                # We have been here already, we can skip the location
-                continue
-
+            # self.print_grid(self.energized, beam)
             try:
-                next_arrow = Arrow(self.grid[next_location])
+                current_arrow = Arrow(self.grid[beam.location])
             except KeyError:
                 # Out of bounds
                 continue
+            next_locations = list(current_arrow.next_locations(beam))
+            for next_location in next_locations:
+                if next_location in self.energized:
+                    # We have been here already, we can skip the location
+                    continue
 
-            # What now?
-            if next_arrow == Arrow.SPLIT_HORIZONTAL and (
-                beam.direction == Direction.UP or beam.direction == Direction.DOWN
-            ):
-                # Split into two beams
-                self._add_to_beams_ifnt_energized(Beam(next_location, Direction.RIGHT))
-                self._add_to_beams_ifnt_energized(Beam(next_location, Direction.LEFT))
-            elif next_arrow == Arrow.SPLIT_VERTICAL and (
-                beam.direction == Direction.LEFT or beam.direction == Direction.RIGHT
-            ):
-                # Split into two beams
-                self._add_to_beams_ifnt_energized(Beam(next_location, Direction.UP))
-                self._add_to_beams_ifnt_energized(Beam(next_location, Direction.DOWN))
-            # Deal with \ mirror
-            elif next_arrow == Arrow.MIRROR_UP and beam.direction == Direction.UP:
-                self._add_to_beams_ifnt_energized(Beam(next_location, Direction.LEFT))
-            elif next_arrow == Arrow.MIRROR_UP and beam.direction == Direction.DOWN:
-                self._add_to_beams_ifnt_energized(Beam(next_location, Direction.RIGHT))
-            elif next_arrow == Arrow.MIRROR_UP and beam.direction == Direction.RIGHT:
-                self._add_to_beams_ifnt_energized(Beam(next_location, Direction.DOWN))
-            elif next_arrow == Arrow.MIRROR_UP and beam.direction == Direction.LEFT:
-                self._add_to_beams_ifnt_energized(Beam(next_location, Direction.UP))
-            # Deal with / mirror
-            elif next_arrow == Arrow.MIRROR_DOWN and beam.direction == Direction.UP:
-                self._add_to_beams_ifnt_energized(Beam(next_location, Direction.RIGHT))
-            elif next_arrow == Arrow.MIRROR_DOWN and beam.direction == Direction.DOWN:
-                self._add_to_beams_ifnt_energized(Beam(next_location, Direction.LEFT))
-            elif next_arrow == Arrow.MIRROR_DOWN and beam.direction == Direction.RIGHT:
-                self._add_to_beams_ifnt_energized(Beam(next_location, Direction.UP))
-            elif next_arrow == Arrow.MIRROR_DOWN and beam.direction == Direction.LEFT:
-                self._add_to_beams_ifnt_energized(Beam(next_location, Direction.DOWN))
+                # Energize the current location
+                self.energized.add(beam)
 
-            else:
-                # Beam continues on, append to the beams.
-                # Could be an empty splot, or a splitter we are hitting from the wrong end
-                self._add_to_beams_ifnt_energized(Beam(next_location, beam.direction))
-
-            # Energize the current location
-            self.energized.add(Beam(next_location, beam.direction))
+                # Continue the beam
+                self.beams.append(next_location)
 
         # We have energized everything, now to get the unique points out of the set
-        return len(set(e.location for e in self.energized))
+        return len({e.location for e in self.energized})
 
     def solve(self, input_data: str) -> int:
         self.parse(input_data)
