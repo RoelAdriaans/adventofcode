@@ -1,3 +1,5 @@
+import pytest
+
 from adventofcode2018.day13 import Day13PartB
 
 
@@ -34,6 +36,7 @@ class TestDay13PartB:
         assert len(solution.carts) == 1
         assert final_location == (6, 4)
 
+    @pytest.mark.slow
     def test_day13b_data(self):
         """Result we got when we did the real solution"""
         solution = Day13PartB()

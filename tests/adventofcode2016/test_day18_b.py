@@ -1,7 +1,10 @@
+import pytest
+
 from adventofcode2016.day18 import Day18PartB
 
 
 class TestDay18PartB:
+    @pytest.mark.slow
     def test_day18b_data(self):
         """Result we got when we did the real solution"""
         solution = Day18PartB()
