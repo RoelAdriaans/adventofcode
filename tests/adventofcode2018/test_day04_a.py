@@ -76,5 +76,5 @@ class TestDay04PartA:
     def test_day04a_data(self):
         """Result we got when we did the real solution"""
         solution = Day4PartA()
-        res = solution("day04/day_04.txt")
+        res = solution("day_04/day04.txt")
         assert res == 87681

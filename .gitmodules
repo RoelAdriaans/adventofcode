@@ -1,0 +1,3 @@
+[submodule "src/adventofcodedata"]
+	path = src/adventofcodedata
+	url = git@github.com:RoelAdriaans/adventofcode.data.git
