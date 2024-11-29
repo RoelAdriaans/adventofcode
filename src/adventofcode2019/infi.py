@@ -35,9 +35,11 @@ class Infi:
 
     def _load_data(self):
         """Open the file and parse the json data inside the file"""
-        root_dir = Path(__file__).parent
+        root_dir = Path(__file__).parent.parent
 
-        with open(root_dir / "data" / "infi" / self.filename) as f:
+        with open(
+            root_dir / "adventofcodedata" / "adventofcode2019" / "infi" / self.filename
+        ) as f:
             data = json.load(f)
 
         self.flats = {}

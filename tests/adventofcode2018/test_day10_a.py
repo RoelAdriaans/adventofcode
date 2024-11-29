@@ -40,10 +40,10 @@ class TestDay10PartA:
         assert point_seconds == expected_point
         assert result == expected_point
 
-    def test_day10a_testdata(self):
+    def test_day10a_testdata(self, testdata):
         """Run with test data"""
         solution = Day10PartA()
-        res = solution("day_10/day10_test.txt")
+        res = solution.solve(testdata)
         assert res == 3
 
     def test_day10a_data(self):
