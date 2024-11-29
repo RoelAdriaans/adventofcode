@@ -22,6 +22,7 @@ class TestDay12PartB:
         result = solution.solve(input_data)
         assert result == expected_result
 
+    @pytest.mark.slow
     def test_day12b_data(self):
         """Result we got when we did the real solution"""
         solution = Day12PartB()

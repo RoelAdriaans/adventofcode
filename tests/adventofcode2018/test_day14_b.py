@@ -35,6 +35,7 @@ class TestDay14PartB:
         result = solution.search_for_recipe(input_data)
         assert result == expected_result
 
+    @pytest.mark.slow
     def test_day14b_data(self):
         """Result we got when we did the real solution"""
         solution = Day14PartB()

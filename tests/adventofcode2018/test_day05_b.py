@@ -26,6 +26,7 @@ class TestDay05PartB:
         result = solution.solve(input_data)
         assert result == expected_result
 
+    @pytest.mark.slow
     def test_day05b_data(self):
         """Result we got when we did the real solution"""
         solution = Day5PartB()
