@@ -175,7 +175,7 @@ def download_input_data(year: str, day: str):
 
     data_path = f"day_{day}/day{day}.txt"
     root_dir = Path(__file__).parent.parent
-    filename = root_dir / f"adventofcode{year}" / "data" / data_path
+    filename = root_dir / "adventofcodedata" / f"adventofcode{year}" / data_path
     with open(filename, "wb") as f:
         f.write(r.content)
 
