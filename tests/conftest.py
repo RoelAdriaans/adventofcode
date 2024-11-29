@@ -53,7 +53,7 @@ def parse_classname(request) -> tuple[int, int]:
 def testdata(request) -> str:
     """Load data from a testfile."""
     year, day = parse_classname(request)
-    return read_file(year, day, f"day{day:02}_test.txt")
+    return read_file(year, day, f"day{day:02}_test.txt", testdata=True)
 
 
 @pytest.fixture

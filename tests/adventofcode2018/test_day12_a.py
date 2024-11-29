@@ -69,9 +69,9 @@ class TestDay12PartA:
 
         assert solution.count_plants() == 325
 
-    def test_day12a_solve(self):
+    def test_day12a_solve(self, testdata):
         solution = Day12PartA()
-        res = solution("day_12/day12_test.txt")
+        res = solution.solve(testdata)
         assert res == 325
 
     def test_day12a_data(self):
