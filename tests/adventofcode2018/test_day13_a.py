@@ -114,9 +114,9 @@ class TestDay13PartA:
         # Next step should be straight
         assert solution.carts[0].get_next_move().name == "STRAIGHT"
 
-    def test_day13a_solve(self):
+    def test_day13a_solve(self, testdata):
         solution = Day13PartA()
-        res = solution("day_13/day13_test.txt")
+        res = solution.solve(testdata)
         assert res == (7, 3)
 
     def test_day13a_data(self):
