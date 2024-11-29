@@ -1,3 +1,5 @@
+import pytest
+
 from adventofcode2021.day20 import Day20PartB
 
 
@@ -7,6 +9,7 @@ class TestDay20PartB:
         result = solution.solve(testdata)
         assert result == 3351
 
+    @pytest.mark.slow
     def test_day20b_data(self):
         """Result we got when we did the real solution"""
         solution = Day20PartB()
