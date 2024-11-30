@@ -14,6 +14,7 @@ packages = [
     { include = "adventofcode2021", from="src" },
     { include = "adventofcode2022", from="src" },
     { include = "adventofcode2023", from="src" },
+    { include = "adventofcode2024", from="src" },
     { include = "adventofcodedata", from="src" }
 ]
 
