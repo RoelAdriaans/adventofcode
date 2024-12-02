@@ -11,7 +11,7 @@ class Day01:
         left_numbers = []
         right_numbers = []
         for line in lines:
-            left, right = line.split("  ")
+            left, right = line.split()
             left_numbers.append(int(left))
             right_numbers.append(int(right))
         # Next sort the lists
