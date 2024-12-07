@@ -8,7 +8,7 @@ class Day06:
     start_position: tuple[int, int]
     start_direction: int
     max_r: int
-    mac_c: int
+    max_c: int
 
     def compute_obstables(self, lines):
         self.max_r = len(lines)
@@ -67,7 +67,7 @@ class Day06:
                 for x in range(max_r):
                     for y in range(max_c):
                         if (x, y) == self.start_position:
-                            print("^", end="")
+                            # print("^", end="")
                             really_visited.add((x, y))
                         elif (x, y) in visited:
                             # print("X", end="")
@@ -96,18 +96,8 @@ class Day06PartB(Day06, FileReaderSolution):
 
         lines = input_data.splitlines()
         self.compute_obstables(lines)
-        possible_blocks = set()
-        for r, c in self.path_of_guard():
-            for dr, dc in [
-                (-1, 0),  # UP
-                (0, 1),  # RIGHT
-                (1, 0),  # DOWN
-                (0, -1),  # LEFT
-            ]:
-                possible_blocks.add((r + dr, c + dc))
-
         counter = 0
-        for obstacle in possible_blocks:
+        for obstacle in self.path_of_guard():
             if self.loop_detection(obstacle):
                 counter += 1
 
