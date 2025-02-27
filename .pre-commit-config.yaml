@@ -9,7 +9,7 @@ repos:
       language_version: 'python3.12'
 
   - repo: https://github.com/pycqa/flake8
-    rev: 7.1.1
+    rev: 7.1.2
     hooks:
     - id: flake8
       args: ["--ignore", "E203,W503,E701"]
