@@ -31,7 +31,7 @@ adventofcodeutils = {git = "https://github.com/RoelAdriaans/adventofcodeutils.gi
 more-itertools = "^10.6.0"
 regex-spm = "^1.0.0"
 parse = "^1.20.2"
-matplotlib = "^3.10.0"
+matplotlib = "^3.10.1"
 
 [tool.poetry.dev-dependencies]
 black = "^25.1.0"
