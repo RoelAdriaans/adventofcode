@@ -25,7 +25,7 @@ click = "^8.2.1"
 requests = "^2.32.4"
 beautifulsoup4 = "^4.13.4"
 tqdm = "^4.67.1"
-attrs = "^25.3.0"
+attrs = "^25.4.0"
 numpy = "^2.3.0"
 adventofcodeutils = {git = "https://github.com/RoelAdriaans/adventofcodeutils.git"}
 more-itertools = "^10.7.0"
