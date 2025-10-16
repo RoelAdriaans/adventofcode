@@ -26,7 +26,7 @@ requests = "^2.32.5"
 beautifulsoup4 = "^4.14.2"
 tqdm = "^4.67.1"
 attrs = "^25.3.0"
-numpy = "^2.3.0"
+numpy = "^2.3.4"
 adventofcodeutils = {git = "https://github.com/RoelAdriaans/adventofcodeutils.git"}
 more-itertools = "^10.7.0"
 regex-spm = "^1.0.0"
