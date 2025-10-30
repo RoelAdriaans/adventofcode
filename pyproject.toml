@@ -3,7 +3,7 @@ name = "adventofcode"
 version = "0.1.0"
 description = "Advent of Code - Roel Adriaans"
 authors = [{ name = "Roel Adriaans", email = "roel@adriaans.org" }]
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.14"
 license = "MIT"
 dependencies = [
     "anytree>=2.13.0,<3",
@@ -34,6 +34,10 @@ dev = [
     "tox>=4.32.0,<5",
     "pre-commit>=4.3.0,<5",
     "isort>=7.0.0,<8",
+    "flake8>=7.3.0",
+    "pep8-naming>=0.15.1",
+    "bandit>=1.8.6",
+    "tox-uv>=1.29.0",
 ]
 
 [tool.uv]
