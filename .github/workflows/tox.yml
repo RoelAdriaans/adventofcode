@@ -22,14 +22,17 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - name: Install tox-uv
+      run: uv tool install tox --with tox-uv
+
     - name: Install the project
       run: uv sync --locked --all-extras --dev
 
     - name: Run linters in tox
-      run: uv run tox -e linters
+      run: tox -e linters
 
     - name: Test with tox
-      run: uv run tox -e py
+      run: tox -e py
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v5
