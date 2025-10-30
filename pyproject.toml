@@ -1,55 +1,89 @@
-[tool.poetry]
+[project]
 name = "adventofcode"
 version = "0.1.0"
 description = "Advent of Code - Roel Adriaans"
-authors = ["Roel Adriaans <roel@adriaans.org>"]
+authors = [{ name = "Roel Adriaans", email = "roel@adriaans.org" }]
+requires-python = ">=3.12.0, <3.13"
 license = "MIT"
-
-packages = [
-    { include = "adventofcode", from="src" },
-    { include = "adventofcode2016", from="src" },
-    { include = "adventofcode2018", from="src" },
-    { include = "adventofcode2019", from="src" },
-    { include = "adventofcode2020", from="src" },
-    { include = "adventofcode2021", from="src" },
-    { include = "adventofcode2022", from="src" },
-    { include = "adventofcode2023", from="src" },
-    { include = "adventofcode2024", from="src" },
-    { include = "adventofcodedata", from="src" }
+dependencies = [
+    "anytree>=2.13.0,<3",
+    "click>=8.2.1,<9",
+    "requests>=2.32.5,<3",
+    "beautifulsoup4>=4.14.2,<5",
+    "tqdm>=4.67.1,<5",
+    "attrs>=25.3.0,<26",
+    "numpy>=2.3.4,<3",
+    "adventofcodeutils",
+    "more-itertools>=10.8.0,<11",
+    "regex-spm>=1.0.0,<2",
+    "parse>=1.20.2,<2",
+    "matplotlib>=3.10.3,<4",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-anytree = "^2.13.0"
-click = "^8.2.1"
-requests = "^2.32.5"
-beautifulsoup4 = "^4.14.2"
-tqdm = "^4.67.1"
-attrs = "^25.3.0"
-numpy = "^2.3.4"
-adventofcodeutils = {git = "https://github.com/RoelAdriaans/adventofcodeutils.git"}
-more-itertools = "^10.8.0"
-regex-spm = "^1.0.0"
-parse = "^1.20.2"
-matplotlib = "^3.10.3"
-
-[tool.poetry.dev-dependencies]
-black = "^25.9.0"
-cookiecutter = "^2.6.0"
-pytest = "^8.4.2"
-pytest-cov = "^7.0.0"
-pytest-xdist = "^3.8.0"
-python-dotenv = "^1.2.1"
-tox = "^4.32.0"
-pre-commit = "^4.3.0"
-isort = "^7.0.0"
-
-[tool.poetry.scripts]
+[project.scripts]
 adventofcode = "adventofcode.main:main"
 
+[dependency-groups]
+dev = [
+    "black>=25.9.0,<26",
+    "cookiecutter>=2.6.0,<3",
+    "pytest>=8.4.2,<9",
+    "pytest-cov>=7.0.0,<8",
+    "pytest-xdist>=3.8.0,<4",
+    "python-dotenv>=1.2.1,<2",
+    "tox>=4.32.0,<5",
+    "pre-commit>=4.3.0,<5",
+    "isort>=7.0.0,<8",
+]
+
+[tool.uv]
+
+[tool.uv.sources]
+adventofcodeutils = { git = "https://github.com/RoelAdriaans/adventofcodeutils.git" }
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/adventofcode",
+    "src/adventofcode2016",
+    "src/adventofcode2018",
+    "src/adventofcode2019",
+    "src/adventofcode2020",
+    "src/adventofcode2021",
+    "src/adventofcode2022",
+    "src/adventofcode2023",
+    "src/adventofcode2024",
+    "src/adventofcodedata",
+]
+
+[tool.hatch.build.targets.wheel]
+include = [
+    "src/adventofcode",
+    "src/adventofcode2016",
+    "src/adventofcode2018",
+    "src/adventofcode2019",
+    "src/adventofcode2020",
+    "src/adventofcode2021",
+    "src/adventofcode2022",
+    "src/adventofcode2023",
+    "src/adventofcode2024",
+    "src/adventofcodedata",
+]
+
+[tool.hatch.build.targets.wheel.sources]
+"src/adventofcode" = "adventofcode"
+"src/adventofcode2016" = "adventofcode2016"
+"src/adventofcode2018" = "adventofcode2018"
+"src/adventofcode2019" = "adventofcode2019"
+"src/adventofcode2020" = "adventofcode2020"
+"src/adventofcode2021" = "adventofcode2021"
+"src/adventofcode2022" = "adventofcode2022"
+"src/adventofcode2023" = "adventofcode2023"
+"src/adventofcode2024" = "adventofcode2024"
+"src/adventofcodedata" = "adventofcodedata"
+
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.bandit]
 exclude_dirs = ["template"]
