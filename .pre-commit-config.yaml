@@ -3,7 +3,7 @@ exclude: ^template/
 
 repos:
   - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 25.9.0
+    rev: 25.11.0
     hooks:
     - id: black
       language_version: 'python3.12'
@@ -32,7 +32,7 @@ repos:
       language_version: python3
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.21.0
+    rev: v3.21.1
     hooks:
     - id: pyupgrade
       args: [ "--py311-plus" ]
