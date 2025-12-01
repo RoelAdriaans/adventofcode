@@ -27,8 +27,8 @@ class TestDay08PartA:
             Node(value="#", row=7, column=6, is_antinode=True),
         ]
 
-        # Finding the antinodes. Before we can do this, we must filter the antinodes from
-        # the sample data
+        # Finding the antinodes. Before we can do this, we must
+        # filter the antinodes from the sample data
         a_nodes = [node for node in nodes if node.value == "a"]
         assert len(a_nodes) == 2
 
@@ -46,7 +46,7 @@ class TestDay08PartA:
         [
             ("test_1", 10, 2),
             ("test_2", 10, 4),
-            ("test_3", 11, 14),
+            ("test_3", 12, 14),
         ],
     )
     def test_day8a_multiple_nodes(self, testdata_by_postfix, size, expected_result):
@@ -56,10 +56,9 @@ class TestDay08PartA:
         solution.max_col = size
         nodes = solution.map_to_nodes(testdata_by_postfix)
 
-        # Finding the antinodes. Before we can do this, we must filter the antinodes from
-        # the sample data
+        # Finding the antinodes. Before we can do this, we must filter the
+        # antinodes from the sample data
         all_nodes = [node for node in nodes if node.value != "#"]
-        expected_anti_nodes = [node for node in nodes if node.value == "#"]
 
         # Find the antinodes:
         anti_nodes = solution.find_antinodes_in_group(all_nodes)
@@ -70,9 +69,14 @@ class TestDay08PartA:
             Node(value="#", row=row, column=column, is_antinode=True)
             for row, column in {(node.row, node.column) for node in anti_nodes}
         ]
-
-        assert sorted(unique_anti_nodes) == sorted(expected_anti_nodes)
-        assert len(anti_nodes) == expected_result
+        # We can't run this test, since the example test_3 has an antinode
+        # on (5, 6) twice, but we only create it once in the expected_anti_nodes
+        # Because the topmost A-frequency antenna overlaps with a 0-frequency antinode,
+        # there are 14 total unique locations that contain an antinode within the
+        # bounds of the map.
+        # expected_anti_nodes = [node for node in nodes if node.value == "#"]
+        # assert sorted(unique_anti_nodes) == sorted(expected_anti_nodes)
+        assert len(unique_anti_nodes) == expected_result
 
     def test_day08a_data(self):
         """Result we got when we did the real solution"""
@@ -80,4 +84,4 @@ class TestDay08PartA:
         res = solution("day_08/day08.txt")
         assert res > 300
         assert res < 323
-        assert res == 0
+        assert res == 308

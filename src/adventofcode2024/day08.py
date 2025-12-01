@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import itertools
 import logging
-from typing import Optional
 
 import attrs
 
@@ -49,21 +48,23 @@ class Day08PartA(Day08, FileReaderSolution):
         _logger.debug(f"Found max_row: {self.max_row}, max_col: {self.max_col}")
 
         anti_nodes = self.find_antinodes_in_group(nodes)
-        return len(anti_nodes)
+        unique_anti_nodes = [
+            Node(value="#", row=row, column=column, is_antinode=True)
+            for row, column in {(node.row, node.column) for node in anti_nodes}
+        ]
+        return len(unique_anti_nodes)
 
     def find_antinodes_in_group(self, nodes: list[Node]) -> list[Node]:
         """Find the antinodes from the list of nodes"""
         antinodes = []
-        node_points: set[tuple[int, int]] = {(node.row, node.column) for node in nodes}
         for group in {node.value for node in nodes}:
             nodes_in_group = [node for node in nodes if node.value == group]
-            antinodes.extend(self.find_antinodes(nodes_in_group, node_points))
+            antinodes.extend(self.find_antinodes(nodes_in_group))
         return antinodes
 
     def find_antinodes(
         self,
         nodes: list[Node],
-        node_points: set[tuple[int, int]],
     ) -> list[Node]:
         """Find all antinodes from the list of nodes for a specific antenna"""
         if not nodes:
@@ -75,7 +76,7 @@ class Day08PartA(Day08, FileReaderSolution):
             delta_col = x.column - y.column
             new_row = x.row + delta_row
             new_col = x.column + delta_col
-            if 0 <= new_row <= self.max_row and 0 <= new_col <= self.max_col:
+            if 0 <= new_row < self.max_row and 0 <= new_col < self.max_col:
                 antinode = Node(
                     value="#",
                     row=new_row,
@@ -83,9 +84,6 @@ class Day08PartA(Day08, FileReaderSolution):
                     is_antinode=True,
                     original_antenna=x.value,
                 )
-                if (new_row, new_col) in node_points:
-                    _logger.debug(f"Found antinode: {antinode} already occupied")
-                    continue
 
                 antinodes.append(antinode)
 
