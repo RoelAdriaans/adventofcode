@@ -1,4 +1,6 @@
 name: Python Run Tox
+permissions:
+  contents: read
 
 on: [pull_request]
 
