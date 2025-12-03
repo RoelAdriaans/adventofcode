@@ -32,6 +32,8 @@ class Day02PartA(Day02, FileReaderSolution):
         E.g. 1234 is valid, 1123 is not valid
         """
         c = str(id_to_test)
+        if len(c) % 2 != 0:
+            return True
         half_length = int(len(c) / 2)
         return c[:half_length] != c[half_length:]
 
