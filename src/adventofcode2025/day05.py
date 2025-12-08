@@ -18,6 +18,7 @@ class Day05:
         for range_ in ranges.splitlines():
             min_range, max_range = range_.split("-")
             self.ranges.append(range(int(min_range), int(max_range) + 1))
+        self.ranges = sorted(self.ranges, key=lambda r: r[0])
         self.ingredients = [int(ingredient) for ingredient in ingredients.splitlines()]
 
 
@@ -60,20 +61,8 @@ class Day05PartB(Day05, FileReaderSolution):
         # Now we have a list of merged ranges, we can find number of valid ingredients
         _logger.debug("Finished comuting ranges, found %s", len(ranges))
 
-        # Extra pass to merge ranges
-        ranges.sort()
-        merged_ranges: list[tuple[int, int]] = []
-        for start, end in ranges:
-            if not merged_ranges or start > merged_ranges[-1][1] + 1:
-                merged_ranges.append((start, end))
-            else:
-                merged_ranges[-1] = (
-                    merged_ranges[-1][0],
-                    max(merged_ranges[-1][1], end),
-                )
-
         # And cound the numbers between the ranges
         valid_ingredients = 0
-        for start, end in merged_ranges:
+        for start, end in ranges:
             valid_ingredients += end - start + 1
         return valid_ingredients
