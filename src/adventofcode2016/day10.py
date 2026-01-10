@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import bisect
 import logging
 from collections import defaultdict

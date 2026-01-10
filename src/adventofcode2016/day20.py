@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import logging
 
 from adventofcodeutils.parsing import extract_digits_from_string

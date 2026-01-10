@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from adventofcode.utils.abstract import FileReaderSolution
 
 

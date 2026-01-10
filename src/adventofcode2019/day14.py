@@ -17,7 +17,7 @@ class Recipe(NamedTuple):
     output: Chemical
 
     @staticmethod
-    def parse_recipe_string(input_string: str) -> "Recipe":
+    def parse_recipe_string(input_string: str) -> Recipe:
         """Parse a string as a Recipe and return a new Recipe.
 
         :param input_string: Input string, for example "1 A, 2 B, 3 C => 2 D
@@ -51,7 +51,7 @@ class Node:
         self.name = name
         self.edges = []
 
-    def add_edge(self, node: "Node"):
+    def add_edge(self, node: Node):
         self.edges.append(node)
 
 

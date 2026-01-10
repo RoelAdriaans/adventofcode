@@ -8,7 +8,7 @@ class Day3:
     square_size = 1_000
     Claim = namedtuple("Claim", "id, left, top, width, height")
 
-    def split_claim_into_sections(self, input_data: str) -> "Claim":
+    def split_claim_into_sections(self, input_data: str) -> Claim:
         """
         Split the input data `#1 @ 1,3: 4x4` into the parts:
         - ID 1

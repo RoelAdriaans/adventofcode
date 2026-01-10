@@ -6,7 +6,7 @@ from adventofcode.utils.abstract import FileReaderSolution
 class GridPosition:
     """Define a simple position on the grid"""
 
-    def __init__(self, x: int, y: int, symbol: str, cart: "MineCart" = None):
+    def __init__(self, x: int, y: int, symbol: str, cart: MineCart = None):
         """
         Create a new position, based on position (`x`, `y`), and a symbol to
         specify the direction.
@@ -62,7 +62,7 @@ class Turns(Enum):
     STRAIGHT = 1
     RIGHT = 2
 
-    def get_turn_direction(self, direction: "Direction"):
+    def get_turn_direction(self, direction: Direction):
         """Compute a new value for direction"""
         if self == self.LEFT:
             if direction == Direction.UP:

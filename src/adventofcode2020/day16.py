@@ -13,7 +13,7 @@ class Ticket(NamedTuple):
     lower_range_2: int
 
     @staticmethod
-    def parse_input(rule: str) -> "Ticket":
+    def parse_input(rule: str) -> Ticket:
         """
         Parse input, for example:
         departure track: 37-608 or 623-964

@@ -20,7 +20,7 @@ class Point:
         self.x += self.vel_x * seconds
         self.y += self.vel_y * seconds
 
-    def __eq__(self, other: "Point") -> bool:
+    def __eq__(self, other: Point) -> bool:
         return (
             self.x == other.x
             and self.y == other.y
