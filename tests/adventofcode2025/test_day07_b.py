@@ -12,4 +12,4 @@ class TestDay07PartB:
         solution = Day07PartB()
         res = solution("day_07/day07.txt")
         assert res > 3180
-        assert res == 0
+        assert res == 20571740188555
