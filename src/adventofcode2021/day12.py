@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from adventofcodeutils.graph import Graph
 from adventofcodeutils.node import Node
 from adventofcodeutils.stack import Stack

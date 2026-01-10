@@ -33,7 +33,7 @@ class Direction(IntEnum):
     DOWN = 2
     LEFT = 3
 
-    def rotate(self, rotate_direction: RotateDirection) -> "Direction":
+    def rotate(self, rotate_direction: RotateDirection) -> Direction:
         """Rotate the robot
         :param
         :param rotate_direction: Rotate: 0 Rotate left, 1 Rotate right

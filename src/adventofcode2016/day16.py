@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from more_itertools import grouper
 
 from adventofcode.utils.abstract import FileReaderSolution

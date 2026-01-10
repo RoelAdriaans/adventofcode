@@ -45,7 +45,7 @@ class Moon:
         self.z += self.dz
 
     @staticmethod
-    def parse_input(input_str: str) -> "Moon":
+    def parse_input(input_str: str) -> Moon:
         """Parse input string and return a moon
 
         Example input: <x=-1, y=0, z=2>

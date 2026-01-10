@@ -12,7 +12,7 @@ class Node:
         else:
             self.metadata = metadata
 
-    def add_child(self, child: "Node"):
+    def add_child(self, child: Node):
         self.children.append(child)
 
     def value(self):

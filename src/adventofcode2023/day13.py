@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from typing import NamedTuple
 
 from adventofcode.utils.abstract import FileReaderSolution

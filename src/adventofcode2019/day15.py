@@ -20,7 +20,7 @@ class Direction(IntEnum):
     EAST = 4
 
     @staticmethod
-    def direction_update_x_y(current_direction: "Direction", point: Point) -> Point:
+    def direction_update_x_y(current_direction: Direction, point: Point) -> Point:
         """
         Update the coordinate if the movement succeeded
 

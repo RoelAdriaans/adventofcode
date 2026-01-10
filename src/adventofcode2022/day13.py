@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from ast import literal_eval
 from functools import cmp_to_key
 
