@@ -166,7 +166,7 @@ class IntCode:
 
     def process_instruction(self):
         """Process the current instruction and increase the program counter"""
-        (current_opcode, position_modes) = self._parse_current_opcode()
+        current_opcode, position_modes = self._parse_current_opcode()
         val_1 = self._get_value_from_location(position_modes[0], 1)
         val_2 = self._get_value_from_location(position_modes[1], 2)
 

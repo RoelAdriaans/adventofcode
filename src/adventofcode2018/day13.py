@@ -123,7 +123,7 @@ class MineCart:
         return Turns(self.last_move)
 
     def _compute_direction(self):
-        (delta_x, delta_y) = self.direction.value
+        delta_x, delta_y = self.direction.value
         new_x = delta_x + self.x
         new_y = delta_y + self.y
         self.x = new_x
