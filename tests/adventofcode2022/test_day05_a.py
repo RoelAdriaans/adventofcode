@@ -15,9 +15,7 @@ class TestDay05PartA:
         move 3 from 1 to 3
         move 2 from 2 to 1
         move 1 from 1 to 2
-        """.replace(
-            ".", " "
-        )  # noqa
+        """.replace(".", " ")  # noqa
         solution = Day05PartA()
         result = solution.solve(dedent(test_data))
         assert result == "CMZ"
