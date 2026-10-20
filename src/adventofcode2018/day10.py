@@ -34,8 +34,8 @@ class Point:
 
 class Day10:
     def __init__(self):
-        self.points = list()
-        self.grid = dict()
+        self.points = []
+        self.grid = {}
 
     @staticmethod
     def parse_string(input_string: str):
@@ -87,9 +87,7 @@ class Day10:
             self.loop_grid()
             computed_lengh = max([point.x for point in self.points])
 
-            if computed_lengh < smallest_length:
-                # This is the smalest iteration, for now?
-                smallest_length = computed_lengh
+            smallest_length = min(smallest_length, computed_lengh)
             if computed_lengh > smallest_length:
                 # This one is bigger than the previous one
                 return x - 1

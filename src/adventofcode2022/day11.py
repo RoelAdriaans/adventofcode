@@ -34,7 +34,7 @@ class Monkey:
     def __repr__(self):
         return (
             f"Monkey(id:{self.monkid}, inspections:{self.inspections}, "
-            f"items[{repr(self.items)}])"
+            f"items[{self.items!r}])"
         )
 
     @staticmethod
@@ -124,7 +124,7 @@ class Day11:
                 self.monkeys[throw.monkid].items.push(throw.worry_level)
 
     def compute_score(self):
-        return math.prod(sorted(list(m.inspections for m in self.monkeys))[-2:])
+        return math.prod(sorted(m.inspections for m in self.monkeys)[-2:])
 
 
 class Day11PartA(Day11, FileReaderSolution):

@@ -54,7 +54,7 @@ class Day07PartA(Day07, FileReaderSolution):
 
 class Day07PartB(Day07, FileReaderSolution):
     @cache
-    def compute_timelines(self, position: tuple[int, int] = None) -> int:
+    def compute_timelines(self, position: tuple[int, int] | None = None) -> int:
         if position is None:
             # First encounter, first position is start position
             position = self.start

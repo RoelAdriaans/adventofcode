@@ -1,5 +1,4 @@
 import re
-import typing
 from abc import abstractmethod
 from collections import defaultdict
 from dataclasses import dataclass
@@ -20,7 +19,7 @@ class Program:
 
 
 class Day14:
-    memory = typing.DefaultDict[int, int]
+    memory = defaultdict[int, int]
 
     @staticmethod
     def parse_programs(input_data: str) -> list[Program]:

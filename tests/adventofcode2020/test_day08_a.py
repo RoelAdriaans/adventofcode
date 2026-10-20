@@ -4,18 +4,8 @@ from adventofcode2020.day08 import Day08PartA
 
 
 class TestDay08PartA:
-    instruction_1 = "\n".join(
-        [
-            "nop +0",
-            "acc +1",
-            "jmp +4",
-            "acc +3",
-            "jmp -3",
-            "acc -99",
-            "acc +1",
-            "jmp -4",
-            "acc +6",
-        ]
+    instruction_1 = (
+        "nop +0\nacc +1\njmp +4\nacc +3\njmp -3\nacc -99\nacc +1\njmp -4\nacc +6"
     )
 
     @pytest.mark.parametrize(("instructions", "expected_result"), [(instruction_1, 5)])

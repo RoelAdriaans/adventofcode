@@ -101,7 +101,7 @@ class Day4PartA(Day4, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         log_entries = self.parse_strings(input_data)
         guard_info = self.parse_logs(log_entries)
-        guard_id, minutes_slept = self.determine_mostasleep(guard_info)
+        guard_id, _minutes_slept = self.determine_mostasleep(guard_info)
         most_slept_minute = self.determine_most_asleep_minute(guard_info[guard_id])
         result = guard_id * most_slept_minute
         return result

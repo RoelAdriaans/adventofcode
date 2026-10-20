@@ -22,9 +22,7 @@ class Day18:
         if above[0] == TRAP and above[1] == above[2] == SAFE:
             return False
         # Only its right tile is a trap.
-        if above[0] == above[1] == SAFE and above[2] == TRAP:
-            return False
-        return True
+        return not (above[0] == above[1] == SAFE and above[2] == TRAP)
 
     @classmethod
     def evolve(cls, input_string: str) -> str:

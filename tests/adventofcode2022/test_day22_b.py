@@ -5,7 +5,7 @@ from adventofcode2022.day22 import Day22PartB
 
 class TestDay22PartB:
     @pytest.mark.xfail(reason="Not yet implemented", raises=NotImplementedError)
-    @pytest.mark.parametrize(("input_data", "expected_result"), [("", ""), ("", "")])
+    @pytest.mark.parametrize(("input_data", "expected_result"), [("", "")])
     def test_day22b_solve(self, input_data, expected_result):
         solution = Day22PartB()
         result = solution.solve(input_data)

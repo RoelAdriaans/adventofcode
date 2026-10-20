@@ -28,13 +28,16 @@ class Day10:
                 stack.push(char)
             else:
                 popped = stack.pop()
-                if char == "]" and popped == "[":
-                    continue
-                elif char == ")" and popped == "(":
-                    continue
-                elif char == "}" and popped == "{":
-                    continue
-                elif char == ">" and popped == "<":
+                if (
+                    char == "]"
+                    and popped == "["
+                    or char == ")"
+                    and popped == "("
+                    or char == "}"
+                    and popped == "{"
+                    or char == ">"
+                    and popped == "<"
+                ):
                     continue
                 else:
                     return char

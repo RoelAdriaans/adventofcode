@@ -78,12 +78,13 @@ class FacilityState:
         # Move everything except the elevator, if it exists
         items.discard("elevator")
 
-        combinations = list(
-            itertools.chain(
+        combinations = [
+            *it
+            for it in (
                 itertools.combinations(items, 1),
                 itertools.combinations(items, 2),
             )
-        )
+        ]
         # Validate the set in the elevator
         valid = [
             combination

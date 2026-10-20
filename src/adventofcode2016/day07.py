@@ -80,14 +80,13 @@ class IPv7:
     def supports_ssl(self) -> bool:
         """Test if IPv7 address supports SSL (super-secret listening)."""
         # First, check if any of the chars parts have abba. At least one needs this
-        address_parts_aba = list(
-            itertools.chain.from_iterable(
-                self.has_aba(text) for text in self.address_parts
-            )
-        )
-        hypernet_parts_aba = list(
-            itertools.chain.from_iterable(self.has_aba(text) for text in self.hypernets)
-        )
+        text = ""
+        address_parts_aba = [
+            *it for it in self.has_aba(text) for text in self.address_parts
+        ]
+        hypernet_parts_aba = [
+            *it for it in self.has_aba(text) for text in self.hypernets
+        ]
         matches = itertools.product(address_parts_aba, hypernet_parts_aba)
         return any(IPv7.is_inverse(a, b) for a, b in matches)
 

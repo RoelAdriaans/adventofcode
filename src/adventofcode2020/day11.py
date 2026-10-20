@@ -1,6 +1,5 @@
 from abc import abstractmethod
 from collections import defaultdict, deque
-from typing import Deque
 
 from adventofcode.utils.abstract import FileReaderSolution
 
@@ -24,8 +23,8 @@ class Day11:
         # This works, but it not really performance proof..
 
         new_grid: dict[int, dict] = defaultdict(dict)
-        for row in range(0, len(grid)):
-            for col in range(0, len(grid[row])):
+        for row in range(len(grid)):
+            for col in range(len(grid[row])):
                 if grid[row][col] == ".":
                     new_grid[row][col] = "."
                     continue
@@ -50,7 +49,7 @@ class Day11:
 
     def count_filled(self, grid, char="#") -> int:
         rij = []
-        for row, value in grid.items():
+        for value in grid.values():
             rij += value.values()
 
         return rij.count(char)
@@ -61,12 +60,12 @@ class Day11:
         sleep(0.1)
         print(chr(27) + "[2J")
         print("\n")
-        for row, value in grid.items():
+        for value in grid.values():
             print("".join(value.values()))
         print("\n")
 
     def run_day(self, input_data):
-        average: Deque[int] = deque()
+        average: deque[int] = deque()
 
         grid = self.str_to_map(input_data)
 
@@ -92,7 +91,6 @@ class Day11PartA(Day11, FileReaderSolution):
             grid.get(row, {}).get(col + 1, 0),  # Right
             grid.get(row - 1, {}).get(col, 0),  # Bottom
             grid.get(row + 1, {}).get(col, 0),  # Top
-            #
             grid.get(row - 1, {}).get(col - 1, 0),  # Bottom Left
             grid.get(row - 1, {}).get(col + 1, 0),  # Bottom Right
             grid.get(row + 1, {}).get(col - 1, 0),  # Top Left

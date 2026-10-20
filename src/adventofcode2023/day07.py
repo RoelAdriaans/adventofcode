@@ -120,10 +120,7 @@ class Hand:
     def __eq__(self, other):
         if not isinstance(other, Hand):
             raise ValueError("Can't compare, must be a Hand")
-        if self.cards == other.cards and self.score == other.score:
-            return True
-        else:
-            return False
+        return bool(self.cards == other.cards and self.score == other.score)
 
     def __lt__(self, other) -> bool:
         if self.score != other.score:
@@ -171,8 +168,7 @@ class JokerHand(Hand):
         for replacement in ("A", "K", "Q", "T", "9", "8", "7", "6", "5", "4", "3", "2"):
             test_card = cards.replace("J", replacement)
             score = Hand._calculate_score(test_card)
-            if score.value > max_score:
-                max_score = score.value
+            max_score = max(max_score, score.value)
         logger.debug("For cards %s, score %s", cards, max_score)
         return Score(max_score)
 

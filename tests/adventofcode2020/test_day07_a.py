@@ -15,8 +15,10 @@ class TestDay07PartA:
             ("faded blue bags contain no other bags.", 0, "faded blue"),
             ("dark tan bags contain 4 faded white bags.", 1, "dark tan"),
             (
-                "dull turquoise bags contain 2 plaid olive bags, "
-                "5 striped turquoise bags, 5 muted brown bags, 1 vibrant magenta bag.",
+                (
+                    "dull turquoise bags contain 2 plaid olive bags, "
+                    "5 striped turquoise bags, 5 muted brown bags, 1 vibrant magenta bag."
+                ),
                 4,
                 "dull turquoise",
             ),
@@ -30,19 +32,7 @@ class TestDay07PartA:
         assert bag.color == bag_color
 
     def test_day07a_solve(self):
-        test_input = "\n".join(
-            [
-                "light red bags contain 1 bright white bag, 2 muted yellow bags.",
-                "dark orange bags contain 3 bright white bags, 4 muted yellow bags.",
-                "bright white bags contain 1 shiny gold bag.",
-                "muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.",
-                "shiny gold bags contain 1 dark olive bag, 2 vibrant plum bags.",
-                "dark olive bags contain 3 faded blue bags, 4 dotted black bags.",
-                "vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.",
-                "faded blue bags contain no other bags.",
-                "dotted black bags contain no other bags.",
-            ]
-        )
+        test_input = "light red bags contain 1 bright white bag, 2 muted yellow bags.\ndark orange bags contain 3 bright white bags, 4 muted yellow bags.\nbright white bags contain 1 shiny gold bag.\nmuted yellow bags contain 2 shiny gold bags, 9 faded blue bags.\nshiny gold bags contain 1 dark olive bag, 2 vibrant plum bags.\ndark olive bags contain 3 faded blue bags, 4 dotted black bags.\nvibrant plum bags contain 5 faded blue bags, 6 dotted black bags.\nfaded blue bags contain no other bags.\ndotted black bags contain no other bags."
 
         solution = Day07PartA()
         result = solution.solve(test_input)

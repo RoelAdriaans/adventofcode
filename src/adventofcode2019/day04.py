@@ -14,7 +14,7 @@ class Day04:
 
     @staticmethod
     def is_consecutive(number_str: str) -> bool:
-        for digit in range(0, 10):
+        for digit in range(10):
             str_digit = str(digit)
             replaced = number_str.replace(f"{str_digit}{str_digit}", "")
             if len(replaced) <= 5:

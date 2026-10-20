@@ -119,7 +119,7 @@ class Day18:
     def explode(self, root_node: Snail) -> Snail:
         """Explode a snail"""
         # The root snail will explode:
-        deepest, depth = Snail.find_deepest_snail(root_node)
+        deepest, _depth = Snail.find_deepest_snail(root_node)
         if not deepest:
             # Nothing to explode anymore
             raise StopIteration
@@ -256,7 +256,6 @@ class Day18PartB(Day18, FileReaderSolution):
 
             result = self.reduce(snail1, snail2)
             magnitude = self.magnitude(result)
-            if magnitude > max_value:
-                max_value = magnitude
+            max_value = max(max_value, magnitude)
 
         return max_value
