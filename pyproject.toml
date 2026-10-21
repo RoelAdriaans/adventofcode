@@ -16,7 +16,7 @@ dependencies = [
     "more-itertools>=11.1.0,<12",
     "regex-spm>=1.0.0,<2",
     "parse>=1.22.1,<2",
-    "matplotlib>=3.10.9,<4",
+    "matplotlib>=3.11.2,<4",
     "adventofcodeutils",
 ]
 
