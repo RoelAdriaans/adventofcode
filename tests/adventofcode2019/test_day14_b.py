@@ -41,13 +41,17 @@ class TestDay14PartB:
             (
                 [
                     "171 ORE => 8 CNZTR",
-                    "7 ZLQW, 3 BMBT, 9 XCVML, 26 XMNCP, 1 WPTQ, 2 MZWV, 1 RJRHP =>"
-                    " 4 PLWSL",
+                    (
+                        "7 ZLQW, 3 BMBT, 9 XCVML, 26 XMNCP, 1 WPTQ, 2 MZWV, 1 RJRHP =>"
+                        " 4 PLWSL"
+                    ),
                     "114 ORE => 4 BHXH",
                     "14 VRPVC => 6 BMBT",
                     "6 BHXH, 18 KTJDG, 12 WPTQ, 7 PLWSL, 31 FHTLT, 37 ZDVW => 1 FUEL",
-                    "6 WPTQ, 2 BMBT, 8 ZLQW, 18 KTJDG, 1 XMNCP, 6 MZWV, 1 RJRHP =>"
-                    " 6 FHTLT",
+                    (
+                        "6 WPTQ, 2 BMBT, 8 ZLQW, 18 KTJDG, 1 XMNCP, 6 MZWV, 1 RJRHP =>"
+                        " 6 FHTLT"
+                    ),
                     "15 XDBXC, 2 LTCX, 1 VRPVC => 6 ZLQW",
                     "13 WPTQ, 10 LTCX, 3 RJRHP, 14 XMNCP, 2 MZWV, 1 ZLQW => 1 ZDVW",
                     "5 BMBT => 4 WPTQ",

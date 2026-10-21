@@ -15,8 +15,8 @@ class Elve:
 class Day14:
     """Day 14: Chocolate Charts"""
 
-    scoreboard = list()
-    elves = list()
+    scoreboard = []
+    elves = []
 
     def parse_data(self, input_data: str):
         """
@@ -46,8 +46,8 @@ class Day14:
         :return: String with the score.
         """
         # Cleanup, in testing we instantieace
-        self.elves = list()
-        self.scoreboard = list()
+        self.elves = []
+        self.scoreboard = []
         self.parse_data(input_data)
 
         # Create `num_elves` with the first recipes from the scoreboard
@@ -65,7 +65,6 @@ class Day14:
             new_idx = (elve.current_recipe_idx + steps_forward) % len(self.scoreboard)
             elve.current_recipe_idx = new_idx
             elve.current_recipe = self.scoreboard[new_idx]
-            pass
 
     def compute_next_recipes(self, num_recipes: int):
         """

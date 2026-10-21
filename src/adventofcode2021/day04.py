@@ -43,7 +43,7 @@ class Board:
                 return True
         # Check vertital win:
         for y in range(5):
-            if all([x[y].picked for x in self.board.values()]):
+            if all(x[y].picked for x in self.board.values()):
                 return True
         return False
 

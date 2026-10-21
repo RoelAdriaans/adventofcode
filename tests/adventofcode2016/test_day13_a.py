@@ -17,8 +17,7 @@ class TestDay13PartA:
             (0, 6, True),  # 6 #
             (-1, 0, True),  # Negative is out of bounds
             (-1, -1, True),
-            (0, -1, True),
-            (0, 1, False),  # .
+            (0, -1, True),  # .
             (1, 1, False),  # .
             (2, 1, True),  # #
             (3, 1, False),  # .

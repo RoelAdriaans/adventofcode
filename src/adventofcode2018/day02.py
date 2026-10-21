@@ -1,6 +1,6 @@
 from collections import Counter
 from collections.abc import Iterable
-from functools import lru_cache
+from functools import cache
 from itertools import combinations
 
 from adventofcode.utils.abstract import FileReaderSolution
@@ -25,7 +25,7 @@ class Day2:
 
         count_twice = 0
         count_thrice = 0
-        for key, count in letter_counter.items():
+        for count in letter_counter.values():
             if count == 2:
                 count_twice = 1
             if count == 3:
@@ -59,11 +59,11 @@ class Day2PartA(Day2, FileReaderSolution):
 
 class Day2PartB(Day2, FileReaderSolution):
     @staticmethod
-    @lru_cache(maxsize=None)
+    @cache
     def compute_distance(word1: str, word2: str) -> int:
         """Compute the distance between two words on positional base"""
         difference = 0
-        for i in range(0, len(word1)):
+        for i in range(len(word1)):
             if word1[i] != word2[i]:
                 difference += 1
         return difference
@@ -91,7 +91,7 @@ class Day2PartB(Day2, FileReaderSolution):
     def compute_common_letters(word1: str, word2: str) -> str:
         """Return only the letters that are common at the same place"""
         letters: list[str] = []
-        for i in range(0, len(word1)):
+        for i in range(len(word1)):
             if word1[i] == word2[i]:
                 letters.append(word1[i])
         return "".join(letters)

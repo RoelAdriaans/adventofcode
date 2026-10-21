@@ -27,8 +27,8 @@ class Day12:
                 else:
                     int_value = ord(char) - ord("a") + 1
                 self.grid[pnt] = int_value
-        self.max_x = max(point.x for point in self.grid.keys())
-        self.max_y = max(point.y for point in self.grid.keys())
+        self.max_x = max(point.x for point in self.grid)
+        self.max_y = max(point.y for point in self.grid)
 
     def goal_test(self, pnt: Point) -> bool:
         return pnt == self.end_position

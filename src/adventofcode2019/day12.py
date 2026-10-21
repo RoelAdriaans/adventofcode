@@ -74,7 +74,6 @@ class Moon:
          coordinates
         :return:
         """
-        ...
         return abs(self.dx) + abs(self.dy) + abs(self.dz)
 
     def get_total_energy(self) -> int:

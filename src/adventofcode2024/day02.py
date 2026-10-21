@@ -12,9 +12,9 @@ class Day02:
             if difference == 0 or difference > 3:
                 # Diff to great
                 return False
-        if sorted(numbers) == numbers or sorted(numbers, reverse=True) == numbers:
-            return True
-        return False
+        return bool(
+            sorted(numbers) == numbers or sorted(numbers, reverse=True) == numbers
+        )
 
     def solve(self, input_data: str) -> int:
         return sum(self.check_valid(line) for line in input_data.splitlines())

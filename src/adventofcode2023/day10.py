@@ -237,7 +237,7 @@ class Day10PartB(Day10, FileReaderSolution):
 
         valid_points = 0
         inside = []
-        for row in range(0, self.max_row + 1):
+        for row in range(self.max_row + 1):
             inside_points = self.raytracing(path, row)
             valid_points += len(inside_points)
             inside.extend(inside_points)

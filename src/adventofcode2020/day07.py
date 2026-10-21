@@ -1,7 +1,6 @@
 import logging
 import re
 from dataclasses import dataclass
-from typing import Any
 
 from adventofcode.utils.abstract import FileReaderSolution
 
@@ -32,7 +31,7 @@ class Bag:
 
         self.contains[bag] = number
 
-    def __eq__(self, other: Any) -> bool:
+    def __eq__(self, other: object) -> bool:
         if not isinstance(other, Bag):
             return NotImplemented
         return self.color == other.color
@@ -103,10 +102,8 @@ class Day07:
         if bag.color == color:
             return True
         does_contain_color = any(
-            [
-                self.resolve_tree(self.bags[child_bag.color], color)
-                for child_bag in bag.contains
-            ]
+            self.resolve_tree(self.bags[child_bag.color], color)
+            for child_bag in bag.contains
         )
         return does_contain_color
 

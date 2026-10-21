@@ -6,13 +6,11 @@ from typing import Any
 logger = logging.getLogger(__name__)
 
 
-class ProgramFinished(Exception):  # noqa: N818
+class ProgramFinished(Exception):
     """
     This exception is raised when the program is finished.
     This exception is usually not a fatal error, but used for control structure.
     """
-
-    pass
 
 
 class Opcode(Enum):

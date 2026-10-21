@@ -60,7 +60,7 @@ class Day04:
     ) -> bool:
         if skip is None:
             skip = []
-        single_line = " ".join([line for line in passport_lines])
+        single_line = " ".join([*passport_lines])
 
         parts = {}
         for field in single_line.split(" "):
@@ -68,12 +68,11 @@ class Day04:
             parts[k] = v
 
         for field_to_check in requiredfields:
-            if validate:
-                if not RequiredFields.validate(
-                    field_to_check.name, parts.get(field_to_check.name, None)
-                ):
-                    return False
-            if field_to_check.name not in parts.keys():
+            if validate and not RequiredFields.validate(
+                field_to_check.name, parts.get(field_to_check.name, None)
+            ):
+                return False
+            if field_to_check.name not in parts:
                 if field_to_check.name in skip:
                     continue
                 else:

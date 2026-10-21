@@ -31,9 +31,9 @@ class Day13:
 
     def repr_grid(self):  # pragma: nocover
         lines = []
-        for i in range(0, self.size + 1):
+        for i in range(self.size + 1):
             line = "".join(
-                "#" if self.grid[i, j] else "." for j in range(0, self.size + 1)
+                "#" if self.grid[i, j] else "." for j in range(self.size + 1)
             )
             lines.append(line)
         return "\n".join(lines)
@@ -42,13 +42,13 @@ class Day13:
         direction, fold_line = self.folds.pop()
         if direction == "y":
             for i in range(fold_line + 1, self.size + 1):
-                for j in range(0, self.size + 1):
+                for j in range(self.size + 1):
                     if self.grid[i, j]:
                         new_i = self._mirrored_location(i, fold_line)
                         self.grid[new_i, j] = True
         elif direction == "x":
             for j in range(fold_line + 1, self.size + 1):
-                for i in range(0, self.size + 1):
+                for i in range(self.size + 1):
                     if self.grid[i, j]:
                         new_j = self._mirrored_location(j, fold_line)
                         self.grid[i, new_j] = True

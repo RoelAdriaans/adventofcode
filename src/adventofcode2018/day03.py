@@ -40,10 +40,10 @@ class Day3:
         raise ValueError(f"String {input_data} could not be processed as a valid Claim")
 
     def make_map(self):
-        self.map: dict[int, dict] = dict()
-        for i in range(0, self.square_size):
-            self.map[i] = dict()
-            for j in range(0, self.square_size):
+        self.map: dict[int, dict] = {}
+        for i in range(self.square_size):
+            self.map[i] = {}
+            for j in range(self.square_size):
                 self.map[i][j] = []
 
     def _parse_claim(self, claim: Claim) -> bool:
@@ -60,8 +60,8 @@ class Day3:
         return True
 
     def print_map(self):
-        for i in range(0, self.square_size):
-            for j in range(0, self.square_size):
+        for i in range(self.square_size):
+            for j in range(self.square_size):
                 claims_on_position = len(self.map[i][j])
                 if claims_on_position == 0:
                     print(".", end="")
@@ -74,8 +74,8 @@ class Day3:
     def compute_multiple_claims(self) -> int:
         """Compute how many claims are overlapping"""
         counter = 0
-        for i in range(0, self.square_size):
-            for j in range(0, self.square_size):
+        for i in range(self.square_size):
+            for j in range(self.square_size):
                 if len(self.map[i][j]) > 1:
                     counter += 1
         return counter
@@ -87,8 +87,8 @@ class Day3:
         """
         valid_claims: list = []
         invalid_claims: list = []
-        for i in range(0, self.square_size):
-            for j in range(0, self.square_size):
+        for i in range(self.square_size):
+            for j in range(self.square_size):
                 claims_on_position = len(self.map[i][j])
                 if claims_on_position == 1:
                     claim_id = self.map[i][j][0]

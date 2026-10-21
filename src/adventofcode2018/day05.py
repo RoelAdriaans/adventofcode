@@ -22,7 +22,7 @@ class Day5:
         # Because this is an recursive function, we run into the a recursion error.
         # We increase the recursion limit to make our solution work.
         sys.setrecursionlimit(5000)
-        for position in range(0, len(input_string) - 1):
+        for position in range(len(input_string) - 1):
             letter_1 = input_string[position]
             letter_2 = input_string[position + 1]
             if letter_1.lower() == letter_2.lower() and letter_1 != letter_2:

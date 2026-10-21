@@ -2,8 +2,8 @@ from collections import defaultdict
 
 from adventofcodeutils.parsing import string_to_list_of_ints
 
-from adventofcode2019.intcode import IntCode, ProgramFinished
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode2019.intcode import IntCode, ProgramFinished
 
 
 class Day17:

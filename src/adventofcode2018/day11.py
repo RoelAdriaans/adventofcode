@@ -23,13 +23,13 @@ class Day11:
 
     def generate_grid(self, serial):
         self.grid = [
-            [self.computer_power_level(x, y, serial) for y in range(0, self.size + 1)]
-            for x in range(0, self.size + 1)
+            [self.computer_power_level(x, y, serial) for y in range(self.size + 1)]
+            for x in range(self.size + 1)
         ]
 
     def compute_summed_area(self):
-        for y in range(0, self.size + 1):
-            for x in range(0, self.size + 1):
+        for y in range(self.size + 1):
+            for x in range(self.size + 1):
                 # i(x,y) + I(x,y-1) + I(x-1,y) - I(x-1, y-1)
 
                 if x > 0 and y > 0:
@@ -129,7 +129,7 @@ class Day11PartA(Day11, FileReaderSolution):
         serial = int(input_data)
         self.generate_grid(serial)
         self.compute_summed_area()
-        res, power = self.find_best_grid()
+        res, _power = self.find_best_grid()
         return str(res)
 
 

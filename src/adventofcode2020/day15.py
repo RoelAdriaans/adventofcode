@@ -1,11 +1,10 @@
 from collections import defaultdict
-from typing import DefaultDict
 
 from adventofcode.utils.abstract import FileReaderSolution
 
 
 class Day15:
-    number_storage: DefaultDict[int, list]
+    number_storage: defaultdict[int, list]
     round: int
 
     def process_number(self, number: int) -> int:
@@ -37,8 +36,7 @@ class Day15PartA(Day15, FileReaderSolution):
         for number in start_numbers:
             self.process_number(number)
             self.round += 1
-        else:
-            number = 0
+        number = 0
 
         while self.round <= 2020:
             number = self.process_number(number)

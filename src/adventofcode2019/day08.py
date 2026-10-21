@@ -25,7 +25,7 @@ class Day08:
     def layer_with_fewest_digit(self, number_to_find: int):
         """Find the layer with the fewest corrences of `number_to_find`"""
         found = {}
-        for x in range(0, len(self.frames)):
+        for x in range(len(self.frames)):
             found[x] = self.count_number_per_frame(number=number_to_find, frame=x)
         return min(found, key=found.get)  # type: ignore
 
@@ -41,7 +41,7 @@ class Day08:
     def get_computed_image(self):
         """Compute the image"""
         resulting_image = []
-        for x in range(0, len(self.frames[0])):
+        for x in range(len(self.frames[0])):
             pixels = [int(frame[x]) for frame in self.frames]
             result = self._compute_per_pixel(pixels)
             resulting_image.append(result)

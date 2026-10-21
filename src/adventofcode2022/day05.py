@@ -23,11 +23,11 @@ class Day05(FileReaderSolution):
         # Get the range:
         stack_range = int(max(lines[-1].split(" ")))
         stacks = {}
-        for i in range(0, stack_range):
+        for i in range(stack_range):
             # Column i
             column = 1 + (i * 4)
             items = []
-            for j in range(0, len(lines) - 1):
+            for j in range(len(lines) - 1):
                 if lines[j][column].strip():
                     items.append(lines[j][column])
             stack: Stack[str] = Stack()
@@ -67,7 +67,7 @@ class Day05(FileReaderSolution):
 class Day05PartA(Day05):
     def perform_moves(self):
         for move in self.moves:
-            for _ in range(0, move.moves):
+            for _ in range(move.moves):
                 self.stacks[move.destination].push(self.stacks[move.source].pop())
 
 
@@ -75,7 +75,7 @@ class Day05PartB(Day05, FileReaderSolution):
     def perform_moves(self):
         for move in self.moves:
             moved = []
-            for _ in range(0, move.moves):
+            for _ in range(move.moves):
                 moved.append(self.stacks[move.source].pop())
 
             for item in reversed(moved):
