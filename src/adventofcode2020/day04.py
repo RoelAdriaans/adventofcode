@@ -60,7 +60,7 @@ class Day04:
     ) -> bool:
         if skip is None:
             skip = []
-        single_line = " ".join([line for line in passport_lines])
+        single_line = " ".join([*passport_lines])
 
         parts = {}
         for field in single_line.split(" "):
