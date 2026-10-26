@@ -21,7 +21,7 @@ class Day08:
 
     def min_max_values(self) -> tuple[int, int, int, int]:
         """Return max_x, min_x, max_y, min_y for image"""
-        values = [pnt for pnt in self.grid.keys()]
+        values = [*self.grid.keys()]
         max_x = max(pnt.x for pnt in values)
         min_x = min(pnt.x for pnt in values)
         max_y = max(pnt.y for pnt in values)
