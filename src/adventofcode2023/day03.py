@@ -21,10 +21,10 @@ class Day03:
         # Create a row/col grid from the input data
         self.grid = [list(line) for line in input_data.splitlines()]
         part_numbers = []
-        for row in range(0, len(self.grid)):
+        for row in range(len(self.grid)):
             is_digit = False
             current_digits = []
-            for col in range(0, len(self.grid[0])):
+            for col in range(len(self.grid[0])):
                 if self.grid[row][col].isdigit():
                     is_digit = True
                     # If we're working on a digit, add it to the running total
@@ -47,9 +47,7 @@ class Day03:
     def check_symbol(input_value: str) -> bool:
         if input_value.isdigit():
             return False
-        if input_value == ".":
-            return False
-        return True
+        return input_value != "."
 
     def validate(self, digits, row, col) -> bool | Symbol:
         """Validate if the digits in are real. If they are real, return a Symbol"""

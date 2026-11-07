@@ -90,7 +90,6 @@ class Packet:
             value = (value << 4) | group_bits
 
         self.value = value
-        return
 
     def _parse_operator(self):
         self.length_type_id = self._take_bits(1)

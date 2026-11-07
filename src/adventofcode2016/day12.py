@@ -58,7 +58,7 @@ class Copy(Instruction, mnemonic="cpy"):
 
     @classmethod
     def _parse(cls, instruction: str) -> Instruction:
-        mnemonic, value, register_1 = instruction.split()
+        _mnemonic, value, register_1 = instruction.split()
         if value.isdecimal():
             return Copy(
                 value=int(value),
@@ -83,7 +83,7 @@ class Increment(Instruction, mnemonic="inc"):
 
     @classmethod
     def _parse(cls, instruction: str) -> Instruction:
-        mnemonic, register_1 = instruction.split()
+        _mnemonic, register_1 = instruction.split()
         return cls(register_1=register_1)
 
     def execute(self, instance: Computer):
@@ -95,7 +95,7 @@ class Decrement(Instruction, mnemonic="dec"):
 
     @classmethod
     def _parse(cls, instruction: str) -> Instruction:
-        mnemonic, register_1 = instruction.split()
+        _mnemonic, register_1 = instruction.split()
         return cls(register_1=register_1)
 
     def execute(self, instance: Computer):
@@ -112,7 +112,7 @@ class JumpNotZero(Instruction, mnemonic="jnz"):
 
     @classmethod
     def _parse(cls, instruction: str) -> Instruction:
-        mnemonic, compare, value = instruction.split()
+        _mnemonic, compare, value = instruction.split()
         if compare.isdecimal():
             # jnz 1 5 -> Compare against a static number
             return cls(register_2=int(compare), value=int(value))

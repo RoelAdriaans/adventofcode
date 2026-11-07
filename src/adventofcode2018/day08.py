@@ -8,7 +8,7 @@ class Node:
     def __init__(self, metadata=False):
         self.children = []
         if not metadata:
-            self.metadata = list()
+            self.metadata = []
         else:
             self.metadata = metadata
 
@@ -31,7 +31,7 @@ class Node:
 
 class Day08:
     def __init__(self):
-        self.nodes = list()
+        self.nodes = []
 
     def parse_data(self, input_data: str) -> [int]:
         """Parse a string of numbers seperated by spaces, and return a list of ints"""

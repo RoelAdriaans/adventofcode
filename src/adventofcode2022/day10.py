@@ -8,7 +8,7 @@ class Instruction(NamedTuple):
     value: int | None
 
 
-class ProgramEnded(Exception):  # noqa: N818
+class ProgramEnded(Exception):
     """Signal that the program has ended"""
 
 

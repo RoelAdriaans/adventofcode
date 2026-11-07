@@ -97,7 +97,7 @@ class Day10PartA(Day10, FileReaderSolution):
         output_bin = defaultdict(list)
         while True:
             # Loop over the robots
-            for n, bot in self.bots.items():
+            for bot in self.bots.values():
                 if a in bot.chips and b in bot.chips:
                     return bot.number
 
@@ -116,7 +116,7 @@ class Day10PartB(Day10, FileReaderSolution):
         output_bin = defaultdict(list)
         while True:
             # Loop over the robots
-            for n, bot in self.bots.items():
+            for bot in self.bots.values():
                 output_data = self.cascade(bot)
 
                 for bin_nr, value in output_data.items():

@@ -115,13 +115,13 @@ class TestDay11PartA:
         assert solution.print_grid() == step_4
 
         # We have done 4 steps, let's do 6 more to reach the 10 steps
-        for _ in range(0, 6):
+        for _ in range(6):
             solution.step()
         assert solution.total_steps == 10
         assert solution.total_flashes == 204
 
         # And 100 steps
-        for _ in range(0, 90):
+        for _ in range(90):
             solution.step()
         assert solution.total_steps == 100
         assert solution.total_flashes == 1656

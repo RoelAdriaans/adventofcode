@@ -29,9 +29,9 @@ class TimedNode:
 
 class Day07:
     def __init__(self):
-        self.node_tree = dict()
-        self.walked_nodes = list()
-        self.nodes_worked_on = list()
+        self.node_tree = {}
+        self.walked_nodes = []
+        self.nodes_worked_on = []
 
     @staticmethod
     def parse_string(input_string: str) -> (str, str):
@@ -67,7 +67,7 @@ class Day07:
                 self.node_tree[node[0]] = [node[1]]
             # Also add the children as Nodes.
             if node[1] not in self.node_tree:
-                self.node_tree[node[1]] = list()
+                self.node_tree[node[1]] = []
 
     def get_parent(self, child: str) -> [str]:
         """Return the parent(s) of this child as a list"""
@@ -93,7 +93,7 @@ class Day07:
     def walk_tree(self, root_node):
         """Walk the tree, and see the order"""
         # First we have to add the starting node to our result, and visited list
-        self.walked_nodes = list()
+        self.walked_nodes = []
         self.walked_nodes.append(root_node)
         while len(self.walked_nodes) < len(self.node_tree):
             # For a node to be ready, the parent needs to be in visited_nodes
@@ -103,8 +103,8 @@ class Day07:
         return "".join(self.walked_nodes)
 
     def get_next_node(self):
-        valid_nodes = list()
-        for node in self.node_tree.keys():
+        valid_nodes = []
+        for node in self.node_tree:
             if (
                 node not in self.walked_nodes
                 and node not in self.nodes_worked_on
@@ -125,20 +125,18 @@ class Day07:
         If there are multiple parents, sort them.
         """
         nodes_with_parents = list(self.node_tree.keys())
-        for node, children in self.node_tree.items():
+        for children in self.node_tree.values():
             for child in children:
                 if child in nodes_with_parents:
                     nodes_with_parents.remove(child)
-        return sorted(nodes_with_parents)[0]
+        return min(nodes_with_parents)
 
     def walk_tree_with_helpers(self, extra_time: int = 60, num_workers: int = 5) -> int:
         """
         Walk the tree, but we now have helpers!
         """
         current_second = 0
-        work_nodes = {
-            name: TimedNode(name, extra_time) for name in self.node_tree.keys()
-        }
+        work_nodes = {name: TimedNode(name, extra_time) for name in self.node_tree}
         # We start at second 0.
         # The first worker will start on the root_node
         workers = [False for _ in range(num_workers)]

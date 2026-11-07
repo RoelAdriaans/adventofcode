@@ -52,7 +52,7 @@ class Day08PartB(Day08, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         self.parse(input_data)
 
-        starts = [node for node in self.nodes.keys() if node[2] == "A"]
+        starts = [node for node in self.nodes if node[2] == "A"]
         logger.info("We have %s starts", len(starts))
 
         return math.lcm(*(self.find_cycle(start) for start in starts))

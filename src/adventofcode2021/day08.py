@@ -80,7 +80,7 @@ class Day08PartB(Day08, FileReaderSolution):
                     pattern_set.discard(pattern)
 
                 # Mapping for 9 is length(6) with pattern with 4:
-                if all([letter in list(pattern) for letter in list(mapping_four)]):
+                if all(letter in list(pattern) for letter in list(mapping_four)):
                     mapping[pattern] = 9
                     pattern_set.discard(pattern)
 
@@ -94,7 +94,7 @@ class Day08PartB(Day08, FileReaderSolution):
         for pattern in pattern_set.copy():
             if len(pattern) == 5:
                 # if mapping_one in pattern:
-                if all([letter in list(pattern) for letter in list(mapping_one)]):
+                if all(letter in list(pattern) for letter in list(mapping_one)):
                     mapping[pattern] = 3
                     pattern_set.discard(pattern)
                     break
@@ -124,8 +124,7 @@ class Day08PartB(Day08, FileReaderSolution):
         for key, value in mapping.items():
             if needle == value:
                 return key
-        else:
-            raise ValueError(f"Key {needle} not found")
+        raise ValueError(f"Key {needle} not found")
 
     def solve(self, input_data: str) -> int:
         """Where we really have to map, and stop counting :)"""

@@ -126,7 +126,6 @@ def create_solution(force, year, day):
     try:
         importlib.import_module(import_path)
     except ModuleNotFoundError:
-        pass
         logger.debug(f"{import_path} does not exist, we can continue")
     else:
         if not force:
@@ -271,7 +270,7 @@ def submit_result(year, day, part, result):
     if result:
         print(f"{result}")
     else:
-        print(f"Could not parse content. Raw result:\n{str(r.content)}")
+        print(f"Could not parse content. Raw result:\n{r.content!s}")
 
 
 def parse_result(html_doc):

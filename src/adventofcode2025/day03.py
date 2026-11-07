@@ -22,8 +22,7 @@ class Day03PartA(Day03, FileReaderSolution):
                 # Loop over the digits to the right of the current index
                 # If any of the
                 count = digits[index] * 10 + digits[i]
-                if count > max_jotage:
-                    max_jotage = count
+                max_jotage = max(max_jotage, count)
             index += 1
         return max_jotage
 

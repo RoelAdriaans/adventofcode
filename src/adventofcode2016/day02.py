@@ -13,8 +13,8 @@ class Day02:
         self.grid = defaultdict(lambda: defaultdict(int))
 
     def find_location(self, location: str | int) -> XYPoint:
-        for x in range(0, self.max_x):
-            for y in range(0, self.max_x):
+        for x in range(self.max_x):
+            for y in range(self.max_x):
                 if self.grid[x][y] == location:
                     return XYPoint(x, y)
         raise ValueError("Location %s not found", location)
@@ -65,8 +65,8 @@ class Day02PartA(Day02, FileReaderSolution):
         """Create a grid"""
         super().create_grid()
         n = 1
-        for x in range(0, 3):
-            for y in range(0, 3):
+        for x in range(3):
+            for y in range(3):
                 self.grid[x][y] = n
                 n += 1
         self.max_x = 3

@@ -15,8 +15,8 @@ class Day06:
         self.points = {}
 
     def yield_over_grid(self, extra=0):
-        for y in range(0, self.max_y + extra):
-            for x in range(0, self.max_x + extra):
+        for y in range(self.max_y + extra):
+            for x in range(self.max_x + extra):
                 yield x, y
 
     def generate_points(self, input_string):
@@ -37,10 +37,10 @@ class Day06:
         """
         Generate a grid based on the points in `self.grid`
         """
-        self.grid = dict()
-        for x in range(0, self.max_x + 5):
-            self.grid[x] = dict()
-            for y in range(0, self.max_y + 5):
+        self.grid = {}
+        for x in range(self.max_x + 5):
+            self.grid[x] = {}
+            for y in range(self.max_y + 5):
                 self.grid[x][y] = False
 
         for point in self.points.values():
@@ -49,8 +49,8 @@ class Day06:
     def print_grid(self):
         """Print the grid to the standard output."""
         print()
-        for y in range(0, self.max_y + 5):
-            for x in range(0, self.max_x + 5):
+        for y in range(self.max_y + 5):
+            for x in range(self.max_x + 5):
                 if self.grid[x][y]:
                     char = self.grid[x][y].id + 64
                     print(chr(char), end="")
@@ -111,7 +111,7 @@ class Day06:
         """
         # Loop over the grid, and do stuff;
         point_cnt = Counter()
-        for id, value in self.points.items():
+        for id in self.points:
             point_cnt[id] = 0
 
         for x, y in self.yield_over_grid(extra=1):

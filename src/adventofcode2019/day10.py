@@ -119,7 +119,7 @@ class Day10PartA(Day10, FileReaderSolution):
 class Day10PartB(Day10, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         self.create_map(input_data)
-        best_astroid, num_hits = self.get_best_astroid()
+        best_astroid, _num_hits = self.get_best_astroid()
         self.remove_astroid(best_astroid, n=200)
         astroid_destroied = self.astroids_destroyed[199]
 

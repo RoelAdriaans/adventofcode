@@ -34,13 +34,10 @@ class Ticket(NamedTuple):
 
     def is_valid(self, number) -> bool:
         """Is this number valid?"""
-        if (
+        return bool(
             self.lower_range_1 <= number <= self.upper_range_1
             or self.lower_range_2 <= number <= self.upper_range_2
-        ):
-            return True
-        else:
-            return False
+        )
 
 
 class Day16:
@@ -67,7 +64,7 @@ class Day16:
 class Day16PartA(Day16, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         self.parse(input_data)
-        numbers = [val for sublist in self.nearby_tickets for val in sublist]
+        numbers = [*sublist for sublist in self.nearby_tickets]
         error = []
         for number in numbers:
             valids = [rule.is_valid(number) for rule in self.ticket_rules]
@@ -84,9 +81,7 @@ class Day16PartB(Day16, FileReaderSolution):
         for ticket in self.nearby_tickets:
             valids = []
             for number in ticket:
-                valids.append(
-                    any([rule.is_valid(number) for rule in self.ticket_rules])
-                )
+                valids.append(any(rule.is_valid(number) for rule in self.ticket_rules))
             if all(valids):
                 valid_tickets.append(ticket)
         self.nearby_tickets = valid_tickets
@@ -128,18 +123,18 @@ class Day16PartB(Day16, FileReaderSolution):
         # row: 0, 1, 2
         # This ends up as seat 2, class 1, row = 0
         # Loop for as long we have an set that is bigger then one
-        while any([len(s) > 1 for s in options.values()]):
+        while any(len(s) > 1 for s in options.values()):
             for ticket_rule in options:
                 if len(options[ticket_rule]) == 1:
                     # We have only option, remove this option from the rest of the set
                     for remove in options:
                         if remove != ticket_rule:
-                            options[remove].discard(list(options[ticket_rule])[0])
+                            options[remove].discard(next(iter(options[ticket_rule])))
 
         # Cleanup, remove set
         cleaned_options: dict[str, int] = {}
         for cleanup_rule in options:
-            cleaned_options[cleanup_rule] = list(options[cleanup_rule])[0]
+            cleaned_options[cleanup_rule] = next(iter(options[cleanup_rule]))
 
         return cleaned_options
 

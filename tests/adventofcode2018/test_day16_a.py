@@ -43,9 +43,7 @@ class TestDay16PartA:
         assert device.register[3] == 0xFE  # 1111 1110
 
     def test_day16a_solve(self):
-        input_data = "\n".join(
-            ["Before: [3, 2, 1, 1]", "9 2 1 2", "After:  [3, 2, 2, 1]"]
-        )
+        input_data = "Before: [3, 2, 1, 1]\n9 2 1 2\nAfter:  [3, 2, 2, 1]"
         expected_result = 1
         solution = Day16PartA()
         result = solution.solve(input_data)

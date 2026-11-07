@@ -5,8 +5,8 @@ from typing import NamedTuple
 import matplotlib.pyplot as plt  # type: ignore
 from adventofcodeutils.parsing import string_to_list_of_ints
 
-from adventofcode2019.intcode import IntCode, ProgramFinished
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode2019.intcode import IntCode, ProgramFinished
 
 
 class Location(NamedTuple):

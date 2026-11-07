@@ -56,7 +56,7 @@ class Day05PartB(Day05, FileReaderSolution):
         # Could be cleaner, but this runs in about 1.5 seconds
         while not self.is_right_order(rules, page):
             # Fix the page. First, find the index that is not correct
-            broken_index, broken_match = self.find_broken_index(rules, page)
+            _broken_index, broken_match = self.find_broken_index(rules, page)
             # Now we have to find out how we can fix this.
             bad_idx = page.index(broken_match[0])
             other_idx = page.index(broken_match[1])

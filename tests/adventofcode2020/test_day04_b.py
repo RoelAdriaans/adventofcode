@@ -29,18 +29,24 @@ pid:3556412378 byr:2007
                 1,
             ),
             (
-                "eyr:2029 ecl:blu cid:129 byr:1989 "
-                "iyr:2014 pid:896056539 hcl:#a97842 hgt:165cm",
+                (
+                    "eyr:2029 ecl:blu cid:129 byr:1989 "
+                    "iyr:2014 pid:896056539 hcl:#a97842 hgt:165cm"
+                ),
                 1,
             ),
             (
-                "hcl:#888785 hgt:164cm byr:2001 iyr:2015 "
-                "cid:88 pid:545766238 ecl:hzl eyr:2022",
+                (
+                    "hcl:#888785 hgt:164cm byr:2001 iyr:2015 "
+                    "cid:88 pid:545766238 ecl:hzl eyr:2022"
+                ),
                 1,
             ),
             (
-                "iyr:2010 hgt:158cm hcl:#b6652a "
-                "ecl:blu byr:1944 eyr:2021 pid:093154719",
+                (
+                    "iyr:2010 hgt:158cm hcl:#b6652a "
+                    "ecl:blu byr:1944 eyr:2021 pid:093154719"
+                ),
                 1,
             ),
         ],

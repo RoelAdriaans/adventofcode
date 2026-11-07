@@ -4,8 +4,8 @@ from typing import NamedTuple
 
 from adventofcodeutils.parsing import string_to_list_of_ints
 
-from adventofcode2019.intcode import IntCode
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode2019.intcode import IntCode
 
 
 class Point(NamedTuple):
@@ -93,10 +93,10 @@ class Day15:
         """
         Draw the current grid on the console:
         """
-        max_y = max([point.y for point in self.grid.keys()])
-        max_x = max([point.x for point in self.grid.keys()])
-        min_y = min([point.y for point in self.grid.keys()])
-        min_x = min([point.x for point in self.grid.keys()])
+        max_y = max([point.y for point in self.grid])
+        max_x = max([point.x for point in self.grid])
+        min_y = min([point.y for point in self.grid])
+        min_x = min([point.x for point in self.grid])
         output = []
         for y in range(min_y, max_y + 1):
             row = []

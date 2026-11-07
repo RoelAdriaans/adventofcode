@@ -1,4 +1,3 @@
-import itertools
 import re
 
 from adventofcode.utils.abstract import FileReaderSolution
@@ -41,7 +40,7 @@ class Day03PartB(Day03, FileReaderSolution):
         transposed = zip(*list_if_sides)
         # And now, chain everything together to create one big list again, in groups
         # of 3.
-        grouped = [iter(itertools.chain(*transposed))] * 3
+        grouped = [iter(*it for it in transposed)] * 3
         return zip(*grouped)  # type: ignore
 
     def solve(self, input_data: str) -> int:

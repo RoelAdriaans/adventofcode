@@ -19,33 +19,33 @@ class TestDay11PartA:
         assert len(solution.galaxy_points) == 9
         # First one moved on to the right
         # Check if they are int the list, ordering may have been shuffled
-        point_1 = [p for p in solution.galaxy_points if p.nr == 1][0]
+        point_1 = next(p for p in solution.galaxy_points if p.nr == 1)
         assert point_1.x == 0
         assert point_1.y == 4
 
         # Find point should be on location (1, 9)
-        point_2 = [p for p in solution.galaxy_points if p.nr == 2][0]
+        point_2 = next(p for p in solution.galaxy_points if p.nr == 2)
         assert point_2.x == 1
         assert point_2.y == 9
 
         # Find point 9
-        point_9 = [p for p in solution.galaxy_points if p.nr == 9][0]
+        point_9 = next(p for p in solution.galaxy_points if p.nr == 9)
         assert point_9.x == 11
         assert point_9.y == 5
 
         # After the expansion, the distance between 1 and 7 must be 15
-        point_1 = [p for p in solution.galaxy_points if p.nr == 1][0]
-        point_7 = [p for p in solution.galaxy_points if p.nr == 7][0]
+        point_1 = next(p for p in solution.galaxy_points if p.nr == 1)
+        point_7 = next(p for p in solution.galaxy_points if p.nr == 7)
         assert point_7.distance(point_1) == 15
 
         # After the expansion, the distance between 3 and 6 must be 17
-        point_3 = [p for p in solution.galaxy_points if p.nr == 3][0]
-        point_6 = [p for p in solution.galaxy_points if p.nr == 6][0]
+        point_3 = next(p for p in solution.galaxy_points if p.nr == 3)
+        point_6 = next(p for p in solution.galaxy_points if p.nr == 6)
         assert point_3.distance(point_6) == 17
 
         # After the expansion, the distance between 8 and 9 must be 5
-        point_8 = [p for p in solution.galaxy_points if p.nr == 8][0]
-        point_9 = [p for p in solution.galaxy_points if p.nr == 9][0]
+        point_8 = next(p for p in solution.galaxy_points if p.nr == 8)
+        point_9 = next(p for p in solution.galaxy_points if p.nr == 9)
         assert point_8.distance(point_9) == 5
 
     def test_day11a_testdata(self, testdata):

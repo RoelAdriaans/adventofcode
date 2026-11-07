@@ -1,6 +1,6 @@
 import re
 from collections import defaultdict
-from itertools import filterfalse
+from itertools import filterfalse, pairwise
 from typing import NamedTuple
 
 from adventofcodeutils.point import XYZPoint as Point
@@ -94,9 +94,9 @@ class Cube(NamedTuple):
         zs = sorted((self.z0, self.z1, other.z0, other.z1))
 
         ret = []
-        for x0, x1 in zip(xs, xs[1:]):
-            for y0, y1 in zip(ys, ys[1:]):
-                for z0, z1 in zip(zs, zs[1:]):
+        for x0, x1 in pairwise(xs):
+            for y0, y1 in pairwise(ys):
+                for z0, z1 in pairwise(zs):
                     cube = Cube(x0, x1, y0, y1, z0, z1)
                     if self.contains(cube) and not cube.intersects(other):
                         ret.append(cube)
@@ -167,7 +167,7 @@ class Day22PartB(Day22, FileReaderSolution):
 
         cubes: list[Cube] = []
         for step in reboots:
-            cubes = [part for cube in cubes for part in cube.subtract(step.cube)]
+            cubes = [*cube.subtract(step.cube) for cube in cubes]
             if step.on:
                 cubes.append(step.cube)
 

@@ -68,7 +68,7 @@ class Maze:
         if x < 0 or y < 0:
             return True
         value = x * x + 3 * x + 2 * x * y + y + y * y + self.favourite_number
-        number_of_1 = bin(value).count("1")
+        number_of_1 = (value).bit_count()
         # Is this number odd or even?
         return number_of_1 % 2 == 1
 

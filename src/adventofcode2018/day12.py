@@ -19,15 +19,15 @@ class Garden:
     PLANT = "#"
     EMPTY = "."
 
-    def __init__(self, spots: list = None):
+    def __init__(self, spots: list | None = None):
         # We use the offset to do negative indexing
         self.offset = 5
 
         self.table = ["."] * self.offset + spots + ["."] * self.offset
-        self.notes = dict()
+        self.notes = {}
         self.generation = 0
 
-    def split_notes(self, notes: list = None):
+    def split_notes(self, notes: list | None = None):
         """Parse the notes in `notes` and store them
 
         :param notes: The notes we found with information

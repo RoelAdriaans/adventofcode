@@ -19,7 +19,7 @@ class Day02PartA(Day02, FileReaderSolution):
                 case "forward":
                     position += movement
                 case _:
-                    raise ValueError(f"Invalid direction value: {repr(direction)}")
+                    raise ValueError(f"Invalid direction value: {direction!r}")
 
         return depth * position
 
@@ -39,6 +39,6 @@ class Day02PartB(Day02, FileReaderSolution):
                     position += movement
                     depth += movement * aim
                 case _:
-                    raise ValueError(f"Invalid direction value: {repr(direction)}")
+                    raise ValueError(f"Invalid direction value: {direction!r}")
 
         return depth * position

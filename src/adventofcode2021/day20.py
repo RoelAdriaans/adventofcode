@@ -22,7 +22,7 @@ class Day20:
         self.image = defaultdict(bool)
         for x, line in enumerate(image.splitlines()):
             for y, point in enumerate(line):
-                self.image[Point(x, y)] = True if point == "#" else False
+                self.image[Point(x, y)] = point == "#"
 
     @staticmethod
     def get_pixels(point: Point) -> list[Point]:

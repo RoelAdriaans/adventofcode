@@ -73,8 +73,8 @@ class Day08:
 
     def _draw_rect(self, instruction: Instruction):
         """Draw a rectangle, (eg, put pixels on) from 0,0 until x,y in instruction"""
-        for x in range(0, instruction.x):
-            for y in range(0, instruction.y):
+        for x in range(instruction.x):
+            for y in range(instruction.y):
                 self.screen[y, x] = True
 
     def _rotate(self, instruction: Instruction):

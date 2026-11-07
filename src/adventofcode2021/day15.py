@@ -21,10 +21,8 @@ class Day15(ABC):
 
     def repr_cave(self) -> str:
         lines = []
-        for x in range(0, self.max_x + 1):
-            lines.append(
-                "".join(str(self.cave[x, y]) for y in range(0, self.max_y + 1))
-            )
+        for x in range(self.max_x + 1):
+            lines.append("".join(str(self.cave[x, y]) for y in range(self.max_y + 1)))
         return "\n".join(lines)
 
     @property

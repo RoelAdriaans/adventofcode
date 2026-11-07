@@ -12,7 +12,7 @@ class Day09:
         return False
 
     def find_first_invalid_number(self, integers: list[int]) -> int:
-        for i in range(0, len(integers)):
+        for i in range(len(integers)):
             begin = i
             end = i + 25
             check_digit = integers[i + 25]
@@ -31,7 +31,7 @@ class Day09PartA(Day09, FileReaderSolution):
 
 class Day09PartB(Day09, FileReaderSolution):
     def find_slice(self, integers: list[int], num_to_find: int) -> int:
-        for top in range(0, len(integers)):
+        for top in range(len(integers)):
             for bottom in range(top, len(integers)):
                 total = sum(integers[top:bottom])
                 if total == num_to_find:

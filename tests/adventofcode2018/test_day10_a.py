@@ -25,7 +25,7 @@ class TestDay10PartA:
     )
     def test_day10a_test_compute(self, input_data, seconds, expected_result):
         result = Day10PartA().parse_string(input_data)
-        for x in range(0, seconds):
+        for x in range(seconds):
             result.compute_step(seconds=1)
 
         point_seconds = Day10PartA().parse_string(input_data)

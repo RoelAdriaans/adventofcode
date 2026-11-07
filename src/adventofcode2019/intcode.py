@@ -1,16 +1,13 @@
 import json
 from collections import defaultdict, deque
 from enum import IntEnum
-from typing import DefaultDict
 
 
-class ProgramFinished(Exception):  # noqa: N818
+class ProgramFinished(Exception):
     """
     This exception is raised when the program is finished.
     This exception is usually not a fatal error, but used for control structure.
     """
-
-    pass
 
 
 class OperatingMode(IntEnum):
@@ -41,7 +38,7 @@ class IntCode:
 
     program_counter = 0
     relative_base = 0
-    instructions: DefaultDict[int, int]
+    instructions: defaultdict[int, int]
     input_values: deque
     input_function = None
 

@@ -19,7 +19,7 @@ class GridPosition:
         if cart:
             self.carts = [cart]
         else:
-            self.carts = list()
+            self.carts = []
 
     def __repr__(self):
         if len(self.carts) == 1:
@@ -32,29 +32,17 @@ class GridPosition:
 
     def is_intersection(self) -> bool:
         """Is this position an intersection?"""
-        if self.symbol == "+":
-            return True
-        else:
-            return False
+        return self.symbol == "+"
 
     def is_straight(self) -> bool:
-        if self.symbol in ("|", "-"):
-            return True
-        else:
-            return False
+        return self.symbol in ("|", "-")
 
     def is_corner(self) -> bool:
-        if self.symbol in ("/", "\\"):
-            return True
-        else:
-            return False
+        return self.symbol in ("/", "\\")
 
     def has_cart(self):
         """Return if this grid has a cart"""
-        if len(self.carts) >= 1:
-            return True
-        else:
-            return False
+        return len(self.carts) >= 1
 
 
 class Turns(Enum):
@@ -174,8 +162,8 @@ class MineCart:
 
 class Day13:
     def __init__(self):
-        self.grid = dict()
-        self.carts = list()
+        self.grid = {}
+        self.carts = []
 
     def build_grid(self, lines: list[str]):
         for y, line in enumerate(lines):
@@ -204,12 +192,12 @@ class Day13:
         :returns x, y: Crash location
         """
         seen_carts = set()
-        for grid_position, position in self.grid.items():
+        for position in self.grid.values():
             if position.has_cart() and position.carts[0] not in seen_carts:
                 # Add cart to seen cart, and remove it from the current grid
                 cart = position.carts[0]
                 seen_carts.add(position.carts[0])
-                position.carts = list()
+                position.carts = []
 
                 cart.set_next_position(position)
                 self.grid[(cart.x, cart.y)].carts.append(cart)
@@ -221,9 +209,8 @@ class Day13:
                         for crashed_cart in self.grid[(cart.x, cart.y)].carts:
                             self.carts.remove(crashed_cart)
                         # And remove the carts from the grid:
-                        self.grid[(cart.x, cart.y)].carts = list()
-        else:
-            return False
+                        self.grid[(cart.x, cart.y)].carts = []
+        return False
 
     def ticks(self, n=1):
         """Do `n` ticks"""

@@ -25,13 +25,9 @@ class TestDay11PartA:
             "hydrogen microchip",
             "lithium microchip",
         ]
-        assert str(facility) == "\n".join(
-            [
-                "F4",
-                "F3 lithium-generator",
-                "F2 hydrogen-generator",
-                "F1 ELEV, hydrogen-microchip, lithium-microchip",
-            ]
+        assert (
+            str(facility)
+            == "F4\nF3 lithium-generator\nF2 hydrogen-generator\nF1 ELEV, hydrogen-microchip, lithium-microchip"
         )
         assert facility.list_of_items_from_floor(2) == [("lithium generator",)]
         assert (
@@ -107,15 +103,9 @@ class TestDay11PartA:
             "cobalt microchip",
         ]
         assert facility.floors[1] == ["polonium microchip", "promethium microchip"]
-        assert str(facility) == "\n".join(
-            [
-                "F4",
-                "F3",
-                "F2 polonium-microchip, promethium-microchip",
-                "F1 ELEV, polonium-generator, thulium-generator, thulium-microchip, "
-                "promethium-generator, ruthenium-generator, ruthenium-microchip, "
-                "cobalt-generator, cobalt-microchip",
-            ]
+        assert (
+            str(facility)
+            == "F4\nF3\nF2 polonium-microchip, promethium-microchip\nF1 ELEV, polonium-generator, thulium-generator, thulium-microchip, promethium-generator, ruthenium-generator, ruthenium-microchip, cobalt-generator, cobalt-microchip"
         )
 
     def test_day11a_solve(self, testdata):

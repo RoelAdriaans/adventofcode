@@ -5,9 +5,7 @@ from adventofcode2018.day16 import Day16PartB
 
 class TestDay16PartB:
     def test_day16b_fetch_register(self):
-        input_data = "\n".join(
-            ["Before: [3, 2, 1, 1]", "9 2 1 2", "After:  [3, 2, 2, 1]"]
-        )
+        input_data = "Before: [3, 2, 1, 1]\n9 2 1 2\nAfter:  [3, 2, 2, 1]"
         # Yield the first one
         result = next(Day16PartB.fetch_instruction(input_data))
 
@@ -16,7 +14,7 @@ class TestDay16PartB:
         assert result["B"] == 1
         assert result["C"] == 2
 
-        input_data = "\n".join(["15 0 2 0", "9 0 1 1", "14 1 0 0"])
+        input_data = "15 0 2 0\n9 0 1 1\n14 1 0 0"
         generator = Day16PartB.fetch_instruction(input_data)
         first = next(generator)
         expected_first = {"opcode": 15, "A": 0, "B": 2, "C": 0}
@@ -27,7 +25,7 @@ class TestDay16PartB:
         assert seccond == expected_seccond
 
     @pytest.mark.skip(reason="Not implemented yet")
-    @pytest.mark.parametrize(("input_data", "expected_result"), [("", ""), ("", "")])
+    @pytest.mark.parametrize(("input_data", "expected_result"), [("", "")])
     def test_day16b_solve(self, input_data, expected_result):
         solution = Day16PartB()
         result = solution.solve(input_data)

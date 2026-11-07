@@ -72,12 +72,10 @@ class Day02PartB(Day02, FileReaderSolution):
         # `letter` must be at place first_char - 1 and second_char - 1,
         # since it's 1-indexed and not zero indexed
         # Exactly one of these positions must contain the given letter, xor.
-        if (policy.password[first_char - 1] == letter) ^ (
-            policy.password[second_char - 1] == letter
-        ):
-            return True
-        else:
-            return False
+        return bool(
+            (policy.password[first_char - 1] == letter)
+            ^ (policy.password[second_char - 1] == letter)
+        )
 
     def solve(self, input_data: str) -> int:
         password_list = [

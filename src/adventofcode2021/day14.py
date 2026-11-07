@@ -1,13 +1,13 @@
 from abc import ABC, abstractmethod
 from collections import Counter
-from typing import Generic, TypeVar
+from typing import TypeVar
 
 from adventofcode.utils.abstract import FileReaderSolution
 
 T = TypeVar("T")
 
 
-class Polymer(Generic[T]):
+class Polymer[T]:
     child: Polymer | None = None
 
     def __init__(self, polymer: T, parent: Polymer | None = None):
@@ -54,7 +54,7 @@ class Day14(ABC):
             self.rules[pair[0]] = pair[1]
 
 
-class Day14PartA(Day14, FileReaderSolution, Generic[T]):
+class Day14PartA[T](Day14, FileReaderSolution):
     root_node: Polymer
 
     def polimers_to_list(self) -> list[str]:
@@ -107,7 +107,7 @@ class Day14PartB(Day14, FileReaderSolution):
 
     def parse_template(self, template: str):
         self.cnt = Counter()
-        for step in range(0, len(template) - 1):
+        for step in range(len(template) - 1):
             self.cnt[template[step : step + 2]] += 1
 
     def step(self):

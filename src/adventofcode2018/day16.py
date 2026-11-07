@@ -342,9 +342,7 @@ class Day16PartA(Day16, FileReaderSolution):
 
 
 class Day16PartB(Day16, FileReaderSolution):
-    def resolve_opcode_no_to_instruction(  # noqa: C901
-        self, input_data: str
-    ) -> list[str]:
+    def resolve_opcode_no_to_instruction(self, input_data: str) -> list[str]:
         """
         Resolve the opcode with the instruction
 

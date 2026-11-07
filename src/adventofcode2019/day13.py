@@ -3,8 +3,8 @@ from enum import IntEnum
 
 from adventofcodeutils.parsing import string_to_list_of_ints
 
-from adventofcode2019.intcode import IntCode, ProgramFinished
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode2019.intcode import IntCode, ProgramFinished
 
 
 class Tile(IntEnum):
@@ -45,12 +45,12 @@ class Day13:
         max x: 37
         max y: 19
         """
-        max_y = max([point[1] for point in self.screen.keys()])
-        max_x = max([point[0] for point in self.screen.keys()])
+        max_y = max([point[1] for point in self.screen])
+        max_x = max([point[0] for point in self.screen])
         grid = [f"Score: {self.score}"]
-        for y in range(0, max_y + 1):
+        for y in range(max_y + 1):
             row = []
-            for x in range(0, max_x + 1):
+            for x in range(max_x + 1):
                 row.append(Tile.show(self.screen[x, y]))
             grid.append("".join(row))
         return "\n".join(grid)

@@ -50,7 +50,6 @@ class Day15PartA(Day15, FileReaderSolution):
 
 
 class Day15PartB(Day15, FileReaderSolution):
-
     @staticmethod
     def create_instruction(label: str) -> HashMap:
         """Split a label into it's parts"""

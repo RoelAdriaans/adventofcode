@@ -82,7 +82,6 @@ class Day06:
 
 
 class Day06PartA(Day06, FileReaderSolution):
-
     def solve(self, input_data: str) -> int:
         lines = input_data.splitlines()
         self.compute_obstables(lines)

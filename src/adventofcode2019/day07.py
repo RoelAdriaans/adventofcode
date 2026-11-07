@@ -2,8 +2,8 @@ import itertools
 
 from adventofcodeutils.parsing import string_to_list_of_ints
 
-from adventofcode2019.intcode import IntCode, ProgramFinished
 from adventofcode.utils.abstract import FileReaderSolution
+from adventofcode2019.intcode import IntCode, ProgramFinished
 
 
 class Day07:
@@ -60,12 +60,12 @@ class Day07:
 class Day07PartA(Day07, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         instructions = string_to_list_of_ints(input_data)
-        sequence, thrust = self.get_best_looped_sequence(0, 5, instructions)
+        _sequence, thrust = self.get_best_looped_sequence(0, 5, instructions)
         return thrust
 
 
 class Day07PartB(Day07, FileReaderSolution):
     def solve(self, input_data: str) -> int:
         instructions = string_to_list_of_ints(input_data)
-        sequence, thrust = self.get_best_looped_sequence(5, 10, instructions)
+        _sequence, thrust = self.get_best_looped_sequence(5, 10, instructions)
         return thrust

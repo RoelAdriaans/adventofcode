@@ -2,25 +2,15 @@
 exclude: ^template/
 
 default_language_version:
-    python: python3.14
+    python: python3.15
 
 repos:
-  - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 26.10.1
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.1
     hooks:
-    - id: black
-      language_version: 'python3.13'
-
-  - repo: https://github.com/pycqa/flake8
-    rev: 7.5.0
-    hooks:
-    - id: flake8
-      args: ["--ignore", "E203,W503,E701"]
-
-  - repo: https://github.com/PyCQA/isort
-    rev: 10.0.0b2
-    hooks:
-    - id: isort
+    - id: ruff-check
+      args: [--fix]
+    - id: ruff-format
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
@@ -32,10 +22,4 @@ repos:
     - id: check-case-conflict
     - id: check-merge-conflict
     - id: debug-statements
-      language_version: python3
-
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.22.0
-    hooks:
-    - id: pyupgrade
-      args: [ "--py314-plus" ]
+      language_version: python3.15
