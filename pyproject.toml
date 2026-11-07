@@ -12,10 +12,10 @@ dependencies = [
     "beautifulsoup4>=4.15.0,<5",
     "tqdm>=4.70.1,<5",
     "attrs>=25.3.0,<26",
-    "numpy>=2.4.6,<3",
+    "numpy>=2.5.4,<3",
     "more-itertools>=11.2.1,<12",
     "regex-spm>=1.0.0,<2",
-    "parse>=1.22.1,<2",
+    "parse>=1.22.4,<2",
     "matplotlib>=3.11.2,<4",
     "adventofcodeutils",
 ]
@@ -26,15 +26,15 @@ adventofcode = "adventofcode.main:main"
 [dependency-groups]
 dev = [
     "cookiecutter>=2.6.0,<3",
-    "pytest>=8.4.2,<10",
+    "pytest>=9.2.0,<10",
     "pytest-cov>=7.0.0,<8",
     "pytest-xdist>=3.8.0,<4",
     "python-dotenv>=1.2.4,<2",
-    "tox>=4.66.0,<5",
+    "tox>=4.67.7,<5",
     "pre-commit>=4.7.0,<5",
     "bandit>=1.9.2",
     "ruff>=0.15.0",
-    "tox-uv>=1.35.2",
+    "tox-uv>=1.37.3",
 ]
 
 [tool.uv]
