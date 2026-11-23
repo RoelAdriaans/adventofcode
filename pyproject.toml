@@ -34,7 +34,7 @@ dev = [
     "pre-commit>=4.7.0,<5",
     "bandit>=1.9.4",
     "ruff>=0.17.5",
-    "tox-uv>=1.37.7",
+    "tox-uv>=1.37.9",
 ]
 
 [tool.uv]
